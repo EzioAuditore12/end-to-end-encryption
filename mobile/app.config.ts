@@ -5,7 +5,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   name: "mobile",
   slug: "mobile",
   version: "1.0.0",
-  orientation: "portrait",
+  orientation: "default",
   icon: "./assets/images/icon.png",
   scheme: "mobile",
   userInterfaceStyle: "automatic",
@@ -38,6 +38,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         },
       },
     ],
+    "expo-secure-store",
   ],
   experiments: {
     typedRoutes: true,

@@ -1,27 +1,23 @@
 import "../../global.css";
 
 import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { SafeAreaListener } from "react-native-safe-area-context";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Uniwind, useUniwind } from "uniwind";
+import { KeyboardProvider } from "react-native-keyboard-controller";
+import "react-native-reanimated";
 
-import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
+import { TanstackReactQueryClientProvider } from "@/providers/tanstack-query-client.provider";
+import { HeroUIThemeProvider } from "@/providers/heroui.provider";
 
 export default function RootLayout() {
-  const { theme } = useUniwind();
   return (
-    <SafeAreaListener
-      onChange={({ insets }) => {
-        Uniwind.updateInsets(insets);
-      }}
-    >
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <GluestackUIProvider mode="system">
-          <StatusBar style={theme === "dark" ? "light" : "dark"} />
-          <Stack />
-        </GluestackUIProvider>
-      </GestureHandlerRootView>
-    </SafeAreaListener>
+    <HeroUIThemeProvider>
+      <TanstackReactQueryClientProvider>
+        <KeyboardProvider>
+          <Stack
+            initialRouteName="(main)"
+            screenOptions={{ headerShown: false }}
+          />
+        </KeyboardProvider>
+      </TanstackReactQueryClientProvider>
+    </HeroUIThemeProvider>
   );
 }

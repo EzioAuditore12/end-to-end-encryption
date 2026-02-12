@@ -39,7 +39,7 @@ export class AuthService {
   async registerUser(
     registerUserDto: RegisterUserDto,
   ): Promise<VerifiedUserDto> {
-    const { email, password } = registerUserDto;
+    const { name, email, password } = registerUserDto;
 
     const existingUser = await this.userSerice.findByEmail(email);
 
@@ -49,8 +49,8 @@ export class AuthService {
     const hashedPassword = await hash(password);
 
     const createdUser = await this.userSerice.create({
-      name: registerUserDto.name,
-      email: registerUserDto.email,
+      name,
+      email,
       password: hashedPassword,
     });
 
@@ -114,7 +114,7 @@ export class AuthService {
   }
 
   async findBlackListedRefreshToken(refreshToken: string) {
-    return this.blackListedRefreshTokenRepo.findOne({
+    return await this.blackListedRefreshTokenRepo.findOne({
       where: { refreshToken },
     });
   }
@@ -130,6 +130,12 @@ export class AuthService {
     createdAt: Date;
     expiredAt: Date;
   }): Promise<TokensDto> {
+    const isRefreshTokenBlackListed =
+      await this.findBlackListedRefreshToken(refreshToken);
+
+    if (isRefreshTokenBlackListed)
+      throw new UnauthorizedException('Given refresh token is blacklisted');
+
     await this.insertBlackListedRefreshToken({
       refreshToken,
       issuedAt: createdAt,

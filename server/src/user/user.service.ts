@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { paginate, PaginateQuery, PaginationType } from 'nestjs-paginate';
 
 import { User } from './entities/user.entity';
+
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserDto } from './dto/user.dto';
-import { paginate, PaginateQuery, PaginationType } from 'nestjs-paginate';
 import { SerachUserResponseDto } from './dto/search-user/search-user-response.dto';
 
 @Injectable()
@@ -25,7 +26,7 @@ export class UserService {
   }
 
   async findAll(query: PaginateQuery): Promise<SerachUserResponseDto> {
-    return paginate(query, this.userRepository, {
+    return await paginate(query, this.userRepository, {
       sortableColumns: ['createdAt', 'name', 'email'],
       nullSort: 'last',
       defaultSortBy: [['createdAt', 'DESC']],
