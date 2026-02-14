@@ -7,14 +7,7 @@ interface ConversationListProps extends Omit<
   FlashListProps<ConversationOneToOne>,
   "data" | "children" | "keyExtractor" | "renderItem"
 > {
-  data: {
-    id: string;
-    userId: string;
-    createdAt: Date;
-    updatedAt: Date;
-    userName: string | undefined;
-    userEmail: string | undefined;
-  }[];
+  data: ConversationOneToOne[];
 }
 
 export function ConversationList({

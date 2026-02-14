@@ -7,11 +7,8 @@ import { useAuthStore } from "@/store/auth";
 import { Link, Stack } from "expo-router";
 import { Button } from "heroui-native/button";
 import { pullChanges } from "@/db/tanstack/sync";
-import { eq, useLiveInfiniteQuery } from "@tanstack/react-db";
-import {
-  ConversationOnetoOneCollections,
-  UserCollections,
-} from "@/db/tanstack";
+import { useLiveInfiniteQuery } from "@tanstack/react-db";
+import { ConversationOnetoOneCollections } from "@/db/tanstack";
 import { ConversationList } from "@/features/home/components/conversation-list";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -24,17 +21,6 @@ export default function HomeScreen() {
     (q) =>
       q
         .from({ conversation: ConversationOnetoOneCollections })
-        .join({ user: UserCollections }, ({ conversation, user }) =>
-          eq(conversation.userId, user.id),
-        )
-        .select(({ conversation, user }) => ({
-          id: conversation.id,
-          userId: conversation.userId,
-          userName: user?.name,
-          userEmail: user?.email,
-          createdAt: conversation.createdAt,
-          updatedAt: conversation.updatedAt,
-        }))
         .orderBy(({ conversation }) => conversation.updatedAt, "desc"),
     {
       pageSize: 10,
@@ -90,10 +76,7 @@ export default function HomeScreen() {
         >
           Update me
         </Button>*/}
-        <ConversationList
-          data={data}
-          onEndReached={fetchNextPage}
-        />
+        <ConversationList data={data} onEndReached={fetchNextPage} />
       </View>
     </>
   );
