@@ -1,4 +1,6 @@
-import { fetch, FetchRequestInit } from "expo/fetch";
+import {  FetchRequestInit } from "expo/fetch";
+
+import {fetch} from 'react-native-nitro-fetch'
 
 import * as s from "standard-parse";
 

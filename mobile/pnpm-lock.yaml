@@ -93,8 +93,8 @@ importers:
         specifier: ~55.0.5
         version: 55.0.5(expo@55.0.0-preview.10)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))
       heroui-native:
-        specifier: 1.0.0-beta.13
-        version: 1.0.0-beta.13(1b1e0515068c84a091ede8f974e12e64)
+        specifier: 1.0.0-rc.1
+        version: 1.0.0-rc.1(1b1e0515068c84a091ede8f974e12e64)
       react:
         specifier: 19.2.0
         version: 19.2.0
@@ -116,6 +116,9 @@ importers:
       react-native-nitro-crypto:
         specifier: ^0.2.4
         version: 0.2.4(react-native-nitro-modules@0.33.9(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
+      react-native-nitro-fetch:
+        specifier: ^0.1.7
+        version: 0.1.7(react-native-nitro-modules@0.33.9(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native-worklets-core@1.6.3(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
       react-native-nitro-modules:
         specifier: ^0.33.9
         version: 0.33.9(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
@@ -137,6 +140,9 @@ importers:
       react-native-worklets:
         specifier: 0.7.2
         version: 0.7.2(@babel/core@7.29.0)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
+      react-native-worklets-core:
+        specifier: ^1.6.3
+        version: 1.6.3(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
       standard-parse:
         specifier: ^0.4.0
         version: 0.4.0(zod@4.3.6)
@@ -2916,8 +2922,8 @@ packages:
   hermes-parser@0.32.0:
     resolution: {integrity: sha512-g4nBOWFpuiTqjR3LZdRxKUkij9iyveWeuks7INEsMX741f3r9xxrOe8TeQfUxtda0eXmiIFiMQzoeSQEno33Hw==}
 
-  heroui-native@1.0.0-beta.13:
-    resolution: {integrity: sha512-bpR/R1V5cJZpzcFIdPBaJyl/OpiEClFFcAdKU6sTX7OAQRgbgBXz1vHcA3pB1jaj1ilk9KLUa7MGDevDGAASnw==}
+  heroui-native@1.0.0-rc.1:
+    resolution: {integrity: sha512-0hrmXTOsq+aiZpz6jMFcjSSBVkda7uZ2igdA7Z+kp8KSVn9Vr+Jr4jhZ8HH4RjPXGQJNzOEXKF/InqWU4xcgAw==}
     peerDependencies:
       '@gorhom/bottom-sheet': ^5
       react: '>=19.0.0'
@@ -3891,6 +3897,17 @@ packages:
     peerDependencies:
       react-native-nitro-modules: ^0.32.0
 
+  react-native-nitro-fetch@0.1.7:
+    resolution: {integrity: sha512-4kdDgo8CBaR3SaxIcvQxUVDIUFDr4UierJHigV9jr59jj9wnf7O1gUGcbmBJmE1M2EkVSe4nUU8Fq5tbSMg4kw==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+      react-native-nitro-modules: ^0.29.2
+      react-native-worklets-core: ^1.6.0
+    peerDependenciesMeta:
+      react-native-worklets-core:
+        optional: true
+
   react-native-nitro-modules@0.33.9:
     resolution: {integrity: sha512-BM9C5mCGYYjrc8CDWZZ0anLWU/knH2xaEuFzvzogKTOW6fzgS6mmsCdM3ty+AhImJNSYwK19DLrHaqwnrrwEzw==}
     peerDependencies:
@@ -3927,6 +3944,12 @@ packages:
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
+
+  react-native-worklets-core@1.6.3:
+    resolution: {integrity: sha512-r3Q40XQBccx/iAI5tlyiua+micvO1UGzzUOskNweZUXyfrrE+rb5aqxqruBPqXf90rO+bBiplylLMEAXCLTyGA==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
 
   react-native-worklets@0.7.2:
     resolution: {integrity: sha512-DuLu1kMV/Uyl9pQHp3hehAlThoLw7Yk2FwRTpzASOmI+cd4845FWn3m2bk9MnjUw8FBRIyhwLqYm2AJaXDXsog==}
@@ -4257,6 +4280,9 @@ packages:
   strict-uri-encode@2.0.0:
     resolution: {integrity: sha512-QwiXZgpRcKkhTj2Scnn++4PKtWsH0kpzZ62L2R6c/LUVYv7hVnZqcg2+sMuT6R7Jusu1vviK/MFsu6kNJfWlEQ==}
     engines: {node: '>=4'}
+
+  string-hash-64@1.0.3:
+    resolution: {integrity: sha512-D5OKWKvDhyVWWn2x5Y9b+37NUllks34q1dCDhk/vYcso9fmhs+Tl3KR/gE4v5UNj2UA35cnX4KdVVGkG1deKqw==}
 
   string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
@@ -8059,7 +8085,7 @@ snapshots:
     dependencies:
       hermes-estree: 0.32.0
 
-  heroui-native@1.0.0-beta.13(1b1e0515068c84a091ede8f974e12e64):
+  heroui-native@1.0.0-rc.1(1b1e0515068c84a091ede8f974e12e64):
     dependencies:
       '@gorhom/bottom-sheet': 5.2.8(@types/react@19.2.14)(react-native-gesture-handler@2.30.0(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native-reanimated@4.2.1(react-native-worklets@0.7.2(@babel/core@7.29.0)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
       react: 19.2.0
@@ -9104,6 +9130,14 @@ snapshots:
       - react
       - react-native
 
+  react-native-nitro-fetch@0.1.7(react-native-nitro-modules@0.33.9(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native-worklets-core@1.6.3(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0):
+    dependencies:
+      react: 19.2.0
+      react-native: 0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0)
+      react-native-nitro-modules: 0.33.9(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
+    optionalDependencies:
+      react-native-worklets-core: 1.6.3(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
+
   react-native-nitro-modules@0.33.9(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0):
     dependencies:
       react: 19.2.0
@@ -9151,6 +9185,12 @@ snapshots:
       styleq: 0.1.3
     transitivePeerDependencies:
       - encoding
+
+  react-native-worklets-core@1.6.3(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0):
+    dependencies:
+      react: 19.2.0
+      react-native: 0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0)
+      string-hash-64: 1.0.3
 
   react-native-worklets@0.7.2(@babel/core@7.29.0)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0):
     dependencies:
@@ -9521,6 +9561,8 @@ snapshots:
   stream-buffers@2.2.0: {}
 
   strict-uri-encode@2.0.0: {}
+
+  string-hash-64@1.0.3: {}
 
   string-width@4.2.3:
     dependencies:

@@ -93,7 +93,6 @@ export default function HomeScreen() {
         <ConversationList
           data={data}
           onEndReached={fetchNextPage}
-          onEndReachedThreshold={1}
         />
       </View>
     </>
