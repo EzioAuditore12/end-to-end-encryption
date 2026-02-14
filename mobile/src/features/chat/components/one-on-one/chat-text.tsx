@@ -8,11 +8,7 @@ interface ChatTextProps extends SurfaceRootProps {
   data: ChatOneToOne;
 }
 
-export function ChatText({
-  data,
-  className,
-  ...props
-}: ChatTextProps) {
+export function ChatText({ data, className, ...props }: ChatTextProps) {
   const { mode, text, createdAt } = data;
 
   return (
