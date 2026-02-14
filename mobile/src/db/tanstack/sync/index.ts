@@ -56,6 +56,16 @@ export async function pullChanges() {
       updatedAt: new Date().getTime(),
     };
 
+    const chat = {
+      id: ObjectID().toHexString(),
+      conversationId: conversation.id,
+      mode: "SENT" as "SENT", // Fix: use literal type
+      status: "SENT" as "SENT", // Fix: use literal type
+      text: randomText(),
+      createdAt: new Date().getTime(),
+      updatedAt: new Date().getTime(),
+    };
+
     const batchTx = createTransaction({
       autoCommit: false,
       mutationFn: async ({ transaction }) => {
@@ -68,15 +78,7 @@ export async function pullChanges() {
     batchTx.mutate(() => {
       UserCollections.insert(user);
       ConversationOnetoOneCollections.insert(conversation);
-      ChatOnetoOneCollections.insert({
-        id: ObjectID().toHexString(),
-        conversationId: conversation.id,
-        mode: "SENT",
-        status: "SENT",
-        text: randomText(),
-        createdAt: new Date().getTime(),
-        updatedAt: new Date().getTime(),
-      });
+      ChatOnetoOneCollections.insert(chat);
     });
 
     await batchTx.commit();

@@ -3,6 +3,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 import type { AuthStore } from "./type";
 import { secureStorage } from "../storage";
+import { db } from "@/db";
 
 export const useAuthStore = create<AuthStore>()(
   persist(
@@ -15,7 +16,9 @@ export const useAuthStore = create<AuthStore>()(
       setTokens(data) {
         set({ tokens: data });
       },
-      logout() {
+      async logout() {
+        await db.disconnectAndClear();
+
         set({ user: undefined, tokens: undefined });
       },
     }),

@@ -2,6 +2,7 @@ import { FlashList, type FlashListProps } from "@shopify/flash-list";
 
 import { ConversationOneToOne } from "@/db/tables/conversation-one-to-one.table";
 import { ConversationOneToOneCard } from "./conversation-one-to-one-card";
+import { router } from "expo-router";
 
 interface ConversationListProps extends Omit<
   FlashListProps<ConversationOneToOne>,
@@ -25,7 +26,12 @@ export function ConversationList({
           <ConversationOneToOneCard
             className="mb-3"
             data={item}
-            onPress={() => console.log(item.id)}
+            onPress={() =>
+              router.push({
+                pathname: "/chat/[id]",
+                params: { id: item.id, userId: item.userId },
+              })
+            }
           />
         )}
         {...props}

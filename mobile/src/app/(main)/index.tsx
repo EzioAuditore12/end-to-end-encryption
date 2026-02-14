@@ -1,7 +1,5 @@
 import { View } from "react-native";
 
-import { Description } from "heroui-native/description";
-
 import { useAuthStore } from "@/store/auth";
 
 import { Link, Stack } from "expo-router";

@@ -15,7 +15,7 @@ export const chatOneToOneSchema = z.object({
   conversationId: z.string(),
   text: z.string().max(1000),
   mode: z.enum(["SENT", "RECEIVED"]),
-  status: z.enum(["SENT", "DELIVERED", "SEEN"]), 
+  status: z.enum(["SENT", "DELIVERED", "SEEN"]),
   createdAt: z.number().transform((val) => new Date(val)),
   updatedAt: z.number().transform((val) => new Date(val)),
 });
