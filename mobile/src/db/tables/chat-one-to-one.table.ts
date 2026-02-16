@@ -1,5 +1,5 @@
 import { column, Table } from "@powersync/react-native";
-import { z } from "zod";
+import { type } from "arktype";
 
 export const ChatOneToOneTable = new Table({
   conversationId: column.text,
@@ -10,14 +10,14 @@ export const ChatOneToOneTable = new Table({
   updatedAt: column.integer,
 });
 
-export const chatOneToOneSchema = z.object({
-  id: z.string(),
-  conversationId: z.string(),
-  text: z.string().max(1000),
-  mode: z.enum(["SENT", "RECEIVED"]),
-  status: z.enum(["SENT", "DELIVERED", "SEEN"]),
-  createdAt: z.number().transform((val) => new Date(val)),
-  updatedAt: z.number().transform((val) => new Date(val)),
+export const chatOneToOneSchema = type({
+  id: "string",
+  conversationId: "string",
+  text: "0 < string <= 1000",
+  mode: '"SENT" | "RECEIVED"',
+  status: '"SENT" | "DELIVERED" | "SEEN"',
+  createdAt: type("number.integer").pipe((val) => new Date(val)),
+  updatedAt: type("number.integer").pipe((val) => new Date(val)),
 });
 
-export type ChatOneToOne = z.infer<typeof chatOneToOneSchema>;
+export type ChatOneToOne = typeof chatOneToOneSchema.infer;

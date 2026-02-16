@@ -1,5 +1,5 @@
 import { column, Table } from "@powersync/react-native";
-import { z } from "zod";
+import { type } from "arktype";
 
 export const UserTable = new Table({
   name: column.text,
@@ -8,12 +8,12 @@ export const UserTable = new Table({
   updatedAt: column.integer,
 });
 
-export const userSchema = z.object({
-  id: z.string(),
-  name: z.string().max(50),
-  email: z.email().max(240),
-  createdAt: z.number().transform((val) => new Date(val)),
-  updatedAt: z.number().transform((val) => new Date(val)),
+export const userSchema = type({
+  id: "string",
+  name: "0 < string <= 50",
+  email: "0 < string.email <= 240",
+  createdAt: type("number.integer").pipe((val) => new Date(val)),
+  updatedAt: type("number.integer").pipe((val) => new Date(val)),
 });
 
-export type User = z.infer<typeof userSchema>;
+export type User = typeof userSchema.infer;

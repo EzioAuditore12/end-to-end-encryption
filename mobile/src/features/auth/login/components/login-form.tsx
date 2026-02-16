@@ -1,5 +1,5 @@
 import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { arktypeResolver } from "@hookform/resolvers/arktype";
 import { cn } from "tailwind-variants";
 
 import { Card, type CardRootProps } from "heroui-native/card";
@@ -35,7 +35,7 @@ export function LoginForm({
       email: "",
       password: "",
     },
-    resolver: zodResolver(loginParamSchema),
+    resolver: arktypeResolver(loginParamSchema),
   });
 
   const onSubmit = (data: LoginParam) => {

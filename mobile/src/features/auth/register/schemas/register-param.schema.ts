@@ -1,20 +1,7 @@
-import { z } from "zod";
-import { isStrongPassword } from "validator";
-
 import { userSchema } from "@/features/common/schemas/user.schema";
 
-export const registerParamSchema = userSchema
-  .pick({
-    name: true,
-    email: true,
-  })
-  .extend({
-    password: z
-      .string()
-      .max(16)
-      .refine((val) => isStrongPassword(val), {
-        error: "Password not strong enough",
-      }),
-  });
+export const registerParamSchema = userSchema.pick("name", "email").and({
+  password: "0 < string <= 16",
+});
 
-export type RegisterParam = z.infer<typeof registerParamSchema>;
+export type RegisterParam = typeof registerParamSchema.infer;

@@ -1,19 +1,19 @@
-import { z } from "zod";
+import { type } from "arktype";
 
 import { userSchema } from "../user.schema";
 
-const meta = z.object({
-  itemsPerPage: z.number(),
-  totalItems: z.number(),
-  currentPage: z.number(),
-  totalPages: z.number(),
-  sortBy: z.any(),
+const meta = type({
+  itemsPerPage: "number",
+  totalItems: "number",
+  currentPage: "number",
+  totalPages: "number",
+  sortBy: "unknown",
 });
 
-export const userSearchResponseSchema = z.object({
+export const userSearchResponseSchema = type({
   data: userSchema.array(),
   meta,
-  links: z.any(),
+  links: "unknown",
 });
 
-export type UserSearchResponse = z.infer<typeof userSearchResponseSchema>;
+export type UserSearchResponse = typeof userSearchResponseSchema.infer;

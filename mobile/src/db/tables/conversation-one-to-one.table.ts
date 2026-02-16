@@ -1,5 +1,5 @@
 import { column, Table } from "@powersync/react-native";
-import { z } from "zod";
+import { type } from "arktype";
 
 export const ConversationOneToOneTable = new Table({
   userId: column.text,
@@ -7,11 +7,11 @@ export const ConversationOneToOneTable = new Table({
   updatedAt: column.integer,
 });
 
-export const conversationOneToOneSchema = z.object({
-  id: z.string(),
-  userId: z.string(),
-  createdAt: z.number().transform((val) => new Date(val)),
-  updatedAt: z.number().transform((val) => new Date(val)),
+export const conversationOneToOneSchema = type({
+  id: "string",
+  userId: "string",
+  createdAt: type("number.integer").pipe((val) => new Date(val)),
+  updatedAt: type("number.integer").pipe((val) => new Date(val)),
 });
 
-export type ConversationOneToOne = z.infer<typeof conversationOneToOneSchema>;
+export type ConversationOneToOne = typeof conversationOneToOneSchema.infer;

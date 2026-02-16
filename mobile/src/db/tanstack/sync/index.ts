@@ -59,8 +59,8 @@ export async function pullChanges() {
     const chat = {
       id: ObjectID().toHexString(),
       conversationId: conversation.id,
-      mode: "SENT" as "SENT", // Fix: use literal type
-      status: "SENT" as "SENT", // Fix: use literal type
+      mode: "SENT" as any, // Fix: use literal type
+      status: "SENT" as any, // Fix: use literal type
       text: randomText(),
       createdAt: new Date().getTime(),
       updatedAt: new Date().getTime(),

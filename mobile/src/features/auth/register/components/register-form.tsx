@@ -1,5 +1,5 @@
 import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { arktypeResolver } from "@hookform/resolvers/arktype";
 import { cn } from "tailwind-variants";
 
 import { Card, type CardRootProps } from "heroui-native/card";
@@ -36,7 +36,7 @@ export function RegisterForm({
       email: "",
       password: "",
     },
-    resolver: zodResolver(registerParamSchema),
+    resolver: arktypeResolver(registerParamSchema),
   });
 
   const onSubmit = (data: RegisterParam) => {

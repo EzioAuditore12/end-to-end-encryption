@@ -1,7 +1,7 @@
-import { z } from "zod";
+import { type } from "arktype";
 
-export const refreshParamSchema = z.object({
-  refreshToken: z.jwt(),
+export const refreshParamSchema = type({
+  refreshToken: "string",
 });
 
-export type RefreshParam = z.infer<typeof refreshParamSchema>;
+export type RefreshParam = typeof refreshParamSchema.infer;
