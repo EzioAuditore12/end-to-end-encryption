@@ -1,12 +1,14 @@
-import type { ChatOneToOne } from "@/db/tables/chat-one-to-one.table";
-import { FlashList, type FlashListProps } from "@shopify/flash-list";
 import { cn } from "tailwind-variants";
-import { ChatText } from "./chat-text";
-import { useCallback, useState } from "react";
+import { useCallback, useState, type ComponentProps } from "react";
 import { ActivityIndicator, View } from "react-native";
+import { LegendList } from "@legendapp/list";
+
+import type { ChatOneToOne } from "@/db/tables/chat-one-to-one.table";
+
+import { ChatText } from "./chat-text";
 
 interface OneOnOneChatListProps extends Omit<
-  FlashListProps<ChatOneToOne>,
+  ComponentProps<typeof LegendList<ChatOneToOne>>,
   "data" | "children" | "keyExtractor" | "renderItem"
 > {
   data: ChatOneToOne[];
@@ -37,15 +39,15 @@ export function ChatOneToOneList({
 
   return (
     <>
-      <FlashList
+      <LegendList
         data={reversedData}
         className={cn("p-2", className)}
         snapToStart={false}
-        maintainVisibleContentPosition={{
-          animateAutoScrollToBottom: true,
-          startRenderingFromBottom: true,
-          autoscrollToBottomThreshold: 1,
-        }}
+        initialScrollIndex={reversedData.length - 1}
+        alignItemsAtEnd
+        maintainScrollAtEnd
+        maintainScrollAtEndThreshold={0.1}
+        maintainVisibleContentPosition
         onStartReached={handleStartReached}
         ListHeaderComponent={
           loadingPrevious ? (

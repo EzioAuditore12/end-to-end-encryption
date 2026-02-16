@@ -1,11 +1,11 @@
-import { FlashList, type FlashListProps } from "@shopify/flash-list";
+import { LegendList, type LegendListProps } from "@legendapp/list";
 import { router } from "expo-router";
 
 import type { User } from "../schemas/user.schema";
 import { UserCard } from "./user-card";
 
 interface UserListProps extends Omit<
-  FlashListProps<User>,
+  LegendListProps<User>,
   "data" | "children" | "keyExtractor" | "renderItem"
 > {
   data: User[];
@@ -20,7 +20,7 @@ export function UserList({
 }: UserListProps) {
   return (
     <>
-      <FlashList
+      <LegendList
         data={data}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
@@ -35,6 +35,7 @@ export function UserList({
             }
           />
         )}
+        recycleItems
         {...props}
       />
     </>

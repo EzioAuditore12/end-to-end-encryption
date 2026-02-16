@@ -38,10 +38,10 @@ export function UserCard({
             <Description className="font-bold">Name: {name}</Description>
             <Description className="font-bold">Email: {email}</Description>
             <Description className="font-bold">
-              Created At: {createdAt}
+              Created At: {new Date(createdAt).toDateString()}
             </Description>
             <Description className="font-bold">
-              Updated At: {updatedAt}
+              Updated At: {new Date(updatedAt).toDateString()}
             </Description>
           </View>
         </Card.Body>

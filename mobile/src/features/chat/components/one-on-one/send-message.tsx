@@ -6,7 +6,6 @@ import { cn } from "tailwind-variants";
 import { Button } from "heroui-native/button";
 import { Input } from "heroui-native/input";
 import { type } from "arktype";
-
 import { useGradualAnimation } from "@/hooks/use-gradual-animation";
 
 interface SendMessageProps extends ViewProps {

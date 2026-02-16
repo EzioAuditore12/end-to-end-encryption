@@ -13,6 +13,7 @@
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
     "@hookform/resolvers": "^5.2.2",
+    "@legendapp/list": "^2.0.19",
     "@op-engineering/op-sqlite": "^15.2.5",
     "@powersync/op-sqlite": "^0.8.0",
     "@powersync/react-native": "^1.29.0",
@@ -20,7 +21,6 @@
     "@react-navigation/bottom-tabs": "^7.7.3",
     "@react-navigation/elements": "^2.8.1",
     "@react-navigation/native": "^7.1.28",
-    "@shopify/flash-list": "2.0.2",
     "@tanstack/powersync-db-collection": "^0.1.30",
     "@tanstack/react-db": "^0.1.70",
     "@tanstack/react-query": "^5.90.21",

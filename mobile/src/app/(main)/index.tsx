@@ -52,17 +52,16 @@ export default function HomeScreen() {
         className="flex-1 p-2"
       >
         <Button onPress={pullChanges}>Pull Changes</Button>
-        {/*
+
         <Button
           className="mt-2"
           onPress={() =>
             ConversationOnetoOneCollections.update(
               // Make sure to use the correct ID you want to update
-              "699056ab4136ead16ca3ca0c",
+              "6992fb73479add3b77d3af0b",
               (convo) => {
-                // Fix: Convert the existing Date object back to a number
+                // @ts-ignore
                 if (convo.createdAt instanceof Date) {
-                  // @ts-ignore
                   convo.createdAt = convo.createdAt.getTime();
                 }
 
@@ -73,7 +72,7 @@ export default function HomeScreen() {
           }
         >
           Update me
-        </Button>*/}
+        </Button>
         <ConversationList data={data} onEndReached={fetchNextPage} />
       </View>
     </>

@@ -1,11 +1,15 @@
 import { Stack, useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
 import { eq, useLiveInfiniteQuery } from "@tanstack/react-db";
+import { KeyboardAvoidingView } from "react-native-keyboard-controller";
+
+import ObjectID from "bson-objectid";
+
 import { ChatOnetoOneCollections } from "@/db/tanstack";
 import { ChatOneToOneList } from "@/features/chat/components/one-on-one/one-one-chat-list";
 import { ChatterInfo } from "@/features/chat/components/one-on-one/chatter-details";
 import { SendMessage } from "@/features/chat/components/one-on-one/send-message";
-import ObjectID from "bson-objectid";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const sendChatMessage = ({
   conversationId,
@@ -26,6 +30,8 @@ const sendChatMessage = ({
 };
 
 export default function ChattingScreen() {
+  const safeAreaInsets = useSafeAreaInsets();
+
   const { id, userId } = useLocalSearchParams() as unknown as {
     id: string;
     userId: string;
@@ -51,9 +57,11 @@ export default function ChattingScreen() {
           header: () => <ChatterInfo userId={userId} />,
         }}
       />
+
       <View className="flex-1 p-2">
         <ChatOneToOneList
           data={data}
+          maintainScrollAtEnd
           onLoadPrevious={fetchNextPage}
           hasPrevious={hasNextPage}
         />
