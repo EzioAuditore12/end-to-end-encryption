@@ -21,10 +21,10 @@ importers:
         specifier: ^15.2.5
         version: 15.2.5(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
       '@powersync/op-sqlite':
-        specifier: ^0.9.0
-        version: 0.9.0(@op-engineering/op-sqlite@15.2.5(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(@powersync/common@1.46.0)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
+        specifier: ^0.8.0
+        version: 0.8.0(@op-engineering/op-sqlite@15.2.5(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(@powersync/common@1.46.0)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
       '@powersync/react-native':
-        specifier: ^1.30.0
+        specifier: ^1.29.0
         version: 1.30.0(@powersync/common@1.46.0)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
       '@react-native-community/netinfo':
         specifier: 11.5.2
@@ -1069,11 +1069,11 @@ packages:
   '@powersync/common@1.46.0':
     resolution: {integrity: sha512-NVIORj/IvLDBF6sWHsaO6U1u7v40yZaEGpscb+etIh7D7Oyaovv2novxdW94sSjbqmLAq4L8tFmgwNwgcU96Jg==}
 
-  '@powersync/op-sqlite@0.9.0':
-    resolution: {integrity: sha512-9fJ9ytb+ezfUAcGKFBHnfCWK8iy8f1Z5wNq4JgbbUtF/QB/al2AQO0H7vATroBOzeNVoRSI4lO5tamkm4qO4lQ==}
+  '@powersync/op-sqlite@0.8.0':
+    resolution: {integrity: sha512-1FNzuSipyGCtxROkhg2DG7mOZjOtPMTj+YEgHqSVFuMdrkzjx31jmf+Lw5VI+UeCWNSUNuUcD/UMrrEUAmRxBw==}
     peerDependencies:
       '@op-engineering/op-sqlite': ^13.0.0 || ^14.0.0 || ^15.0.0
-      '@powersync/common': ^1.47.0
+      '@powersync/common': ^1.46.0
       react: '*'
       react-native: '*'
 
@@ -1916,6 +1916,9 @@ packages:
   async-function@1.0.0:
     resolution: {integrity: sha512-hsU18Ae8CDTR6Kgu9DYf0EbCr/a5iGL0rytQDobUcdpYOKokk8LEjVphnXkDkgpi0wYVsqrXuP0bZxJaTqdgoA==}
     engines: {node: '>= 0.4'}
+
+  async-lock@1.4.1:
+    resolution: {integrity: sha512-Az2ZTpuytrtqENulXwO3GGv1Bztugx6TT37NIo7imr/Qo0gsYiGtSdBa2B6fsXhTpVZDNfu1Qn3pk531e3q+nQ==}
 
   async-mutex@0.5.0:
     resolution: {integrity: sha512-1A94B18jkJ3DYq284ohPxoXbfTA5HsQ7/Mf4DEhcyLx3Bz27Rh59iScbB6EPiP+B+joue6YCxcMXSbFC1tZKwA==}
@@ -5896,11 +5899,11 @@ snapshots:
       async-mutex: 0.5.0
       event-iterator: 2.0.0
 
-  '@powersync/op-sqlite@0.9.0(@op-engineering/op-sqlite@15.2.5(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(@powersync/common@1.46.0)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)':
+  '@powersync/op-sqlite@0.8.0(@op-engineering/op-sqlite@15.2.5(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(@powersync/common@1.46.0)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@op-engineering/op-sqlite': 15.2.5(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
       '@powersync/common': 1.46.0
-      async-mutex: 0.5.0
+      async-lock: 1.4.1
       react: 19.2.0
       react-native: 0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0)
 
@@ -6797,6 +6800,8 @@ snapshots:
   asap@2.0.6: {}
 
   async-function@1.0.0: {}
+
+  async-lock@1.4.1: {}
 
   async-mutex@0.5.0:
     dependencies:
