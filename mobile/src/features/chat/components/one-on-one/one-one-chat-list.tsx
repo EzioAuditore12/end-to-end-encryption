@@ -1,6 +1,5 @@
 import { cn } from "tailwind-variants";
 import { useCallback, useState, type ComponentProps } from "react";
-import { ActivityIndicator, View } from "react-native";
 import { LegendList } from "@legendapp/list";
 
 import type { ChatOneToOne } from "@/db/tables/chat-one-to-one.table";
@@ -49,13 +48,6 @@ export function ChatOneToOneList({
         maintainScrollAtEndThreshold={0.1}
         maintainVisibleContentPosition
         onStartReached={handleStartReached}
-        ListHeaderComponent={
-          loadingPrevious ? (
-            <View className="items-center py-2">
-              <ActivityIndicator size="small" />
-            </View>
-          ) : null
-        }
         onStartReachedThreshold={0.5}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <ChatText data={item} />}

@@ -3,22 +3,27 @@ import { APP_PIPE, APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { MongooseModule } from '@nestjs/mongoose';
+
+import { ZodHttpExceptionFilter } from './common/utils/zod-http-excpetion-filter';
+
+import { typeOrmConfig } from './configs/db/typeorm.config';
+import { mongooseConfig } from './configs/db/monoose.config';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-
-import { ZodHttpExceptionFilter } from './common/utils/zod-http-excpetion-filter';
-
-import { typeOrmConfig } from './configs/db/typeorm.config';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot(typeOrmConfig),
+    MongooseModule.forRoot(mongooseConfig.uri!),
     UserModule,
     AuthModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [
