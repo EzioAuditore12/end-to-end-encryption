@@ -36,8 +36,6 @@ export function OneOnOneChatList({
   const [contentHeight, setContentHeight] = useState<number>(0);
   const [isAtListEnd, setIsAtListEnd] = useState<boolean>(false);
 
-  const reversedData = [...data].reverse();
-
   const scrollToEnd = () => {
     ref.current?.scrollToEnd({ animated: true });
   };
@@ -63,13 +61,11 @@ export function OneOnOneChatList({
         ref={ref}
         onScroll={handleScroll}
         onContentSizeChange={(_, h) => setContentHeight(h)}
-        data={reversedData}
+        data={data}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <ChatText data={item} />}
         // Calculate initial index based on data length
-        initialScrollIndex={
-          reversedData.length > 0 ? reversedData.length - 1 : 0
-        }
+        initialScrollIndex={data.length > 0 ? data.length - 1 : 0}
         onStartReachedThreshold={0.5}
         maintainVisibleContentPosition={{
           startRenderingFromBottom: true,

@@ -46,7 +46,7 @@ export default function ChattingScreen() {
   );
 
   // Flatten the pages into a single array
-  const flatData = data ? data.flat() : [];
+  const flatData = data ? data.flat().reverse() : [];
 
   return (
     <>
