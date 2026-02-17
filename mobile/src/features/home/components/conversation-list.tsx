@@ -1,11 +1,11 @@
-import { LegendList, type LegendListProps } from "@legendapp/list";
+import { FlashList, type FlashListProps } from "@shopify/flash-list";
 import { router } from "expo-router";
 
 import { ConversationOneToOne } from "@/db/tables/conversation-one-to-one.table";
 import { ConversationOneToOneCard } from "./conversation-one-to-one-card";
 
 interface ConversationListProps extends Omit<
-  LegendListProps<ConversationOneToOne>,
+  FlashListProps<ConversationOneToOne>,
   "data" | "children" | "keyExtractor" | "renderItem"
 > {
   data: ConversationOneToOne[];
@@ -18,7 +18,7 @@ export function ConversationList({
 }: ConversationListProps) {
   return (
     <>
-      <LegendList
+      <FlashList
         data={data}
         onEndReachedThreshold={0.5}
         keyExtractor={(item) => item.id}
@@ -34,7 +34,6 @@ export function ConversationList({
             }
           />
         )}
-        recycleItems
         {...props}
       />
     </>

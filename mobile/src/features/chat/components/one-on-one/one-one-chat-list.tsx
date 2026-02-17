@@ -1,12 +1,12 @@
 import { cn } from "tailwind-variants";
-import { LegendList, type LegendListProps } from "@legendapp/list";
+import { FlashList, type FlashListProps } from "@shopify/flash-list";
 
 import type { ChatOneToOne } from "@/db/tables/chat-one-to-one.table";
 
 import { ChatText } from "./chat-text";
 
 interface OneOnOneChatListProps extends Omit<
-  LegendListProps<ChatOneToOne>,
+  FlashListProps<ChatOneToOne>,
   "data" | "children" | "keyExtractor" | "renderItem"
 > {
   data: ChatOneToOne[];
@@ -22,7 +22,7 @@ export function OneOnOneChatList({
   const reversedData = [...data].reverse();
 
   return (
-    <LegendList
+    <FlashList
       className={cn("flex-1 p-2", className)}
       data={reversedData}
       keyExtractor={(item) => item.id}
@@ -32,10 +32,11 @@ export function OneOnOneChatList({
       // Increase threshold to trigger fetch earlier
       onStartReachedThreshold={0.5}
       // Reduce estimated size to be closer to a single line message (helps with jumpiness)
-      estimatedItemSize={60}
-      alignItemsAtEnd
-      maintainScrollAtEnd
-      maintainScrollAtEndThreshold={0.1}
+      maintainVisibleContentPosition={{
+        startRenderingFromBottom: true,
+        animateAutoScrollToBottom: true,
+        autoscrollToBottomThreshold: 0.1,
+      }}
       {...props}
     />
   );
