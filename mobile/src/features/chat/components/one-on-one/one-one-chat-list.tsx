@@ -1,9 +1,22 @@
 import { cn } from "tailwind-variants";
-import { FlashList, type FlashListProps } from "@shopify/flash-list";
+import {
+  FlashList,
+  type FlashListProps,
+  type FlashListRef,
+} from "@shopify/flash-list";
+import { useRef, Activity, useState } from "react";
+import { Button } from "heroui-native/button";
+import {
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+  View,
+} from "react-native";
 
 import type { ChatOneToOne } from "@/db/tables/chat-one-to-one.table";
 
 import { ChatText } from "./chat-text";
+
+import { Ionicons } from "@/components/icon";
 
 interface OneOnOneChatListProps extends Omit<
   FlashListProps<ChatOneToOne>,
@@ -17,27 +30,65 @@ export function OneOnOneChatList({
   className,
   ...props
 }: OneOnOneChatListProps) {
-  // We use useMemo to avoid re-reversing on every render if data reference hasn't changed,
-  // though with live queries it changes often.
+  const ref = useRef<FlashListRef<ChatOneToOne> | null>(null);
+
+  const [viewHeight, setViewHeight] = useState<number>(0);
+  const [contentHeight, setContentHeight] = useState<number>(0);
+  const [isAtListEnd, setIsAtListEnd] = useState<boolean>(false);
+
   const reversedData = [...data].reverse();
 
+  const scrollToEnd = () => {
+    ref.current?.scrollToEnd({ animated: true });
+  };
+
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
+
+    const paddingToBottom = 20;
+
+    const atBottom =
+      contentOffset.y + layoutMeasurement.height >=
+      contentSize.height - paddingToBottom;
+
+    setIsAtListEnd(atBottom);
+  };
+
   return (
-    <FlashList
-      className={cn("flex-1 p-2", className)}
-      data={reversedData}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => <ChatText data={item} />}
-      // Calculate initial index based on data length
-      initialScrollIndex={reversedData.length > 0 ? reversedData.length - 1 : 0}
-      // Increase threshold to trigger fetch earlier
-      onStartReachedThreshold={0.5}
-      // Reduce estimated size to be closer to a single line message (helps with jumpiness)
-      maintainVisibleContentPosition={{
-        startRenderingFromBottom: true,
-        animateAutoScrollToBottom: true,
-        autoscrollToBottomThreshold: 0.1,
-      }}
-      {...props}
-    />
+    <View
+      className={cn("flex-1 relative", className)}
+      onLayout={(e) => setViewHeight(e.nativeEvent.layout.height)}
+    >
+      <FlashList
+        ref={ref}
+        onScroll={handleScroll}
+        onContentSizeChange={(_, h) => setContentHeight(h)}
+        data={reversedData}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <ChatText data={item} />}
+        // Calculate initial index based on data length
+        initialScrollIndex={
+          reversedData.length > 0 ? reversedData.length - 1 : 0
+        }
+        onStartReachedThreshold={0.5}
+        maintainVisibleContentPosition={{
+          startRenderingFromBottom: true,
+          animateAutoScrollToBottom: true,
+          autoscrollToBottomThreshold: 0.1,
+        }}
+        {...props}
+      />
+      <Activity
+        mode={viewHeight < contentHeight && !isAtListEnd ? "visible" : "hidden"}
+      >
+        <Button
+          className="absolute bottom-2 right-0"
+          variant="tertiary"
+          onPress={scrollToEnd}
+        >
+          <Ionicons name="arrow-down" />
+        </Button>
+      </Activity>
+    </View>
   );
 }

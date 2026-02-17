@@ -1,7 +1,6 @@
 import { Stack, useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
 import { eq, useLiveInfiniteQuery } from "@tanstack/react-db";
-
 import ObjectID from "bson-objectid";
 
 import { ChatOnetoOneCollections } from "@/db/tanstack";
@@ -40,7 +39,7 @@ export default function ChattingScreen() {
         .where(({ chatOneToOne }) => eq(chatOneToOne.conversationId, id))
         .orderBy(({ chatOneToOne }) => chatOneToOne.createdAt, "desc"),
     {
-      pageSize: 20, // Increased from 6 to 20
+      pageSize: 10, // Increased from 6 to 20
       getNextPageParam: (lastPage, allPages) =>
         lastPage.length ? allPages.length : undefined,
     },
@@ -57,7 +56,7 @@ export default function ChattingScreen() {
         }}
       />
 
-      <View className="flex-1 p-2">
+      <View className="flex-1 relative p-2">
         {/* Pass flattened data */}
         <OneOnOneChatList onStartReached={fetchNextPage} data={flatData} />
         <SendMessage conversationId={id} handleSubmit={sendChatMessage} />
