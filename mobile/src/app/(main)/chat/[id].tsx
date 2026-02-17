@@ -40,11 +40,14 @@ export default function ChattingScreen() {
         .where(({ chatOneToOne }) => eq(chatOneToOne.conversationId, id))
         .orderBy(({ chatOneToOne }) => chatOneToOne.createdAt, "desc"),
     {
-      pageSize: 6,
+      pageSize: 20, // Increased from 6 to 20
       getNextPageParam: (lastPage, allPages) =>
         lastPage.length ? allPages.length : undefined,
     },
   );
+
+  // Flatten the pages into a single array
+  const flatData = data ? data.flat() : [];
 
   return (
     <>
@@ -55,7 +58,8 @@ export default function ChattingScreen() {
       />
 
       <View className="flex-1 p-2">
-        <OneOnOneChatList onStartReached={fetchNextPage} data={data} />
+        {/* Pass flattened data */}
+        <OneOnOneChatList onStartReached={fetchNextPage} data={flatData} />
         <SendMessage conversationId={id} handleSubmit={sendChatMessage} />
       </View>
     </>

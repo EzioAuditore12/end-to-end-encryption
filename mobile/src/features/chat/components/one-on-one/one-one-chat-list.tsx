@@ -15,21 +15,24 @@ interface OneOnOneChatListProps extends Omit<
 export function OneOnOneChatList({
   data,
   className,
-
   ...props
 }: OneOnOneChatListProps) {
+  // We use useMemo to avoid re-reversing on every render if data reference hasn't changed,
+  // though with live queries it changes often.
   const reversedData = [...data].reverse();
-
-  console.log(reversedData.length);
 
   return (
     <LegendList
-      className={cn("p-2", className)}
+      className={cn("flex-1 p-2", className)}
       data={reversedData}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => <ChatText data={item} />}
-      initialScrollIndex={reversedData.length - 1}
-      estimatedItemSize={160}
+      // Calculate initial index based on data length
+      initialScrollIndex={reversedData.length > 0 ? reversedData.length - 1 : 0}
+      // Increase threshold to trigger fetch earlier
+      onStartReachedThreshold={0.5}
+      // Reduce estimated size to be closer to a single line message (helps with jumpiness)
+      estimatedItemSize={60}
       alignItemsAtEnd
       maintainScrollAtEnd
       maintainScrollAtEndThreshold={0.1}
