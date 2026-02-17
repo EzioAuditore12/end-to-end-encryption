@@ -1,59 +1,39 @@
 import { cn } from "tailwind-variants";
-import { useCallback, useState, type ComponentProps } from "react";
-import { LegendList } from "@legendapp/list";
+import { LegendList, type LegendListProps } from "@legendapp/list";
 
 import type { ChatOneToOne } from "@/db/tables/chat-one-to-one.table";
 
 import { ChatText } from "./chat-text";
 
 interface OneOnOneChatListProps extends Omit<
-  ComponentProps<typeof LegendList<ChatOneToOne>>,
+  LegendListProps<ChatOneToOne>,
   "data" | "children" | "keyExtractor" | "renderItem"
 > {
   data: ChatOneToOne[];
-  onLoadPrevious?: () => void;
-  hasPrevious?: boolean;
 }
 
-export function ChatOneToOneList({
-  className,
+export function OneOnOneChatList({
   data,
-  onLoadPrevious,
-  hasPrevious,
+  className,
+
   ...props
 }: OneOnOneChatListProps) {
   const reversedData = [...data].reverse();
 
-  const [loadingPrevious, setLoadingPrevious] = useState(false);
-
-  const handleStartReached = useCallback(() => {
-    if (!hasPrevious || loadingPrevious || !onLoadPrevious) return;
-    setLoadingPrevious(true);
-    try {
-      onLoadPrevious();
-    } finally {
-      setLoadingPrevious(false);
-    }
-  }, [hasPrevious, loadingPrevious, onLoadPrevious]);
+  console.log(reversedData.length);
 
   return (
-    <>
-      <LegendList
-        data={reversedData}
-        className={cn("p-2", className)}
-        snapToStart={false}
-        initialScrollIndex={reversedData.length - 1}
-        alignItemsAtEnd
-        maintainScrollAtEnd
-        maintainScrollAtEndThreshold={0.1}
-        maintainVisibleContentPosition
-        onStartReached={handleStartReached}
-        onStartReachedThreshold={0.5}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ChatText data={item} />}
-        contentContainerStyle={{ paddingBottom: 20 }}
-        {...props}
-      />
-    </>
+    <LegendList
+      className={cn("p-2", className)}
+      data={reversedData}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => <ChatText data={item} />}
+      initialScrollIndex={reversedData.length - 1}
+      estimatedItemSize={160}
+      alignItemsAtEnd
+      maintainScrollAtEnd
+      maintainScrollAtEndThreshold={0.1}
+      {...props}
+    />
   );
 }

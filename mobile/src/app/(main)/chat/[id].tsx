@@ -1,15 +1,13 @@
 import { Stack, useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
 import { eq, useLiveInfiniteQuery } from "@tanstack/react-db";
-import { KeyboardAvoidingView } from "react-native-keyboard-controller";
 
 import ObjectID from "bson-objectid";
 
 import { ChatOnetoOneCollections } from "@/db/tanstack";
-import { ChatOneToOneList } from "@/features/chat/components/one-on-one/one-one-chat-list";
+import { OneOnOneChatList } from "@/features/chat/components/one-on-one/one-one-chat-list";
 import { ChatterInfo } from "@/features/chat/components/one-on-one/chatter-details";
 import { SendMessage } from "@/features/chat/components/one-on-one/send-message";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const sendChatMessage = ({
   conversationId,
@@ -30,21 +28,19 @@ const sendChatMessage = ({
 };
 
 export default function ChattingScreen() {
-  const safeAreaInsets = useSafeAreaInsets();
-
   const { id, userId } = useLocalSearchParams() as unknown as {
     id: string;
     userId: string;
   };
 
-  const { data, fetchNextPage, hasNextPage } = useLiveInfiniteQuery(
+  const { data, fetchNextPage } = useLiveInfiniteQuery(
     (q) =>
       q
         .from({ chatOneToOne: ChatOnetoOneCollections })
         .where(({ chatOneToOne }) => eq(chatOneToOne.conversationId, id))
         .orderBy(({ chatOneToOne }) => chatOneToOne.createdAt, "desc"),
     {
-      pageSize: 5,
+      pageSize: 6,
       getNextPageParam: (lastPage, allPages) =>
         lastPage.length ? allPages.length : undefined,
     },
@@ -59,17 +55,8 @@ export default function ChattingScreen() {
       />
 
       <View className="flex-1 p-2">
-        <ChatOneToOneList
-          data={data}
-          maintainScrollAtEnd
-          onLoadPrevious={fetchNextPage}
-          hasPrevious={hasNextPage}
-        />
-        <SendMessage
-          className="items-center"
-          conversationId={id}
-          handleSubmit={sendChatMessage}
-        />
+        <OneOnOneChatList onStartReached={fetchNextPage} data={data} />
+        <SendMessage conversationId={id} handleSubmit={sendChatMessage} />
       </View>
     </>
   );
