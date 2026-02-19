@@ -7,7 +7,9 @@ export const insertOneToOneChatSchema = chatsOneToOneSchema.partial({
   updatedAt: true,
 });
 
-export class InsertOneToOneChatDto extends createZodDto(insertOneToOneChatSchema) {
+export class InsertOneToOneChatDto extends createZodDto(
+  insertOneToOneChatSchema,
+) {
   createdAt?: Date;
   updatedAt?: Date;
 }
