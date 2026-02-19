@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { paginate, PaginateQuery, PaginationType } from 'nestjs-paginate';
 
 import { User } from './entities/user.entity';
@@ -8,6 +8,7 @@ import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserDto } from './dto/user.dto';
 import { SerachUserResponseDto } from './dto/search-user/search-user-response.dto';
+import { PublicUserDto, publicUserSchema } from './dto/public-user.dto';
 
 @Injectable()
 export class UserService {
@@ -40,5 +41,13 @@ export class UserService {
 
   async findByEmail(email: string): Promise<UserDto | null> {
     return await this.userRepository.findOne({ where: { email } });
+  }
+
+  async findMultipleById(ids: string[]): Promise<PublicUserDto[]> {
+    const users = await this.userRepository.find({
+      where: { id: In(ids) },
+    });
+
+    return publicUserSchema.strip().array().parse(users);
   }
 }
