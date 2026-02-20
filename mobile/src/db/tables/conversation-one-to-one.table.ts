@@ -9,9 +9,9 @@ export const ConversationOneToOneTable = new Table({
 
 export const conversationOneToOneSchema = type({
   id: "string",
-  userId: "string",
-  createdAt: type("number.integer").pipe((val) => new Date(val)),
-  updatedAt: type("number.integer").pipe((val) => new Date(val)),
+  userId: "string.uuid",
+  createdAt: "number.integer",
+  updatedAt: "number.integer",
 });
 
 export type ConversationOneToOne = typeof conversationOneToOneSchema.infer;

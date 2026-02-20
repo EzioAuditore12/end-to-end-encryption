@@ -34,7 +34,7 @@ export function ChatText({ data, className, ...props }: ChatTextProps) {
           color: mode === "SENT" ? "#dbeafe" : "#6b7280",
         }}
       >
-        {createdAt.toLocaleTimeString([], {
+        {new Date(createdAt).toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
         })}

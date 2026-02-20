@@ -46,8 +46,12 @@ export function ConversationOneToOneCard({
 
           <View className="gap-y-2">
             <Description>Email: {userData?.email}</Description>
-            <Description>Created At: {formatTime(createdAt)}</Description>
-            <Description>Updated At: {formatTime(updatedAt)}</Description>
+            <Description>
+              Created At: {formatTime(new Date(createdAt))}
+            </Description>
+            <Description>
+              Updated At: {formatTime(new Date(updatedAt))}
+            </Description>
           </View>
         </Card.Body>
       </Card>

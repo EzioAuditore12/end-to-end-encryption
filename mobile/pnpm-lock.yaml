@@ -22,7 +22,7 @@ importers:
         version: 0.8.0(@op-engineering/op-sqlite@15.2.5(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(@powersync/common@1.46.0)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
       '@powersync/react-native':
         specifier: ^1.29.0
-        version: 1.30.0(@powersync/common@1.46.0)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
+        version: 1.30.1(@powersync/common@1.46.0)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
       '@react-native-community/netinfo':
         specifier: 11.5.2
         version: 11.5.2(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
@@ -39,11 +39,11 @@ importers:
         specifier: 2.2.2
         version: 2.2.2(@babel/runtime@7.28.6)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
       '@tanstack/powersync-db-collection':
-        specifier: ^0.1.30
-        version: 0.1.30(@powersync/common@1.46.0)(typescript@5.9.3)
+        specifier: ^0.1.31
+        version: 0.1.31(@powersync/common@1.46.0)(typescript@5.9.3)
       '@tanstack/react-db':
-        specifier: ^0.1.70
-        version: 0.1.70(react@19.2.0)(typescript@5.9.3)
+        specifier: ^0.1.71
+        version: 0.1.71(react@19.2.0)(typescript@5.9.3)
       '@tanstack/react-query':
         specifier: ^5.90.21
         version: 5.90.21(react@19.2.0)
@@ -94,7 +94,7 @@ importers:
         version: 55.0.6(expo@55.0.0-preview.11)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))
       heroui-native:
         specifier: 1.0.0-rc.1
-        version: 1.0.0-rc.1(b126e6f3e31f7c6dc339b2e0d14d9f9f)
+        version: 1.0.0-rc.1(620fe30b44cf49de5273c60db2e9ea1a)
       react:
         specifier: 19.2.0
         version: 19.2.0
@@ -113,6 +113,9 @@ importers:
       react-native-keyboard-controller:
         specifier: 1.20.7
         version: 1.20.7(react-native-reanimated@4.2.1(react-native-worklets@0.7.2(@babel/core@7.29.0)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
+      react-native-mmkv:
+        specifier: ^4.1.2
+        version: 4.1.2(react-native-nitro-modules@0.33.9(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
       react-native-nitro-crypto:
         specifier: ^0.2.4
         version: 0.2.4(react-native-nitro-modules@0.33.9(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
@@ -151,10 +154,10 @@ importers:
         version: 3.4.1
       tailwind-variants:
         specifier: ^3.2.2
-        version: 3.2.2(tailwind-merge@3.4.1)(tailwindcss@4.1.18)
+        version: 3.2.2(tailwind-merge@3.4.1)(tailwindcss@4.2.0)
       uniwind:
-        specifier: ^1.3.1
-        version: 1.3.1(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)(tailwindcss@4.1.18)
+        specifier: ^1.3.2
+        version: 1.3.2(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)(tailwindcss@4.2.0)
       use-debounce:
         specifier: ^10.1.0
         version: 10.1.0(react@19.2.0)
@@ -175,8 +178,8 @@ importers:
         specifier: ^3.8.1
         version: 3.8.1
       tailwindcss:
-        specifier: ^4.1.18
-        version: 4.1.18
+        specifier: ^4.2.0
+        version: 4.2.0
       typescript:
         specifier: ~5.9.2
         version: 5.9.3
@@ -1071,10 +1074,10 @@ packages:
       react: '*'
       react-native: '*'
 
-  '@powersync/react-native@1.30.0':
-    resolution: {integrity: sha512-vr/15pGSX/QfYwpZIKC6wuZjjFtgVLVS1kUUL4+3Vzp4lFrDj7LA53lvKMyfiOjj64ffTjVRSE6cjnejWo5xbQ==}
+  '@powersync/react-native@1.30.1':
+    resolution: {integrity: sha512-Bsv5koHMsWDQgeOiZl77zv3a1zHy31P8t0GVAmyyzdx9JEhx7yjt1Y3nPuj5XyXz0WNsE3sKrzmDnjfS4F2ptg==}
     peerDependencies:
-      '@journeyapps/react-native-quick-sqlite': ^2.5.0
+      '@journeyapps/react-native-quick-sqlite': ^2.5.1
       '@powersync/common': ^1.47.0
       react: '*'
       react-native: '*'
@@ -1559,8 +1562,8 @@ packages:
     peerDependencies:
       typescript: '>=4.7'
 
-  '@tanstack/db@0.5.26':
-    resolution: {integrity: sha512-W8h4P/7Qm8URl9gk6AI/FQi4k9e713SViG4kZJAmiTzFRJRAlodApZAOb35VB9U/eORgyTfNs4gdUtyv3iBjbA==}
+  '@tanstack/db@0.5.27':
+    resolution: {integrity: sha512-BwYwJnpwvCabq/35dsj9diegpbdaEXwyvhpafFVz7xpPyr1VT+RLpE3jBUWFGfQdrCaEJT1pzkDeEiG5L3QcCQ==}
     peerDependencies:
       typescript: '>=4.7'
 
@@ -1568,16 +1571,16 @@ packages:
     resolution: {integrity: sha512-3PouiFjR4B6x1c969/Pl4ZIJleof1M0n6fNX8NRiC9Sqv1g06CVDlEaXUR4212ycGFyfq4q+t8Gi37Xy+z34iQ==}
     engines: {node: '>=18'}
 
-  '@tanstack/powersync-db-collection@0.1.30':
-    resolution: {integrity: sha512-Wd+qZ/408eDSpu0L44PcH++fS0raLxF/YNEkD6vLykhjQV5E/Hur/n6AM/CX4mjLoI9nGmpEDtD70iJg0ijv/A==}
+  '@tanstack/powersync-db-collection@0.1.31':
+    resolution: {integrity: sha512-dQANIkiRQ2PRpXleHF8YWfSYe5EGo5XD2Z0yMYbO+VnxDjCIqkdFaaM6X9v/aTe0CZQ7LB+PtouOVD82xPugVw==}
     peerDependencies:
       '@powersync/common': ^1.41.0
 
   '@tanstack/query-core@5.90.20':
     resolution: {integrity: sha512-OMD2HLpNouXEfZJWcKeVKUgQ5n+n3A2JFmBaScpNDUqSrQSjiveC7dKMe53uJUg1nDG16ttFPz2xfilz6i2uVg==}
 
-  '@tanstack/react-db@0.1.70':
-    resolution: {integrity: sha512-OISznZtrjkbyktbAoj/2KyFf9Xv9vr7JfkQO4od4eH76X+vQXYZkVgs2IV5sM27YNatOyf1Or4BEELIbyYB4xA==}
+  '@tanstack/react-db@0.1.71':
+    resolution: {integrity: sha512-oW53kFPTj6EKZ+YgYEXY8DqQ1LL4E/SmAa/6L0xnR/3NmXz4STS42/4sDnn4h2Y8bCEIeBmKLAAP+VR/JDoS0Q==}
     peerDependencies:
       react: '>=16.8.0'
 
@@ -3854,6 +3857,13 @@ packages:
       react-native: '*'
       react-native-reanimated: '>=3.0.0'
 
+  react-native-mmkv@4.1.2:
+    resolution: {integrity: sha512-6LHb2DQBXuo96Aues13EugmlWw/HAYuh3KoJoQNrC4JsBwn3J3KiRYAg2mCm5Je0VYq2YsmbgZG7XJwX/WFYZA==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+      react-native-nitro-modules: '*'
+
   react-native-nitro-buffer@0.0.15:
     resolution: {integrity: sha512-AafYtMRS3PE13ppFUxi/mbRXCLzwDYwuefHGrNLxNF+NAz0wYXkbuugCtsFQLMGtWCuKidt4DRkzUhPa3Pr2Qw==}
     peerDependencies:
@@ -4330,8 +4340,8 @@ packages:
   tailwindcss@4.1.17:
     resolution: {integrity: sha512-j9Ee2YjuQqYT9bbRTfTZht9W/ytp5H+jJpZKiYdP/bpnXARAuELt9ofP0lPnmHjbga7SNQIxdTAXCmtKVYjN+Q==}
 
-  tailwindcss@4.1.18:
-    resolution: {integrity: sha512-4+Z+0yiYyEtUVCScyfHCxOYP06L5Ne+JiHhY2IjR2KWMIWhJOYZKLSGZaP5HkZ8+bY0cxfzwDE5uOmzFXyIwxw==}
+  tailwindcss@4.2.0:
+    resolution: {integrity: sha512-yYzTZ4++b7fNYxFfpnberEEKu43w44aqDMNM9MHMmcKuCH7lL8jJ4yJ7LGHv7rSwiqM0nkiobF9I6cLlpS2P7Q==}
 
   tapable@2.3.0:
     resolution: {integrity: sha512-g9ljZiwki/LfxmQADO3dEY1CbpmXT5Hm2fJ+QaGKwSXUylMybePR7/67YW7jOrrvjEgL1Fmz5kzyAjWVWLlucg==}
@@ -4454,8 +4464,8 @@ packages:
     resolution: {integrity: sha512-hpbDzxUY9BFwX+UeBnxv3Sh1q7HFxj48DTmXchNgRa46lO8uj3/1iEn3MiNUYTg1g9ctIqXCCERn8gYZhHC5lQ==}
     engines: {node: '>=4'}
 
-  uniwind@1.3.1:
-    resolution: {integrity: sha512-rXhalY2VN9jvZzLiotPltpq4SNsSXpy6CzwhqdeglmgVWIFRSYzIgEa+UnVbyjzPtwy9stfSHwQ4kbR5DmjhUA==}
+  uniwind@1.3.2:
+    resolution: {integrity: sha512-DKOa8E5DkTknAshp/mvQMDeIzERq7ntq59ztyEthuXT845zdp7GijpPu4hQwY9BVMKHT3IkmNM09J1kg1Tirvw==}
     peerDependencies:
       react: '>=19.0.0'
       react-native: '>=0.81.0'
@@ -5902,7 +5912,7 @@ snapshots:
       react: 19.2.0
       react-native: 0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0)
 
-  '@powersync/react-native@1.30.0(@powersync/common@1.46.0)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)':
+  '@powersync/react-native@1.30.1(@powersync/common@1.46.0)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@powersync/common': 1.46.0
       '@powersync/react': 1.8.3(@powersync/common@1.46.0)(react@19.2.0)
@@ -6404,7 +6414,7 @@ snapshots:
       sorted-btree: 1.8.1
       typescript: 5.9.3
 
-  '@tanstack/db@0.5.26(typescript@5.9.3)':
+  '@tanstack/db@0.5.27(typescript@5.9.3)':
     dependencies:
       '@standard-schema/spec': 1.1.0
       '@tanstack/db-ivm': 0.1.17(typescript@5.9.3)
@@ -6413,11 +6423,11 @@ snapshots:
 
   '@tanstack/pacer-lite@0.2.1': {}
 
-  '@tanstack/powersync-db-collection@0.1.30(@powersync/common@1.46.0)(typescript@5.9.3)':
+  '@tanstack/powersync-db-collection@0.1.31(@powersync/common@1.46.0)(typescript@5.9.3)':
     dependencies:
       '@powersync/common': 1.46.0
       '@standard-schema/spec': 1.1.0
-      '@tanstack/db': 0.5.26(typescript@5.9.3)
+      '@tanstack/db': 0.5.27(typescript@5.9.3)
       '@tanstack/store': 0.8.0
       debug: 4.4.3
       p-defer: 4.0.1
@@ -6427,9 +6437,9 @@ snapshots:
 
   '@tanstack/query-core@5.90.20': {}
 
-  '@tanstack/react-db@0.1.70(react@19.2.0)(typescript@5.9.3)':
+  '@tanstack/react-db@0.1.71(react@19.2.0)(typescript@5.9.3)':
     dependencies:
-      '@tanstack/db': 0.5.26(typescript@5.9.3)
+      '@tanstack/db': 0.5.27(typescript@5.9.3)
       react: 19.2.0
       use-sync-external-store: 1.6.0(react@19.2.0)
     transitivePeerDependencies:
@@ -8019,7 +8029,7 @@ snapshots:
     dependencies:
       hermes-estree: 0.32.0
 
-  heroui-native@1.0.0-rc.1(b126e6f3e31f7c6dc339b2e0d14d9f9f):
+  heroui-native@1.0.0-rc.1(620fe30b44cf49de5273c60db2e9ea1a):
     dependencies:
       '@gorhom/bottom-sheet': 5.2.8(@types/react@19.2.14)(react-native-gesture-handler@2.30.0(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native-reanimated@4.2.1(react-native-worklets@0.7.2(@babel/core@7.29.0)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
       react: 19.2.0
@@ -8030,7 +8040,7 @@ snapshots:
       react-native-svg: 15.15.3(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
       react-native-worklets: 0.7.2(@babel/core@7.29.0)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
       tailwind-merge: 3.4.1
-      tailwind-variants: 3.2.2(tailwind-merge@3.4.1)(tailwindcss@4.1.18)
+      tailwind-variants: 3.2.2(tailwind-merge@3.4.1)(tailwindcss@4.2.0)
 
   hoist-non-react-statics@3.3.2:
     dependencies:
@@ -9038,6 +9048,12 @@ snapshots:
       react-native-is-edge-to-edge: 1.2.1(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
       react-native-reanimated: 4.2.1(react-native-worklets@0.7.2(@babel/core@7.29.0)(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
 
+  react-native-mmkv@4.1.2(react-native-nitro-modules@0.33.9(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0):
+    dependencies:
+      react: 19.2.0
+      react-native: 0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0)
+      react-native-nitro-modules: 0.33.9(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
+
   react-native-nitro-buffer@0.0.15(react-native-nitro-modules@0.33.9(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0):
     dependencies:
       react: 19.2.0
@@ -9572,15 +9588,15 @@ snapshots:
 
   tailwind-merge@3.4.1: {}
 
-  tailwind-variants@3.2.2(tailwind-merge@3.4.1)(tailwindcss@4.1.18):
+  tailwind-variants@3.2.2(tailwind-merge@3.4.1)(tailwindcss@4.2.0):
     dependencies:
-      tailwindcss: 4.1.18
+      tailwindcss: 4.2.0
     optionalDependencies:
       tailwind-merge: 3.4.1
 
   tailwindcss@4.1.17: {}
 
-  tailwindcss@4.1.18: {}
+  tailwindcss@4.2.0: {}
 
   tapable@2.3.0: {}
 
@@ -9703,7 +9719,7 @@ snapshots:
 
   unicode-property-aliases-ecmascript@2.2.0: {}
 
-  uniwind@1.3.1(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)(tailwindcss@4.1.18):
+  uniwind@1.3.2(react-native@0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)(tailwindcss@4.2.0):
     dependencies:
       '@tailwindcss/node': 4.1.17
       '@tailwindcss/oxide': 4.1.17
@@ -9711,7 +9727,7 @@ snapshots:
       lightningcss: 1.30.2
       react: 19.2.0
       react-native: 0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0)
-      tailwindcss: 4.1.18
+      tailwindcss: 4.2.0
 
   unpipe@1.0.0: {}
 

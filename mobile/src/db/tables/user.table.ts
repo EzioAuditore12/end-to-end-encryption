@@ -9,11 +9,11 @@ export const UserTable = new Table({
 });
 
 export const userSchema = type({
-  id: "string",
+  id: "string.uuid",
   name: "0 < string <= 50",
   email: "0 < string.email <= 240",
-  createdAt: type("number.integer").pipe((val) => new Date(val)),
-  updatedAt: type("number.integer").pipe((val) => new Date(val)),
+  createdAt: "number.integer",
+  updatedAt: "number.integer",
 });
 
 export type User = typeof userSchema.infer;

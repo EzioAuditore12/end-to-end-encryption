@@ -1,6 +1,6 @@
 import { createTransaction } from "@tanstack/react-db";
 import { PowerSyncTransactor } from "@tanstack/powersync-db-collection";
-import ObjectID from "bson-objectid";
+import { createMMKV } from "react-native-mmkv";
 
 import { db } from "@/db";
 
@@ -9,78 +9,38 @@ import {
   ChatOnetoOneCollections,
   ConversationOnetoOneCollections,
 } from "../collections";
+import { pullChangesApi } from "@/features/sync/api/pull-changes.api";
 
-// Helper functions for random data
-function randomString(length: number) {
-  const chars = "abcdefghijklmnopqrstuvwxyz";
-  return Array.from(
-    { length },
-    () => chars[Math.floor(Math.random() * chars.length)],
-  ).join("");
-}
-function randomEmail() {
-  return `${randomString(6)}@${randomString(4)}.com`;
-}
-function randomText() {
-  const texts = [
-    "Hello!",
-    "How are you?",
-    "What's up?",
-    "Random message",
-    "Test chat",
-    "Another message",
-    "Sample text",
-    "Greetings!",
-    "Hey there!",
-    "Good day!",
-  ];
-  return texts[Math.floor(Math.random() * texts.length)];
-}
+const syncStorage = createMMKV({ id: "@tanstack-db/sync" });
 
 export async function pullChanges() {
-  for (let i = 0; i < 5; i++) {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+  let lastSyncedAt = syncStorage.getNumber("lastPulledAt");
 
-    const user = {
-      id: crypto.randomUUID(),
-      email: randomEmail(),
-      name: randomString(8),
-      createdAt: new Date().getTime(),
-      updatedAt: new Date().getTime(),
-    };
+  if (!lastSyncedAt) lastSyncedAt = 0;
 
-    const conversation = {
-      id: ObjectID().toHexString(),
-      userId: user.id,
-      createdAt: new Date().getTime(),
-      updatedAt: new Date().getTime(),
-    };
+  const { changes, timestamp } = await pullChangesApi({
+    lastSyncedAt,
+    tableNames: ["CHAT-ONE-TO-ONE", "CONVERSATION-ONE-TO-ONE", "USER"],
+  });
 
-    const chat = {
-      id: ObjectID().toHexString(),
-      conversationId: conversation.id,
-      mode: "SENT" as any, // Fix: use literal type
-      status: "SENT" as any, // Fix: use literal type
-      text: randomText(),
-      createdAt: new Date().getTime(),
-      updatedAt: new Date().getTime(),
-    };
+  const batchTx = createTransaction({
+    autoCommit: false,
+    mutationFn: async ({ transaction }) => {
+      await new PowerSyncTransactor({ database: db }).applyTransaction(
+        transaction,
+      );
+    },
+  });
 
-    const batchTx = createTransaction({
-      autoCommit: false,
-      mutationFn: async ({ transaction }) => {
-        await new PowerSyncTransactor({ database: db }).applyTransaction(
-          transaction,
-        );
-      },
-    });
+  batchTx.mutate(() => {
+    UserCollections.insert(changes.user.created);
+    ConversationOnetoOneCollections.insert(
+      changes.conversationOneToOne.created,
+    );
+    ChatOnetoOneCollections.insert(changes.chatsOneToOne.created);
+  });
 
-    batchTx.mutate(() => {
-      UserCollections.insert(user);
-      ConversationOnetoOneCollections.insert(conversation);
-      ChatOnetoOneCollections.insert(chat);
-    });
+  await batchTx.commit();
 
-    await batchTx.commit();
-  }
+  syncStorage.set("lastPulledAt", timestamp);
 }

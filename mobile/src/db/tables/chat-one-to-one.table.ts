@@ -16,8 +16,8 @@ export const chatOneToOneSchema = type({
   text: "0 < string <= 1000",
   mode: '"SENT" | "RECEIVED"',
   status: '"SENT" | "DELIVERED" | "SEEN"',
-  createdAt: type("number.integer").pipe((val) => new Date(val)),
-  updatedAt: type("number.integer").pipe((val) => new Date(val)),
+  createdAt: "number.integer",
+  updatedAt: "number.integer",
 });
 
 export type ChatOneToOne = typeof chatOneToOneSchema.infer;
