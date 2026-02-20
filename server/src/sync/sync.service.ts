@@ -8,7 +8,7 @@ import {
   ConversationOneToOneSyncChangeDto,
   ConversationOneToOneSyncDto,
 } from './dto/conversation-one-to-one-sync.dto';
-import { UserSyncDto } from './dto/user-sync.dto';
+import { UserSyncChangeDto, UserSyncDto } from './dto/user-sync.dto';
 import {
   ChatsOneToOneSyncChangeDto,
   ChatsOneToOneSyncDto,
@@ -77,20 +77,26 @@ export class SyncService {
       return {
         ...rest,
         userId: participants.find((id) => id !== userId) as string,
+        createdAt: c.createdAt.getTime(),
+        updatedAt: c.updatedAt.getTime(),
       };
     });
 
     return {
-      created: mappedConversations.filter((c) => c.createdAt > timestamp),
+      created: mappedConversations.filter(
+        (c) => c.createdAt > timestamp.getTime(),
+      ),
       updated: mappedConversations.filter(
-        (c) => c.createdAt <= timestamp && c.updatedAt > timestamp,
+        (c) =>
+          c.createdAt <= timestamp.getTime() &&
+          c.updatedAt > timestamp.getTime(),
       ),
       deleted: [],
     };
   }
 
   private async addMissingUserDetails(
-    userChanges: UserSyncDto,
+    userChanges: UserSyncChangeDto,
     involvedUserIds: Set<string>,
   ): Promise<void> {
     const syncedUserIds = new Set<string>([
@@ -114,16 +120,24 @@ export class SyncService {
   private async pullUserChanges(
     userIds: string[],
     timestamp: Date,
-  ): Promise<UserSyncDto> {
+  ): Promise<UserSyncChangeDto> {
     const users = await this.userService.findUsersWithChanges(
       userIds,
       timestamp,
     );
 
+    const mappedUsers = users.map((u) => ({
+      ...u,
+      createdAt: u.createdAt.getTime(),
+      updatedAt: u.updatedAt.getTime(),
+    }));
+
     return {
-      created: users.filter((u) => u.createdAt > timestamp),
-      updated: users.filter(
-        (u) => u.createdAt <= timestamp && u.updatedAt > timestamp,
+      created: mappedUsers.filter((u) => u.createdAt > timestamp.getTime()),
+      updated: mappedUsers.filter(
+        (u) =>
+          u.createdAt <= timestamp.getTime() &&
+          u.updatedAt > timestamp.getTime(),
       ),
       deleted: [],
     };
@@ -143,12 +157,16 @@ export class SyncService {
     const mappedChats: ChatsOneToOneSyncDto[] = chats.map((c) => ({
       ...c,
       mode: c.senderId === userId ? 'SENT' : 'RECEIVED',
+      createdAt: c.createdAt.getTime(),
+      updatedAt: c.updatedAt.getTime(),
     }));
 
     return {
-      created: mappedChats.filter((d) => d.createdAt > timestamp),
+      created: mappedChats.filter((d) => d.createdAt > timestamp.getTime()),
       updated: mappedChats.filter(
-        (d) => d.createdAt <= timestamp && d.updatedAt > timestamp,
+        (d) =>
+          d.createdAt <= timestamp.getTime() &&
+          d.updatedAt > timestamp.getTime(),
       ),
       deleted: [],
     };

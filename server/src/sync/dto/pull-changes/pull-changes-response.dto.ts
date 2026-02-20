@@ -1,14 +1,14 @@
 import { z } from 'zod';
 import { createZodDto } from 'nestjs-zod';
 
-import { userSyncSchema } from '../user-sync.dto';
+import { userSyncChangeSchema } from '../user-sync.dto';
 import { conversationOneToOneSyncChangeSchema } from '../conversation-one-to-one-sync.dto';
 import { chatsOneToOneSyncChangeSchema } from '../chats-one-to-one-sync.dto';
 
 export const pullChangesResponseSchema = z.object({
   timestamp: z.number(),
   changes: z.object({
-    user: userSyncSchema,
+    user: userSyncChangeSchema,
     conversationOneToOne: conversationOneToOneSyncChangeSchema,
     chatsOneToOne: chatsOneToOneSyncChangeSchema,
   }),

@@ -6,7 +6,11 @@ import { objectIdSchema } from 'src/common/schemas/object-id.schema';
 
 export const chatsOneToOneSyncSchema = chatsOneToOneSchema
   .omit({ senderId: true })
-  .extend({ mode: z.enum(['SENT', 'RECEIVED']) });
+  .extend({
+    mode: z.enum(['SENT', 'RECEIVED']),
+    createdAt: z.number(),
+    updatedAt: z.number(),
+  });
 
 export const chatsOneToOneSyncChangeSchema = z.object({
   created: chatsOneToOneSyncSchema.array(),
@@ -16,10 +20,7 @@ export const chatsOneToOneSyncChangeSchema = z.object({
 
 export class ChatsOneToOneSyncDto extends createZodDto(
   chatsOneToOneSyncSchema,
-) {
-  createdAt: Date;
-  updatedAt: Date;
-}
+) {}
 
 export class ChatsOneToOneSyncChangeDto extends createZodDto(
   chatsOneToOneSyncChangeSchema,

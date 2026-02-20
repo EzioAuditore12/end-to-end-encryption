@@ -6,7 +6,7 @@ import { objectIdSchema } from 'src/common/schemas/object-id.schema';
 
 export const conversationOneToOneSyncSchema = conversationOneToOneSchema
   .omit({ participants: true })
-  .extend({ userId: z.uuid() });
+  .extend({ userId: z.uuid(), createdAt: z.number(), updatedAt: z.number() });
 
 export const conversationOneToOneSyncChangeSchema = z.object({
   created: conversationOneToOneSyncSchema.array(),
