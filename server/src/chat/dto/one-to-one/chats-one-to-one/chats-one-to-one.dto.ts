@@ -1,10 +1,9 @@
 import { z } from 'zod';
 import { createZodDto } from 'nestjs-zod';
-import { objectIdSchema } from 'src/common/schemas/object-id.schema';
 
 export const chatsOneToOneSchema = z.object({
-  id: objectIdSchema,
-  conversationId: objectIdSchema,
+  id: z.any().transform((val) => String(val)),
+  conversationId: z.any().transform((val) => String(val)),
   senderId: z.uuid(),
   text: z.string().max(1000),
   status: z.enum(['SENT', 'DELIVERED', 'SEEN']),
@@ -14,7 +13,7 @@ export const chatsOneToOneSchema = z.object({
 
 export const convertChatsOneToOneFromMongoose = chatsOneToOneSchema
   .omit({ id: true })
-  .extend({ _id: objectIdSchema })
+  .extend({ _id: z.any().transform((val) => String(val)) })
   .transform(({ _id, ...rest }) => ({
     id: _id,
     ...rest,

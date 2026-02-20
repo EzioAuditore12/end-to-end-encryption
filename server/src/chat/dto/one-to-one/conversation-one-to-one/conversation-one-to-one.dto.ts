@@ -1,10 +1,8 @@
 import { z } from 'zod';
-
-import { objectIdSchema } from 'src/common/schemas/object-id.schema';
 import { createZodDto } from 'nestjs-zod';
 
 export const conversationOneToOneSchema = z.object({
-  id: objectIdSchema,
+  id: z.any().transform((val) => String(val)), // Change this
   participants: z.array(z.uuid()).length(2),
   createdAt: z.any(),
   updatedAt: z.any(),
@@ -13,7 +11,7 @@ export const conversationOneToOneSchema = z.object({
 export const convertConversationOneToOneSchemaFromMongoose =
   conversationOneToOneSchema
     .omit({ id: true })
-    .extend({ _id: objectIdSchema })
+    .extend({ _id: z.any().transform((val) => String(val)) }) // Change this
     .transform(({ _id, ...rest }) => ({
       id: _id,
       ...rest,

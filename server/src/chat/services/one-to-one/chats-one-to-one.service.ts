@@ -8,12 +8,13 @@ import {
   ChatsOneToOne,
   ChatsOneToOneDocument,
 } from 'src/chat/entities/one-to-one/chats-one-to-one.entity';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import {
   ChatsOneToOneDto,
   chatsOneToOneSchema,
   convertChatsOneToOneFromMongoose,
 } from 'src/chat/dto/one-to-one/chats-one-to-one/chats-one-to-one.dto';
+import { GenerateSnowFlakeId } from 'src/common/utils/snowflakeId';
 
 @Injectable()
 export class ChatsOneToOneService {
@@ -55,7 +56,7 @@ export class ChatsOneToOneService {
       insertOneToOneChatDto;
 
     const insertedChat = await this.chatsOneToOneRepository.create({
-      _id: id ?? new Types.ObjectId(),
+      _id: id ? BigInt(id) : new GenerateSnowFlakeId(1).generate(),
       conversationId,
       senderId,
       status,
@@ -68,7 +69,7 @@ export class ChatsOneToOneService {
   }
 
   async findChatsByConversationId(
-    conversationId: string,
+    conversationId: bigint,
   ): Promise<ChatsOneToOneDto[]> {
     const chats = await this.chatsOneToOneRepository.find({ conversationId });
 
@@ -76,7 +77,7 @@ export class ChatsOneToOneService {
   }
 
   async findChatsSince(
-    conversationId: string,
+    conversationId: bigint,
     timestamp: Date,
   ): Promise<ChatsOneToOneDto[]> {
     const chats = await this.chatsOneToOneRepository.find({
@@ -94,7 +95,7 @@ export class ChatsOneToOneService {
     if (!conversationIds.length) return [];
     const chats = await this.chatsOneToOneRepository.find({
       conversationId: {
-        $in: conversationIds.map((val) => new Types.ObjectId(val)),
+        $in: conversationIds.map((val) => BigInt(val)),
       },
       createdAt: { $gt: timestamp },
     });

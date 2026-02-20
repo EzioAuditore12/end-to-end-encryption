@@ -1,15 +1,24 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
 
+import { GenerateSnowFlakeId } from 'src/common/utils/snowflakeId';
+
 @Schema({ timestamps: true })
 export class ChatsOneToOne {
   @Prop({
-    type: Types.ObjectId,
+    type: BigInt,
+    required: true,
+    default: () => new GenerateSnowFlakeId(1).generate(),
+  })
+  _id: bigint;
+
+  @Prop({
+    type: BigInt,
     ref: 'ConversationOneToOne',
     required: true,
     index: true,
   })
-  conversationId: Types.ObjectId;
+  conversationId: BigInt;
 
   @Prop({ required: true })
   senderId: string;

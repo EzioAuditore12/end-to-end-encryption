@@ -11,7 +11,7 @@ export const conversationOneToOneSyncSchema = conversationOneToOneSchema
 export const conversationOneToOneSyncChangeSchema = z.object({
   created: conversationOneToOneSyncSchema.array(),
   updated: conversationOneToOneSyncSchema.array(),
-  deleted: z.array(objectIdSchema),
+  deleted: z.array(z.string()),
 });
 
 export class ConversationOneToOneSyncDto extends createZodDto(

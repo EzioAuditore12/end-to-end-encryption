@@ -2,7 +2,6 @@ import { z } from 'zod';
 import { createZodDto } from 'nestjs-zod';
 
 import { chatsOneToOneSchema } from 'src/chat/dto/one-to-one/chats-one-to-one/chats-one-to-one.dto';
-import { objectIdSchema } from 'src/common/schemas/object-id.schema';
 
 export const chatsOneToOneSyncSchema = chatsOneToOneSchema
   .omit({ senderId: true })
@@ -15,7 +14,7 @@ export const chatsOneToOneSyncSchema = chatsOneToOneSchema
 export const chatsOneToOneSyncChangeSchema = z.object({
   created: chatsOneToOneSyncSchema.array(),
   updated: chatsOneToOneSyncSchema.array(),
-  deleted: z.array(objectIdSchema),
+  deleted: z.array(z.string()),
 });
 
 export class ChatsOneToOneSyncDto extends createZodDto(
