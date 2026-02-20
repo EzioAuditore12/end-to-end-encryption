@@ -154,12 +154,16 @@ export class SyncService {
         timestamp,
       );
 
-    const mappedChats: ChatsOneToOneSyncDto[] = chats.map((c) => ({
-      ...c,
-      mode: c.senderId === userId ? 'SENT' : 'RECEIVED',
-      createdAt: c.createdAt.getTime(),
-      updatedAt: c.updatedAt.getTime(),
-    }));
+    const mappedChats: ChatsOneToOneSyncDto[] = chats.map((c) => {
+      const { createdAt, updatedAt, senderId, ...rest } = c;
+
+      return {
+        ...rest,
+        mode: senderId === userId ? 'SENT' : 'RECEIVED',
+        createdAt: createdAt.getTime(),
+        updatedAt: updatedAt.getTime(),
+      };
+    });
 
     return {
       created: mappedChats.filter((d) => d.createdAt > timestamp.getTime()),
