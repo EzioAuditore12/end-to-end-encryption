@@ -1,12 +1,34 @@
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, router } from "expo-router";
 import { ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Description } from "heroui-native/description";
+import { Button } from "heroui-native/button";
 
 import { useGetUser } from "@/features/common/hooks/use-get-user";
 
 import { useRefreshOnFocus } from "@/hooks/use-refresh-on-focus";
 import { UserProfileCard } from "@/features/common/components/user-profile-card";
+import { ConversationOnetoOneCollections } from "@/db/tanstack";
+import { Query, eq } from "@tanstack/react-db";
+
+/*
+const navigateToChat = async ({ userId }: { userId: string }) => {
+  router.dismissTo("/(main)");
+
+  const result = new Query()
+    .from({ conversations: ConversationOnetoOneCollections })
+    .where(({ conversations }) => eq(conversations.userId, userId))
+    .findOne();
+
+  if (result) {
+    router.navigate({
+      pathname: "/(main)/new-chat/[id]",
+      params: {
+        id: ,
+      },
+    });
+  }
+};*/
 
 export default function UserDetails() {
   const safeAreaInsets = useSafeAreaInsets();
@@ -35,6 +57,8 @@ export default function UserDetails() {
       contentContainerClassName="flex-grow-1 items-center justify-center gap-y-2 p-2"
     >
       <UserProfileCard className="w-full max-w-4xl" data={data} />
+
+      <Button>Chat with {data?.name}</Button>
     </ScrollView>
   );
 }

@@ -10,6 +10,7 @@ import { pullChanges } from "@/db/tanstack/sync";
 import { ConversationOnetoOneCollections } from "@/db/tanstack";
 
 import { ConversationList } from "@/features/home/components/conversation-list";
+import { encryption } from "@/features/chat/encryption";
 
 export default function HomeScreen() {
   const { logout, dhPrivateKey } = useAuthStore((state) => state);
@@ -54,7 +55,23 @@ export default function HomeScreen() {
         style={{ paddingBottom: safeAreaInsets.bottom }}
         className="flex-1 p-2"
       >
-        <Button onPress={pullChanges}>Pull Changes</Button>
+        <Button
+          onPress={
+            // () =>
+            // encryption.encrypt(
+            //   "3efb2c58fc8c9400e1c8d78d3e2909b66e54236fea9aa581679e5970b7c5d478",
+            //   "Hi sir how are you?? 🥲",
+            // )
+
+            () =>
+              encryption.decrypt(
+                "3efb2c58fc8c9400e1c8d78d3e2909b66e54236fea9aa581679e5970b7c5d478",
+                "197d95951eac04848efc8ac4b82f9086:cd5c63d0207aed7f5cb0e980a6b8182f8e5ce4fb52ad1dd3cf8624783a045c23",
+              )
+          }
+        >
+          Pull Changes
+        </Button>
 
         <ConversationList data={data} onEndReached={fetchNextPage} />
       </View>
