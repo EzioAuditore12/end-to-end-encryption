@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Repository } from 'typeorm';
+import { In, MoreThan, Repository } from 'typeorm';
 import { paginate, PaginateQuery, PaginationType } from 'nestjs-paginate';
 
 import { User } from './entities/user.entity';
@@ -17,16 +17,16 @@ export class UserService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<UserDto> {
+  public async create(createUserDto: CreateUserDto): Promise<UserDto> {
     const user = this.userRepository.create(createUserDto);
     return await this.userRepository.save(user);
   }
 
-  async findOne(id: string): Promise<UserDto | null> {
+  public async findOne(id: string): Promise<UserDto | null> {
     return await this.userRepository.findOne({ where: { id } });
   }
 
-  async findAll(query: PaginateQuery): Promise<SerachUserResponseDto> {
+  public async findAll(query: PaginateQuery): Promise<SerachUserResponseDto> {
     return await paginate(query, this.userRepository, {
       sortableColumns: ['createdAt', 'name', 'email'],
       nullSort: 'last',
@@ -39,15 +39,32 @@ export class UserService {
     });
   }
 
-  async findByEmail(email: string): Promise<UserDto | null> {
+  public async findByEmail(email: string): Promise<UserDto | null> {
     return await this.userRepository.findOne({ where: { email } });
   }
 
-  async findMultipleById(ids: string[]): Promise<PublicUserDto[]> {
+  public async findMultipleById(ids: string[]): Promise<PublicUserDto[]> {
     const users = await this.userRepository.find({
       where: { id: In(ids) },
     });
 
     return publicUserSchema.strip().array().parse(users);
+  }
+
+  public async findUsersWithChanges(
+    ids: string[],
+    since: Date,
+  ): Promise<PublicUserDto[]> {
+    if (ids.length === 0) return [];
+
+    const users = await this.userRepository.find({
+      where: {
+        id: In(ids),
+        updatedAt: MoreThan(since),
+      },
+      select: ['id', 'name', 'email', 'createdAt', 'updatedAt'],
+    });
+
+    return users;
   }
 }

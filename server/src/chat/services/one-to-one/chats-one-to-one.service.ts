@@ -11,6 +11,7 @@ import {
 import { Model, Types } from 'mongoose';
 import {
   ChatsOneToOneDto,
+  chatsOneToOneSchema,
   convertChatsOneToOneFromMongoose,
 } from 'src/chat/dto/one-to-one/chats-one-to-one/chats-one-to-one.dto';
 
@@ -64,5 +65,40 @@ export class ChatsOneToOneService {
     });
 
     return convertChatsOneToOneFromMongoose.parse(insertedChat);
+  }
+
+  async findChatsByConversationId(
+    conversationId: string,
+  ): Promise<ChatsOneToOneDto[]> {
+    const chats = await this.chatsOneToOneRepository.find({ conversationId });
+
+    return chatsOneToOneSchema.array().parse(chats);
+  }
+
+  async findChatsSince(
+    conversationId: string,
+    timestamp: Date,
+  ): Promise<ChatsOneToOneDto[]> {
+    const chats = await this.chatsOneToOneRepository.find({
+      conversationId,
+      createdAt: { $gt: timestamp },
+    });
+
+    return chatsOneToOneSchema.array().parse(chats);
+  }
+
+  async findChatsSinceForConversations(
+    conversationIds: string[],
+    timestamp: Date,
+  ): Promise<ChatsOneToOneDto[]> {
+    if (!conversationIds.length) return [];
+    const chats = await this.chatsOneToOneRepository.find({
+      conversationId: {
+        $in: conversationIds.map((val) => new Types.ObjectId(val)),
+      },
+      createdAt: { $gt: timestamp },
+    });
+
+    return chatsOneToOneSchema.array().parse(chats);
   }
 }

@@ -52,6 +52,52 @@ export class ConversationOneToOneService {
     return conversation;
   }
 
+  public async isExistingConversation(id: string): Promise<boolean> {
+    const exists = await this.conversationsOneToOneModel.exists({ _id: id });
+    return !!exists;
+  }
+
+  public async findAllUserConversationsAndContacts(
+    userId: string,
+  ): Promise<{ conversationIds: string[]; contactIds: string[] }> {
+    const allUserConversations = await this.conversationsOneToOneModel
+      .find({
+        participants: userId,
+      })
+      .select('_id participants');
+    const contactIds = new Set<string>();
+    const conversationIds: string[] = [];
+
+    allUserConversations.forEach((c) => {
+      conversationIds.push(c._id.toString());
+      c.participants.forEach((p) => {
+        const participantId = p.toString();
+        if (participantId !== userId) {
+          contactIds.add(participantId);
+        }
+      });
+    });
+
+    return {
+      conversationIds,
+      contactIds: Array.from(contactIds),
+    };
+  }
+
+  public async findConversationsContainingUser(
+    userId: string,
+    timestamp: Date,
+  ): Promise<ConversationOneToOneDto[]> {
+    const conversations = await this.conversationsOneToOneModel.find({
+      participants: userId,
+      updatedAt: { $gt: timestamp },
+    });
+
+    return convertConversationOneToOneSchemaFromMongoose
+      .array()
+      .parse(conversations);
+  }
+
   private async findConversationBetweenParicipants(
     participant1: string,
     participant2: string,
@@ -78,10 +124,5 @@ export class ConversationOneToOneService {
     });
 
     return convertConversationOneToOneSchemaFromMongoose.parse(conversation);
-  }
-
-  async isExistingConversation(id: string): Promise<boolean> {
-    const exists = await this.conversationsOneToOneModel.exists({ _id: id });
-    return !!exists;
   }
 }
