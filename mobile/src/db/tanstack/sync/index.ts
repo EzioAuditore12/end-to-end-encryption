@@ -11,7 +11,9 @@ import {
 } from "../collections";
 import { pullChangesApi } from "@/features/sync/api/pull-changes.api";
 
-const syncStorage = createMMKV({ id: "@tanstack-db/sync" });
+export const syncStorage = createMMKV({ id: "@tanstack-db/sync" });
+
+export const resetSyncTimeStamp = () => syncStorage.set("lastPulledAt", 0);
 
 export async function pullChanges() {
   let lastSyncedAt = syncStorage.getNumber("lastPulledAt");

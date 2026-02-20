@@ -57,7 +57,6 @@ export default function ChattingScreen() {
       />
 
       <View className="flex-1 relative p-2">
-        {/* Pass flattened data */}
         <OneOnOneChatList onStartReached={fetchNextPage} data={flatData} />
         <SendMessage conversationId={id} handleSubmit={sendChatMessage} />
       </View>

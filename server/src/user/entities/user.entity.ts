@@ -20,6 +20,9 @@ export class User {
   @Column({ type: 'text', nullable: false })
   password: string;
 
+  @Column({ type: 'text', nullable: true })
+  dhPublicKey: string | null;
+
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 

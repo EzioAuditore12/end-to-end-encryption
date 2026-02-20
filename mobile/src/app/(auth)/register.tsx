@@ -6,6 +6,7 @@ import { Link } from "expo-router";
 
 import { RegisterForm } from "@/features/auth/register/components/register-form";
 import { useRegister } from "@/features/auth/register/hooks/use-register";
+import { encryption } from "@/features/chat/encryption";
 
 export default function RegisterScreen() {
   const safeAreaInsets = useSafeAreaInsets();
@@ -24,6 +25,7 @@ export default function RegisterScreen() {
         className="w-full max-w-2xl"
         handleFormSubmit={mutate}
         isSubmitting={isPending}
+        dhPublicKey={encryption.generatePublicKey()}
       />
 
       <View className="flex-row items-center gap-x-1">

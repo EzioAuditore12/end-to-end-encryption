@@ -16,12 +16,14 @@ import {
 import { Description } from "heroui-native/description";
 
 interface RegisterFormProps extends CardRootProps {
+  dhPublicKey: string;
   isSubmitting: boolean;
   handleFormSubmit: (data: RegisterParam) => void;
 }
 
 export function RegisterForm({
   className,
+  dhPublicKey,
   isSubmitting,
   handleFormSubmit,
   ...props
@@ -30,17 +32,17 @@ export function RegisterForm({
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<RegisterParam>({
+  } = useForm<Omit<RegisterParam, "dhPublicKey">>({
     defaultValues: {
       name: "",
       email: "",
       password: "",
     },
-    resolver: arktypeResolver(registerParamSchema),
+    resolver: arktypeResolver(registerParamSchema.omit("dhPublicKey")),
   });
 
-  const onSubmit = (data: RegisterParam) => {
-    handleFormSubmit(data);
+  const onSubmit = (data: Omit<RegisterParam, "dhPublicKey">) => {
+    handleFormSubmit({ dhPublicKey, ...data });
   };
 
   return (

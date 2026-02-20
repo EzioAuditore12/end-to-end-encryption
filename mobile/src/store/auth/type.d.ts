@@ -3,8 +3,10 @@ import type { Tokens } from "@/features/common/schemas/tokens.schema";
 
 export type AuthStore = {
   user: User | undefined;
+  dhPrivateKey: string | undefined;
   tokens: Tokens | undefined;
   setUser: (data: User) => void;
   setTokens: (data: Tokens) => void;
+  setDhPrivateKey: (key: string) => void;
   logout: () => void;
 };

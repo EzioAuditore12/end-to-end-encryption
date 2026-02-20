@@ -39,7 +39,7 @@ export class AuthService {
   async registerUser(
     registerUserDto: RegisterUserDto,
   ): Promise<VerifiedUserDto> {
-    const { name, email, password } = registerUserDto;
+    const { name, email, dhPublicKey, password } = registerUserDto;
 
     const existingUser = await this.userSerice.findByEmail(email);
 
@@ -51,6 +51,7 @@ export class AuthService {
     const createdUser = await this.userSerice.create({
       name,
       email,
+      dhPublicKey,
       password: hashedPassword,
     });
 

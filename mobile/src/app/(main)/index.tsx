@@ -12,9 +12,11 @@ import { ConversationOnetoOneCollections } from "@/db/tanstack";
 import { ConversationList } from "@/features/home/components/conversation-list";
 
 export default function HomeScreen() {
-  const { logout } = useAuthStore((state) => state);
+  const { logout, dhPrivateKey } = useAuthStore((state) => state);
 
   const safeAreaInsets = useSafeAreaInsets();
+
+  console.log(dhPrivateKey);
 
   const { data, fetchNextPage } = useLiveInfiniteQuery(
     (q) =>
