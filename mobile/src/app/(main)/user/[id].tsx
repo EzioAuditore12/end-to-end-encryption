@@ -8,27 +8,39 @@ import { useGetUser } from "@/features/common/hooks/use-get-user";
 
 import { useRefreshOnFocus } from "@/hooks/use-refresh-on-focus";
 import { UserProfileCard } from "@/features/common/components/user-profile-card";
-import { ConversationOnetoOneCollections } from "@/db/tanstack";
-import { Query, eq } from "@tanstack/react-db";
+import { conversationOneToOneRepository } from "@/db/repositories/conversation-one-to-one.repository";
 
-/*
-const navigateToChat = async ({ userId }: { userId: string }) => {
+const navigateToChat = async ({
+  userId,
+  userName,
+}: {
+  userId: string;
+  userName: string;
+}) => {
+  const existingConversationWithUser =
+    await conversationOneToOneRepository.getByUserId(userId);
+
   router.dismissTo("/(main)");
 
-  const result = new Query()
-    .from({ conversations: ConversationOnetoOneCollections })
-    .where(({ conversations }) => eq(conversations.userId, userId))
-    .findOne();
-
-  if (result) {
+  if (existingConversationWithUser) {
     router.navigate({
-      pathname: "/(main)/new-chat/[id]",
+      pathname: "/(main)/chat/[id]",
       params: {
-        id: ,
+        id: existingConversationWithUser.id,
+        userId: existingConversationWithUser.userId,
       },
     });
+    return;
   }
-};*/
+
+  router.navigate({
+    pathname: "/(main)/new-chat/[id]",
+    params: {
+      id: userId,
+      name: userName,
+    },
+  });
+};
 
 export default function UserDetails() {
   const safeAreaInsets = useSafeAreaInsets();
@@ -58,7 +70,13 @@ export default function UserDetails() {
     >
       <UserProfileCard className="w-full max-w-4xl" data={data} />
 
-      <Button>Chat with {data?.name}</Button>
+      <Button
+        onPress={() =>
+          navigateToChat({ userId: id, userName: data?.name as string })
+        }
+      >
+        Chat with {data?.name}
+      </Button>
     </ScrollView>
   );
 }
