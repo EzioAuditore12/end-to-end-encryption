@@ -1,7 +1,11 @@
 import { Ionicons } from "@/components/icon";
 import { ThrottledTouchable } from "@/components/throttled-touchable";
-import { UserCollections } from "@/db/tanstack";
-import { eq, useLiveSuspenseQuery } from "@tanstack/react-db";
+import { withDatabase } from "@/db";
+import { User } from "@/db/models/user.model";
+import { USER_TABLE_NAME } from "@/db/tables/user.table";
+import { Database } from "@nozbe/watermelondb";
+import { withObservables } from "@nozbe/watermelondb/react";
+
 import { router } from "expo-router";
 import { Avatar } from "heroui-native/avatar";
 import { Description } from "heroui-native/description";
@@ -10,18 +14,11 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { cn } from "tailwind-variants";
 
 interface ChatterInfoProps extends ViewProps {
-  userId: string;
+  data: User;
 }
 
-export function ChatterInfo({ className, userId, ...props }: ChatterInfoProps) {
+export function ChatterInfo({ className, data, ...props }: ChatterInfoProps) {
   const safeAreaInsets = useSafeAreaInsets();
-
-  const { data } = useLiveSuspenseQuery((q) =>
-    q
-      .from({ user: UserCollections })
-      .where(({ user }) => eq(user.id, userId))
-      .findOne(),
-  );
 
   return (
     <View
@@ -55,3 +52,12 @@ export function ChatterInfo({ className, userId, ...props }: ChatterInfoProps) {
     </View>
   );
 }
+
+export const EnhancedChatterInfo = withDatabase(
+  withObservables(
+    ["id"],
+    ({ database, id }: { database: Database; id: string }) => ({
+      data: database.get<User>(USER_TABLE_NAME).findAndObserve(id),
+    }),
+  )(ChatterInfo),
+);

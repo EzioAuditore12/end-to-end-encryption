@@ -37,7 +37,7 @@ export class ChatsOneToOneService {
       updatedAt,
     });
 
-    const insertedChat = this.insert({
+    const insertedChat = await this.insert({
       conversationId: conversation.id,
       senderId,
       status: 'SENT',
@@ -48,6 +48,8 @@ export class ChatsOneToOneService {
 
     return insertedChat;
   }
+
+  
 
   async insert(
     insertOneToOneChatDto: InsertOneToOneChatDto,

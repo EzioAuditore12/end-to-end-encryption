@@ -1,17 +1,12 @@
-import { column, Table } from "@powersync/react-native";
-import { type } from "arktype";
+import { tableSchema } from "@nozbe/watermelondb";
 
-export const ConversationOneToOneTable = new Table({
-  userId: column.text,
-  createdAt: column.integer,
-  updatedAt: column.integer,
+export const CONVERSATION_ONE_TO_ONE_TABLE_NAME = "conversation_one_to_one";
+
+export const ConversationOneToOneTable = tableSchema({
+  name: CONVERSATION_ONE_TO_ONE_TABLE_NAME,
+  columns: [
+    { name: "user_id", type: "string" },
+    { name: "created_at", type: "number" },
+    { name: "updated_at", type: "number" },
+  ],
 });
-
-export const conversationOneToOneSchema = type({
-  id: "string",
-  userId: "string.uuid",
-  createdAt: "number.integer",
-  updatedAt: "number.integer",
-});
-
-export type ConversationOneToOne = typeof conversationOneToOneSchema.infer;

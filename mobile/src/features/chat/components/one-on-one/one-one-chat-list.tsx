@@ -4,37 +4,61 @@ import {
   type FlashListProps,
   type FlashListRef,
 } from "@shopify/flash-list";
-import { useRef, Activity, useState } from "react";
+import { useRef, Activity, useState, useMemo } from "react";
 import { Button } from "heroui-native/button";
 import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   View,
 } from "react-native";
-
-import type { ChatOneToOne } from "@/db/tables/chat-one-to-one.table";
+import { useDatabase } from "@nozbe/watermelondb/react";
+import { Q } from "@nozbe/watermelondb";
 
 import { ChatText } from "./chat-text";
 
 import { Ionicons } from "@/components/icon";
+import { ChatOneToOne } from "@/db/models/chat-one-to-one.model";
+
+import { CHAT_ONE_TO_ONE_TABLE_NAME } from "@/db/tables/chat-one-to-one.table";
+import { useWatermelonModelsPage } from "@/db/hooks/use-watermelondb-infinite-query";
 
 interface OneOnOneChatListProps extends Omit<
   FlashListProps<ChatOneToOne>,
   "data" | "children" | "keyExtractor" | "renderItem"
 > {
-  data: ChatOneToOne[];
+  conversationId: string;
 }
 
 export function OneOnOneChatList({
-  data,
   className,
+  conversationId,
   ...props
 }: OneOnOneChatListProps) {
   const ref = useRef<FlashListRef<ChatOneToOne> | null>(null);
+  const database = useDatabase();
 
+  const [data, setData] = useState<ChatOneToOne[]>([]);
   const [viewHeight, setViewHeight] = useState<number>(0);
   const [contentHeight, setContentHeight] = useState<number>(0);
   const [isAtListEnd, setIsAtListEnd] = useState<boolean>(false);
+
+  // 1. Sort DESCENDING to fetch the newest messages from the database first
+  const query = useMemo(
+    () => [
+      Q.where("conversation_id", conversationId),
+      Q.sortBy("created_at", Q.desc),
+    ],
+    [conversationId],
+  );
+
+  const { next } = useWatermelonModelsPage<ChatOneToOne>({
+    collection: CHAT_ONE_TO_ONE_TABLE_NAME,
+    database,
+    query,
+    // 2. Reverse the array so the newest message is at the bottom of the screen
+    onChange: (newData) => setData([...newData].reverse()),
+    limit: 10, // Increased to 20 for a smoother chat experience
+  });
 
   const scrollToEnd = () => {
     ref.current?.scrollToEnd({ animated: true });
@@ -62,11 +86,11 @@ export function OneOnOneChatList({
         onScroll={handleScroll}
         onContentSizeChange={(_, h) => setContentHeight(h)}
         data={data}
+        onStartReached={next} // 3. Fetch older messages when scrolling to the top
+        onStartReachedThreshold={0.5}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <ChatText data={item} />}
-        // Calculate initial index based on data length
         initialScrollIndex={data.length > 0 ? data.length - 1 : 0}
-        onStartReachedThreshold={0.5}
         maintainVisibleContentPosition={{
           startRenderingFromBottom: true,
           animateAutoScrollToBottom: true,
@@ -78,7 +102,7 @@ export function OneOnOneChatList({
         mode={viewHeight < contentHeight && !isAtListEnd ? "visible" : "hidden"}
       >
         <Button
-          className="absolute bottom-2 right-0"
+          className="absolute bottom-2 right-0 z-10"
           variant="tertiary"
           onPress={scrollToEnd}
         >

@@ -15,7 +15,7 @@ import type { FastifyReply } from 'fastify';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import type { AuthRequest } from 'src/auth/types/auth-jwt.payload';
 
-@Controller()
+@Controller('chat')
 export class ChatController {
   constructor(private readonly chatsOneToOneService: ChatsOneToOneService) {}
 

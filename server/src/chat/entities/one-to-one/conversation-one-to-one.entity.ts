@@ -22,7 +22,7 @@ export class ConversationOneToOne {
     ],
   })
   participants: string[];
-
+  
   createdAt: Date;
   updatedAt: Date;
 }

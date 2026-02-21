@@ -1,12 +1,17 @@
-import { column, Table } from "@powersync/react-native";
+import { tableSchema } from "@nozbe/watermelondb";
 import { type } from "arktype";
 
-export const UserTable = new Table({
-  name: column.text,
-  email: column.text,
-  dhPublicKey: column.text,
-  createdAt: column.integer,
-  updatedAt: column.integer,
+export const USER_TABLE_NAME = "user";
+
+export const UserTable = tableSchema({
+  name: USER_TABLE_NAME,
+  columns: [
+    { name: "name", type: "string" },
+    { name: "email", type: "string" },
+    { name: "dh_public_key", type: "string", isOptional: true },
+    { name: "created_at", type: "number" },
+    { name: "updated_at", type: "number" },
+  ],
 });
 
 export const userSchema = type({

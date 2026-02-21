@@ -62,7 +62,7 @@ export class UserService {
         id: In(ids),
         updatedAt: MoreThan(since),
       },
-      select: ['id', 'name', 'email', 'createdAt', 'updatedAt'],
+      select: ['id', 'name', 'email','dhPublicKey', 'createdAt', 'updatedAt'],
     });
 
     return users;

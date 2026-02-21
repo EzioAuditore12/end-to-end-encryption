@@ -3,8 +3,8 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 import type { AuthStore } from "./type";
 import { secureStorage } from "../storage";
-import { db } from "@/db";
-import { resetSyncTimeStamp } from "@/db/tanstack/sync";
+
+import { database } from "@/db";
 
 export const useAuthStore = create<AuthStore>()(
   persist(
@@ -22,11 +22,11 @@ export const useAuthStore = create<AuthStore>()(
         set({ dhPrivateKey: key });
       },
       async logout() {
-        await db.disconnectAndClear();
+        await database.write(async () => {
+          await database.unsafeResetDatabase();
+        });
 
         set({ user: undefined, tokens: undefined, dhPrivateKey: undefined });
-
-        resetSyncTimeStamp();
       },
     }),
     {
