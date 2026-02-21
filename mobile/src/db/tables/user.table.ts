@@ -1,6 +1,8 @@
 import { column, Table } from "@powersync/react-native";
 import { type } from "arktype";
 
+export const USER_TABLE_NAME = "user";
+
 export const UserTable = new Table({
   name: column.text,
   email: column.text,

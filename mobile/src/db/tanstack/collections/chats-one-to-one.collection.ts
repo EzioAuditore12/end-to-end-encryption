@@ -10,7 +10,7 @@ export const ChatOnetoOneCollections = createCollection(
   powerSyncCollectionOptions({
     database: db,
     schema: chatOneToOneSchema,
-    table: AppSchema.props.chatsOneToOne,
+    table: AppSchema.props.chat_one_to_one,
     onDeserializationError: (error) => {
       // Present fatal error
       console.log(error);

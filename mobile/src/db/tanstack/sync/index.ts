@@ -1,6 +1,5 @@
 import { createTransaction } from "@tanstack/react-db";
 import { PowerSyncTransactor } from "@tanstack/powersync-db-collection";
-import { createMMKV } from "react-native-mmkv";
 
 import { db } from "@/db";
 
@@ -10,15 +9,10 @@ import {
   ConversationOnetoOneCollections,
 } from "../collections";
 import { pullChangesApi } from "@/features/sync/api/pull-changes.api";
-
-export const syncStorage = createMMKV({ id: "@tanstack-db/sync" });
-
-export const resetSyncTimeStamp = () => syncStorage.set("lastPulledAt", 0);
+import { useDeviceStore } from "@/store/device";
 
 export async function pullChanges() {
-  let lastSyncedAt = syncStorage.getNumber("lastPulledAt");
-
-  if (!lastSyncedAt) lastSyncedAt = 0;
+  const lastSyncedAt = useDeviceStore.getState().lastSyncedAt;
 
   const { changes, timestamp } = await pullChangesApi({
     lastSyncedAt,
@@ -44,5 +38,5 @@ export async function pullChanges() {
 
   await batchTx.commit();
 
-  syncStorage.set("lastPulledAt", timestamp);
+  useDeviceStore.getState().updateLastSynedAt(timestamp);
 }

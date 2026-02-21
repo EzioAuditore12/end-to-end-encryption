@@ -6,7 +6,6 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export const publicUserSchema = userSchema.omit({
   password: true,
-  dhPublicKey: true,
 });
 
 export class PublicUserDto extends createZodDto(publicUserSchema) {

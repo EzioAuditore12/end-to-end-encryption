@@ -4,7 +4,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import type { AuthStore } from "./type";
 import { secureStorage } from "../storage";
 import { db } from "@/db";
-import { resetSyncTimeStamp } from "@/db/tanstack/sync";
+import { useDeviceStore } from "../device";
 
 export const useAuthStore = create<AuthStore>()(
   persist(
@@ -26,7 +26,7 @@ export const useAuthStore = create<AuthStore>()(
 
         set({ user: undefined, tokens: undefined, dhPrivateKey: undefined });
 
-        resetSyncTimeStamp();
+        useDeviceStore.getState().resetTimeStamp();
       },
     }),
     {

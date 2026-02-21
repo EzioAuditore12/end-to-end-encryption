@@ -1,6 +1,8 @@
 import { column, Table } from "@powersync/react-native";
 import { type } from "arktype";
 
+export const CONVERSATION_ONE_TO_ONE_TABLE_NAME = "conversation_one_to_one";
+
 export const ConversationOneToOneTable = new Table({
   userId: column.text,
   createdAt: column.integer,
