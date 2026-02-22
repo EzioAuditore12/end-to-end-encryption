@@ -1,30 +1,23 @@
-import { useLocalSearchParams, router } from "expo-router";
-import { ScrollView, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Description } from "heroui-native/description";
-import { Button } from "heroui-native/button";
+import { useLocalSearchParams, router } from 'expo-router';
+import { ScrollView, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Description } from 'heroui-native/description';
+import { Button } from 'heroui-native/button';
 
-import { useGetUser } from "@/features/common/hooks/use-get-user";
+import { useGetUser } from '@/features/common/hooks/use-get-user';
 
-import { useRefreshOnFocus } from "@/hooks/use-refresh-on-focus";
-import { UserProfileCard } from "@/features/common/components/user-profile-card";
-import { conversationOneToOneRepository } from "@/db/repositories/conversation-one-to-one.repository";
+import { useRefreshOnFocus } from '@/hooks/use-refresh-on-focus';
+import { UserProfileCard } from '@/features/common/components/user-profile-card';
+import { conversationOneToOneRepository } from '@/db/repositories/conversation-one-to-one.repository';
 
-const navigateToChat = async ({
-  userId,
-  userName,
-}: {
-  userId: string;
-  userName: string;
-}) => {
-  const existingConversationWithUser =
-    await conversationOneToOneRepository.getByUserId(userId);
+const navigateToChat = async ({ userId, userName }: { userId: string; userName: string }) => {
+  const existingConversationWithUser = await conversationOneToOneRepository.getByUserId(userId);
 
-  router.dismissTo("/(main)");
+  router.dismissTo('/(main)');
 
   if (existingConversationWithUser) {
     router.navigate({
-      pathname: "/(main)/chat/[id]",
+      pathname: '/(main)/chat/[id]',
       params: {
         id: existingConversationWithUser.id,
         userId: existingConversationWithUser.userId,
@@ -34,7 +27,7 @@ const navigateToChat = async ({
   }
 
   router.navigate({
-    pathname: "/(main)/new-chat/[id]",
+    pathname: '/(main)/new-chat/[id]',
     params: {
       id: userId,
       name: userName,
@@ -52,29 +45,24 @@ export default function UserDetails() {
   useRefreshOnFocus(refetch);
   if (error)
     return (
-      <View className="flex-1 justify-center items-center">
+      <View className="flex-1 items-center justify-center">
         <Description>{error.message}</Description>
       </View>
     );
 
   if (isLoading)
     return (
-      <View className="flex-1 justify-center items-center">
+      <View className="flex-1 items-center justify-center">
         <Description>Data is being loaded ...</Description>
       </View>
     );
   return (
     <ScrollView
       style={{ marginTop: safeAreaInsets.top }}
-      contentContainerClassName="flex-grow-1 items-center justify-center gap-y-2 p-2"
-    >
+      contentContainerClassName="flex-grow-1 items-center justify-center gap-y-2 p-2">
       <UserProfileCard className="w-full max-w-4xl" data={data} />
 
-      <Button
-        onPress={() =>
-          navigateToChat({ userId: id, userName: data?.name as string })
-        }
-      >
+      <Button onPress={() => navigateToChat({ userId: id, userName: data?.name as string })}>
         Chat with {data?.name}
       </Button>
     </ScrollView>

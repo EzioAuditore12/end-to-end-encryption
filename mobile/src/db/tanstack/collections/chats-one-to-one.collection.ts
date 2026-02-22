@@ -1,10 +1,10 @@
-import { powerSyncCollectionOptions } from "@tanstack/powersync-db-collection";
-import { createCollection } from "@tanstack/react-db";
+import { powerSyncCollectionOptions } from '@tanstack/powersync-db-collection';
+import { createCollection } from '@tanstack/react-db';
 
-import { db } from "@/db";
-import { AppSchema } from "@/db/schema";
+import { db } from '@/db';
+import { AppSchema } from '@/db/schema';
 
-import { chatOneToOneSchema } from "@/db/tables/chat-one-to-one.table";
+import { chatOneToOneSchema } from '@/db/tables/chat-one-to-one.table';
 
 export const ChatOnetoOneCollections = createCollection(
   powerSyncCollectionOptions({
@@ -15,5 +15,5 @@ export const ChatOnetoOneCollections = createCollection(
       // Present fatal error
       console.log(error);
     },
-  }),
+  })
 );

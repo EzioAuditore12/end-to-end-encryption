@@ -1,21 +1,17 @@
-import { FlashList, type FlashListProps } from "@shopify/flash-list";
-import { router } from "expo-router";
+import { FlashList, type FlashListProps } from '@shopify/flash-list';
+import { router } from 'expo-router';
 
-import { ConversationOneToOne } from "@/db/tables/conversation-one-to-one.table";
-import { ConversationOneToOneCard } from "./conversation-one-to-one-card";
+import { ConversationOneToOne } from '@/db/tables/conversation-one-to-one.table';
+import { ConversationOneToOneCard } from './conversation-one-to-one-card';
 
 interface ConversationListProps extends Omit<
   FlashListProps<ConversationOneToOne>,
-  "data" | "children" | "keyExtractor" | "renderItem"
+  'data' | 'children' | 'keyExtractor' | 'renderItem'
 > {
   data: ConversationOneToOne[];
 }
 
-export function ConversationList({
-  className,
-  data,
-  ...props
-}: ConversationListProps) {
+export function ConversationList({ className, data, ...props }: ConversationListProps) {
   return (
     <>
       <FlashList
@@ -28,7 +24,7 @@ export function ConversationList({
             data={item}
             onPress={() =>
               router.push({
-                pathname: "/chat/[id]",
+                pathname: '/chat/[id]',
                 params: { id: item.id, userId: item.userId },
               })
             }

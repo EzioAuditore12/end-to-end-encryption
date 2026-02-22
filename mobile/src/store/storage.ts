@@ -1,6 +1,6 @@
-import type { StateStorage } from "zustand/middleware";
-import { setItemAsync, getItemAsync, deleteItemAsync } from "expo-secure-store";
-import { createMMKV } from "react-native-mmkv";
+import type { StateStorage } from 'zustand/middleware';
+import { setItemAsync, getItemAsync, deleteItemAsync } from 'expo-secure-store';
+import { createMMKV } from 'react-native-mmkv';
 
 const mmkvStorage = createMMKV();
 

@@ -1,5 +1,5 @@
-import type { User } from "@/features/common/schemas/user.schema";
-import type { Tokens } from "@/features/common/schemas/tokens.schema";
+import type { User } from '@/features/common/schemas/user.schema';
+import type { Tokens } from '@/features/common/schemas/tokens.schema';
 
 export type AuthStore = {
   user: User | undefined;

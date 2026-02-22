@@ -1,39 +1,31 @@
-import { Controller, useForm } from "react-hook-form";
-import { arktypeResolver } from "@hookform/resolvers/arktype";
-import { cn } from "tailwind-variants";
+import { Controller, useForm } from 'react-hook-form';
+import { arktypeResolver } from '@hookform/resolvers/arktype';
+import { cn } from 'tailwind-variants';
 
-import { Card, type CardRootProps } from "heroui-native/card";
-import { TextField } from "heroui-native/text-field";
-import { Label } from "heroui-native/label";
-import { Input } from "heroui-native/input";
-import { FieldError } from "heroui-native/field-error";
-import { Button } from "heroui-native/button";
+import { Card, type CardRootProps } from 'heroui-native/card';
+import { TextField } from 'heroui-native/text-field';
+import { Label } from 'heroui-native/label';
+import { Input } from 'heroui-native/input';
+import { FieldError } from 'heroui-native/field-error';
+import { Button } from 'heroui-native/button';
 
-import {
-  loginParamSchema,
-  type LoginParam,
-} from "../schemas/login-param.schema";
-import { Description } from "heroui-native/description";
+import { loginParamSchema, type LoginParam } from '../schemas/login-param.schema';
+import { Description } from 'heroui-native/description';
 
 interface LoginFormProps extends CardRootProps {
   isSubmitting: boolean;
   handleFormSubmit: (data: LoginParam) => void;
 }
 
-export function LoginForm({
-  className,
-  isSubmitting,
-  handleFormSubmit,
-  ...props
-}: LoginFormProps) {
+export function LoginForm({ className, isSubmitting, handleFormSubmit, ...props }: LoginFormProps) {
   const {
     control,
     formState: { errors },
     handleSubmit,
   } = useForm<LoginParam>({
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
     resolver: arktypeResolver(loginParamSchema),
   });
@@ -85,7 +77,7 @@ export function LoginForm({
         />
 
         <Button onPress={handleSubmit(onSubmit)} isDisabled={isSubmitting}>
-          {isSubmitting ? "Submitting" : "Submit"}
+          {isSubmitting ? 'Submitting' : 'Submit'}
         </Button>
       </Card.Body>
     </Card>

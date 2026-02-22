@@ -1,16 +1,9 @@
-import {
-  HeroUINativeProvider,
-  type HeroUINativeConfig,
-} from "heroui-native/provider";
-import type { PropsWithChildren } from "react";
-import { useUniwind } from "uniwind";
-import {
-  ThemeProvider,
-  DarkTheme,
-  DefaultTheme,
-} from "@react-navigation/native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { StatusBar } from "expo-status-bar";
+import { HeroUINativeProvider, type HeroUINativeConfig } from 'heroui-native/provider';
+import type { PropsWithChildren } from 'react';
+import { useUniwind } from 'uniwind';
+import { ThemeProvider, DarkTheme, DefaultTheme } from '@react-navigation/native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { StatusBar } from 'expo-status-bar';
 
 const config: HeroUINativeConfig = {
   textProps: {
@@ -32,8 +25,8 @@ export function HeroUIThemeProvider({ children }: PropsWithChildren) {
   const { theme } = useUniwind();
 
   return (
-    <ThemeProvider value={theme === "dark" ? DarkTheme : DefaultTheme}>
-      <StatusBar style={theme === "dark" ? "light" : "dark"} />
+    <ThemeProvider value={theme === 'dark' ? DarkTheme : DefaultTheme}>
+      <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
       <GestureHandlerRootView style={{ flex: 1 }}>
         <HeroUINativeProvider config={config}>{children}</HeroUINativeProvider>
       </GestureHandlerRootView>

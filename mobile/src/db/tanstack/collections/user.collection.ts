@@ -1,10 +1,10 @@
-import { powerSyncCollectionOptions } from "@tanstack/powersync-db-collection";
-import { createCollection } from "@tanstack/react-db";
+import { powerSyncCollectionOptions } from '@tanstack/powersync-db-collection';
+import { createCollection } from '@tanstack/react-db';
 
-import { db } from "@/db";
-import { AppSchema } from "@/db/schema";
+import { db } from '@/db';
+import { AppSchema } from '@/db/schema';
 
-import { userSchema } from "@/db/tables/user.table";
+import { userSchema } from '@/db/tables/user.table';
 
 export const UserCollections = createCollection(
   powerSyncCollectionOptions({
@@ -15,5 +15,5 @@ export const UserCollections = createCollection(
       // Present fatal error
       console.log(error);
     },
-  }),
+  })
 );

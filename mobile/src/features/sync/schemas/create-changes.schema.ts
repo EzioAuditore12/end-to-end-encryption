@@ -1,4 +1,4 @@
-import { Type, type } from "arktype";
+import { Type, type } from 'arktype';
 
 interface Changes<T> {
   created: T[];
@@ -10,6 +10,6 @@ export const createChangesSchema = <T>(schema: Type<T>): Type<Changes<T>> => {
   return type({
     created: schema.array(),
     updated: schema.array(),
-    deleted: "string[]",
+    deleted: 'string[]',
   });
 };

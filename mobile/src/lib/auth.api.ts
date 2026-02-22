@@ -1,10 +1,10 @@
-import * as s from "standard-parse";
-import { fetch, FetchProps, HttpMethods } from "./fetch";
-import { env } from "@/env";
-import { useAuthStore } from "@/store/auth";
-import { refreshAccessToken } from "./tokens-manager";
+import * as s from 'standard-parse';
+import { fetch, FetchProps, HttpMethods } from './fetch';
+import { env } from '@/env';
+import { useAuthStore } from '@/store/auth';
+import { refreshAccessToken } from './tokens-manager';
 
-interface AuthenticatedFetchProps extends Omit<FetchProps, "body" | "method"> {
+interface AuthenticatedFetchProps extends Omit<FetchProps, 'body' | 'method'> {
   baseUrl?: string;
   url: string;
   responseStatus?: number;
@@ -23,10 +23,10 @@ export const authenticatedFetch = async ({
 }: AuthenticatedFetchProps) => {
   const accessToken = useAuthStore.getState().tokens?.accessToken;
 
-  if (!accessToken) throw new Error("No authentication token provided");
+  if (!accessToken) throw new Error('No authentication token provided');
 
   const authHeaders = {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
     Authorization: `Bearer ${accessToken}`,
     ...(headers || {}),
   };
@@ -62,7 +62,7 @@ export const authenticatedFetch = async ({
         ...props,
       });
     } catch (error) {
-      alert("Session expired. Please login again.");
+      alert('Session expired. Please login again.');
       throw error;
     }
   }
@@ -90,24 +90,20 @@ export const authenticatedTypedFetch = async <S extends s.StandardSchemaV1>({
   params,
   method,
   ...props
-}: TypedAuthenticatedFetchProps<S>): Promise<
-  s.StandardSchemaV1.InferOutput<S>
-> => {
+}: TypedAuthenticatedFetchProps<S>): Promise<s.StandardSchemaV1.InferOutput<S>> => {
   const accessToken = useAuthStore.getState().tokens?.accessToken;
 
-  if (!accessToken) throw new Error("No authentication token provided");
+  if (!accessToken) throw new Error('No authentication token provided');
 
   let authHeaders = {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
     Authorization: `Bearer ${accessToken}`,
     ...(headers || {}),
   };
 
   if (params !== undefined) {
-    const paramsValues = new URLSearchParams(
-      params as Record<string, string>,
-    ).toString();
-    url = url + (url.includes("?") ? "&" : "?") + paramsValues;
+    const paramsValues = new URLSearchParams(params as Record<string, string>).toString();
+    url = url + (url.includes('?') ? '&' : '?') + paramsValues;
   }
 
   const requestOptions = {
@@ -133,7 +129,7 @@ export const authenticatedTypedFetch = async <S extends s.StandardSchemaV1>({
 
       // 3. Update headers
       authHeaders = {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${newAccessToken}`,
         ...(headers || {}),
       };
@@ -145,7 +141,7 @@ export const authenticatedTypedFetch = async <S extends s.StandardSchemaV1>({
         ...props,
       });
     } catch (error) {
-      alert("Session expired. Please login again.");
+      alert('Session expired. Please login again.');
       throw error;
     }
   }

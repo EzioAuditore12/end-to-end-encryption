@@ -1,12 +1,12 @@
-import { Redirect, Stack } from "expo-router";
-import "@/lib/polyfills";
+import { Redirect, Stack } from 'expo-router';
+import '@/lib/polyfills';
 
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from '@/store/auth';
 
 export default function MainScreensLayout() {
   const { tokens } = useAuthStore((state) => state);
 
-  if (!tokens) return <Redirect href={"/(auth)/login"} />;
+  if (!tokens) return <Redirect href={'/(auth)/login'} />;
   return (
     <Stack initialRouteName="index">
       <Stack.Screen name="index" />
@@ -14,6 +14,7 @@ export default function MainScreensLayout() {
       <Stack.Screen name="profile" options={{ headerShown: false }} />
       <Stack.Screen name="user/[id]" options={{ headerShown: false }} />
       <Stack.Screen name="chat/[id]" />
+      <Stack.Screen name="new-chat/[id]" />
     </Stack>
   );
 }

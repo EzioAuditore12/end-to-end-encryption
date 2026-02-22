@@ -1,22 +1,16 @@
-import { View, type ViewProps } from "react-native";
-import { Controller, useForm } from "react-hook-form";
-import { arktypeResolver } from "@hookform/resolvers/arktype";
-import Animated, { useAnimatedStyle } from "react-native-reanimated";
-import { cn } from "tailwind-variants";
-import { Button } from "heroui-native/button";
-import { Input } from "heroui-native/input";
-import { type } from "arktype";
-import { useGradualAnimation } from "@/hooks/use-gradual-animation";
+import { View, type ViewProps } from 'react-native';
+import { Controller, useForm } from 'react-hook-form';
+import { arktypeResolver } from '@hookform/resolvers/arktype';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
+import { cn } from 'tailwind-variants';
+import { Button } from 'heroui-native/button';
+import { Input } from 'heroui-native/input';
+import { type } from 'arktype';
+import { useGradualAnimation } from '@/hooks/use-gradual-animation';
 
 interface SendMessageProps extends ViewProps {
   conversationId: string;
-  handleSubmit: ({
-    conversationId,
-    text,
-  }: {
-    conversationId: string;
-    text: string;
-  }) => void;
+  handleSubmit: ({ conversationId, text }: { conversationId: string; text: string }) => void;
 }
 
 export function SendMessage({
@@ -39,9 +33,9 @@ export function SendMessage({
     handleSubmit: handlFormSubmit,
   } = useForm<{ text: string }>({
     defaultValues: {
-      text: "",
+      text: '',
     },
-    resolver: arktypeResolver(type({ text: "0 < string <= 1000" })),
+    resolver: arktypeResolver(type({ text: '0 < string <= 1000' })),
   });
 
   const onSubmit = (data: { text: string }) => {
@@ -51,7 +45,7 @@ export function SendMessage({
   };
 
   return (
-    <View className={cn("border-t-2 border-gray-400", className)} {...props}>
+    <View className={cn('border-t-2 border-gray-400', className)} {...props}>
       <View className="flex-row items-center p-2">
         <Controller
           control={control}

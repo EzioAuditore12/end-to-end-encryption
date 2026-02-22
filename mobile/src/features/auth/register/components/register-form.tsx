@@ -1,19 +1,16 @@
-import { Controller, useForm } from "react-hook-form";
-import { arktypeResolver } from "@hookform/resolvers/arktype";
-import { cn } from "tailwind-variants";
+import { Controller, useForm } from 'react-hook-form';
+import { arktypeResolver } from '@hookform/resolvers/arktype';
+import { cn } from 'tailwind-variants';
 
-import { Card, type CardRootProps } from "heroui-native/card";
-import { TextField } from "heroui-native/text-field";
-import { Label } from "heroui-native/label";
-import { Input } from "heroui-native/input";
-import { FieldError } from "heroui-native/field-error";
-import { Button } from "heroui-native/button";
+import { Card, type CardRootProps } from 'heroui-native/card';
+import { TextField } from 'heroui-native/text-field';
+import { Label } from 'heroui-native/label';
+import { Input } from 'heroui-native/input';
+import { FieldError } from 'heroui-native/field-error';
+import { Button } from 'heroui-native/button';
 
-import {
-  registerParamSchema,
-  type RegisterParam,
-} from "../schemas/register-param.schema";
-import { Description } from "heroui-native/description";
+import { registerParamSchema, type RegisterParam } from '../schemas/register-param.schema';
+import { Description } from 'heroui-native/description';
 
 interface RegisterFormProps extends CardRootProps {
   dhPublicKey: string;
@@ -32,16 +29,16 @@ export function RegisterForm({
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<Omit<RegisterParam, "dhPublicKey">>({
+  } = useForm<Omit<RegisterParam, 'dhPublicKey'>>({
     defaultValues: {
-      name: "",
-      email: "",
-      password: "",
+      name: '',
+      email: '',
+      password: '',
     },
-    resolver: arktypeResolver(registerParamSchema.omit("dhPublicKey")),
+    resolver: arktypeResolver(registerParamSchema.omit('dhPublicKey')),
   });
 
-  const onSubmit = (data: Omit<RegisterParam, "dhPublicKey">) => {
+  const onSubmit = (data: Omit<RegisterParam, 'dhPublicKey'>) => {
     handleFormSubmit({ dhPublicKey, ...data });
   };
 
@@ -105,7 +102,7 @@ export function RegisterForm({
         />
 
         <Button onPress={handleSubmit(onSubmit)} isDisabled={isSubmitting}>
-          {isSubmitting ? "Submitting" : "Submit"}
+          {isSubmitting ? 'Submitting' : 'Submit'}
         </Button>
       </Card.Body>
     </Card>

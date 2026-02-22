@@ -1,9 +1,9 @@
-import { type } from "arktype";
+import { type } from 'arktype';
 
-import { tableNames } from "../table-names.schema";
+import { tableNames } from '../table-names.schema';
 
 export const pullChangesParamSchema = type({
-  lastSyncedAt: "number",
+  lastSyncedAt: 'number',
   tableNames: tableNames,
 });
 

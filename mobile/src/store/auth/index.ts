@@ -1,10 +1,10 @@
-import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
-import type { AuthStore } from "./type";
-import { secureStorage } from "../storage";
-import { db } from "@/db";
-import { useDeviceStore } from "../device";
+import type { AuthStore } from './type';
+import { secureStorage } from '../storage';
+import { db } from '@/db';
+import { useDeviceStore } from '../device';
 
 export const useAuthStore = create<AuthStore>()(
   persist(
@@ -30,8 +30,8 @@ export const useAuthStore = create<AuthStore>()(
       },
     }),
     {
-      name: "auth-store",
+      name: 'auth-store',
       storage: createJSONStorage(() => secureStorage),
-    },
-  ),
+    }
+  )
 );

@@ -1,7 +1,7 @@
-import { column, Table } from "@powersync/react-native";
-import { type } from "arktype";
+import { column, Table } from '@powersync/react-native';
+import { type } from 'arktype';
 
-export const USER_TABLE_NAME = "user";
+export const USER_TABLE_NAME = 'user';
 
 export const UserTable = new Table({
   name: column.text,
@@ -12,12 +12,12 @@ export const UserTable = new Table({
 });
 
 export const userSchema = type({
-  id: "string.uuid",
-  name: "0 < string <= 50",
-  email: "0 < string.email <= 240",
-  dhPublicKey: "string | null",
-  createdAt: "number.integer",
-  updatedAt: "number.integer",
+  id: 'string.uuid',
+  name: '0 < string <= 50',
+  email: '0 < string.email <= 240',
+  dhPublicKey: 'string | null',
+  createdAt: 'number.integer',
+  updatedAt: 'number.integer',
 });
 
 export type User = typeof userSchema.infer;

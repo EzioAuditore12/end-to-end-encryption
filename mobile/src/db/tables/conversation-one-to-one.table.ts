@@ -1,7 +1,7 @@
-import { column, Table } from "@powersync/react-native";
-import { type } from "arktype";
+import { column, Table } from '@powersync/react-native';
+import { type } from 'arktype';
 
-export const CONVERSATION_ONE_TO_ONE_TABLE_NAME = "conversation_one_to_one";
+export const CONVERSATION_ONE_TO_ONE_TABLE_NAME = 'conversation_one_to_one';
 
 export const ConversationOneToOneTable = new Table({
   userId: column.text,
@@ -10,10 +10,10 @@ export const ConversationOneToOneTable = new Table({
 });
 
 export const conversationOneToOneSchema = type({
-  id: "string",
-  userId: "string.uuid",
-  createdAt: "number.integer",
-  updatedAt: "number.integer",
+  id: 'string',
+  userId: 'string.uuid',
+  createdAt: 'number.integer',
+  updatedAt: 'number.integer',
 });
 
 export type ConversationOneToOne = typeof conversationOneToOneSchema.infer;

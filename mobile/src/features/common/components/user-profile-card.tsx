@@ -1,27 +1,23 @@
-import { Card, CardRootProps } from "heroui-native/card";
+import { Card, CardRootProps } from 'heroui-native/card';
 
-import type { User } from "../schemas/user.schema";
+import type { User } from '../schemas/user.schema';
 
-import { Description } from "heroui-native/description";
-import { cn } from "tailwind-variants";
-import { Avatar } from "heroui-native/avatar";
+import { Description } from 'heroui-native/description';
+import { cn } from 'tailwind-variants';
+import { Avatar } from 'heroui-native/avatar';
 
 interface UserProfileCardProps extends CardRootProps {
   data: User | undefined;
 }
 
-export function UserProfileCard({
-  className,
-  data,
-  ...props
-}: UserProfileCardProps) {
+export function UserProfileCard({ className, data, ...props }: UserProfileCardProps) {
   if (!data) return <Description>Nothing to show</Description>;
 
   const { id, name, email, createdAt, updatedAt } = data;
 
   return (
     <Card key={id} className={cn(className)} {...props}>
-      <Card.Header className="justify-center items-center">
+      <Card.Header className="items-center justify-center">
         <Avatar alt={name} className="size-28">
           <Avatar.Image />
           <Avatar.Fallback>{name[0]}</Avatar.Fallback>

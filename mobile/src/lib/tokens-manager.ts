@@ -1,6 +1,6 @@
-import { refreshTokensApi } from "@/features/auth/refresh/api/refresh.api";
+import { refreshTokensApi } from '@/features/auth/refresh/api/refresh.api';
 
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from '@/store/auth';
 
 let refreshPromise: Promise<void> | null = null;
 
@@ -16,11 +16,12 @@ export const refreshAccessToken = async (): Promise<void> => {
       const refreshToken = useAuthStore.getState().tokens?.refreshToken;
 
       if (!refreshToken) {
-        throw new Error("No refresh token available");
+        throw new Error('No refresh token available');
       }
 
-      const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
-        await refreshTokensApi({ refreshToken });
+      const { accessToken: newAccessToken, refreshToken: newRefreshToken } = await refreshTokensApi(
+        { refreshToken }
+      );
 
       useAuthStore.getState().setTokens({
         accessToken: newAccessToken,

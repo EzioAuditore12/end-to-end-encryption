@@ -1,21 +1,19 @@
-import { type } from "arktype";
+import { type } from 'arktype';
 
-import { createChangesSchema } from "../create-changes.schema";
+import { createChangesSchema } from '../create-changes.schema';
 
-import { userSchema } from "@/db/tables/user.table";
-import { conversationOneToOneSchema } from "@/db/tables/conversation-one-to-one.table";
-import { chatOneToOneSchema } from "@/db/tables/chat-one-to-one.table";
+import { userSchema } from '@/db/tables/user.table';
+import { conversationOneToOneSchema } from '@/db/tables/conversation-one-to-one.table';
+import { chatOneToOneSchema } from '@/db/tables/chat-one-to-one.table';
 
 const userChangeSchema = createChangesSchema(userSchema);
 
-const conversationOneToOneChangeSchema = createChangesSchema(
-  conversationOneToOneSchema,
-);
+const conversationOneToOneChangeSchema = createChangesSchema(conversationOneToOneSchema);
 
 const chatOneToOneChangeSchema = createChangesSchema(chatOneToOneSchema);
 
 export const pullChangesResponseSchema = type({
-  timestamp: "number",
+  timestamp: 'number',
   changes: {
     user: userChangeSchema,
     conversationOneToOne: conversationOneToOneChangeSchema,
