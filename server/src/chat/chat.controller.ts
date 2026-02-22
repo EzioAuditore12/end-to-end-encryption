@@ -7,7 +7,7 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { StartNewConversationDto } from './dto/one-to-one/start-new-conversation.dto';
+import { StartNewConversationDto } from './dto/one-to-one/start-new-chat/start-new-conversation.dto';
 import { ChatsOneToOneService } from './services/one-to-one/chats-one-to-one.service';
 import { ApiCreatedResponse, ApiHeader, ApiResponse } from '@nestjs/swagger';
 import { ChatsOneToOneDto } from './dto/one-to-one/chats-one-to-one/chats-one-to-one.dto';
