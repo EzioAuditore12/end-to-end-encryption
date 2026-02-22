@@ -1,5 +1,4 @@
 import "../../global.css";
-import "@/lib/polyfills";
 
 import { Stack } from "expo-router";
 import { KeyboardProvider } from "react-native-keyboard-controller";

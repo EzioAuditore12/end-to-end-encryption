@@ -1,15 +1,9 @@
-import { Type, type } from "arktype";
+import { z, ZodTypeAny } from "zod";
 
-interface Changes<T> {
-  created: T[];
-  updated: T[];
-  deleted: string[];
-}
-
-export const createChangesSchema = <T>(schema: Type<T>): Type<Changes<T>> => {
-  return type({
-    created: schema.array(),
-    updated: schema.array(),
-    deleted: "string[]",
+export const createChangesSchema = <T extends ZodTypeAny>(schema: T) => {
+  return z.object({
+    created: z.array(schema),
+    updated: z.array(schema),
+    deleted: z.array(z.string()),
   });
 };

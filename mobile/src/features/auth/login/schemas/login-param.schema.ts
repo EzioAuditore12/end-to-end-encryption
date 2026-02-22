@@ -1,8 +1,8 @@
-import { type } from "arktype";
+import { z } from "zod";
 
-export const loginParamSchema = type({
-  email: "0 < string.email <= 240",
-  password: "string > 0",
+export const loginParamSchema = z.object({
+  email: z.email().max(240),
+  password: z.string().nonempty(),
 });
 
-export type LoginParam = typeof loginParamSchema.infer;
+export type LoginParam = z.infer<typeof loginParamSchema>;

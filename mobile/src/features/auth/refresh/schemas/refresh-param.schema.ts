@@ -1,7 +1,7 @@
-import { type } from "arktype";
+import { z } from "zod";
 
-export const refreshParamSchema = type({
-  refreshToken: "string",
-});
+import { tokensSchema } from "@/features/common/schemas/tokens.schema";
 
-export type RefreshParam = typeof refreshParamSchema.infer;
+export const refreshParamSchema = tokensSchema.pick({ refreshToken: true });
+
+export type RefreshParam = z.infer<typeof refreshParamSchema>;

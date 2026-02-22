@@ -1,19 +1,34 @@
-import { column, Table } from "@powersync/react-native";
-import { type } from "arktype";
+import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import { z } from "zod";
 
 export const CONVERSATION_ONE_TO_ONE_TABLE_NAME = "conversation_one_to_one";
 
-export const ConversationOneToOneTable = new Table({
-  userId: column.text,
-  createdAt: column.integer,
-  updatedAt: column.integer,
-});
+export const conversationOneToOneTable = sqliteTable(
+  CONVERSATION_ONE_TO_ONE_TABLE_NAME,
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id").unique().notNull(),
+    createdAt: integer("created_at")
+      .$defaultFn(() => Date.now())
+      .notNull(),
+    updatedAt: integer("updated_at")
+      .$onUpdate(() => Date.now())
+      .notNull(),
+  },
+);
 
-export const conversationOneToOneSchema = type({
-  id: "string",
-  userId: "string.uuid",
-  createdAt: "number.integer",
-  updatedAt: "number.integer",
-});
+export const selectConversationOneToOneSchema = createSelectSchema(
+  conversationOneToOneTable,
+);
 
-export type ConversationOneToOne = typeof conversationOneToOneSchema.infer;
+export const insertConversationOneToOneSchema = createInsertSchema(
+  conversationOneToOneTable,
+);
+
+export type ConversationOneToOne = z.infer<
+  typeof selectConversationOneToOneSchema
+>;
+export type InsertConversationOneToOne = z.infer<
+  typeof insertConversationOneToOneSchema
+>;

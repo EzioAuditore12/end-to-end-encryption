@@ -1,8 +1,8 @@
-import { type } from "arktype";
+import { z } from "zod";
 
-export const tokensSchema = type({
-  accessToken: "string",
-  refreshToken: "string",
+export const tokensSchema = z.object({
+  accessToken: z.jwt(),
+  refreshToken: z.jwt(),
 });
 
-export type Tokens = typeof tokensSchema.infer;
+export type Tokens = z.infer<typeof tokensSchema>;

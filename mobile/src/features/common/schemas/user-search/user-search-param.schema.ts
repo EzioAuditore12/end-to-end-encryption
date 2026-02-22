@@ -1,9 +1,9 @@
-import { type } from "arktype";
+import { z } from "zod";
 
-export const userSearchParamSchema = type({
-  search: "0 < string <= 50",
-  page: "number.integer >= 0",
-  limit: "number.integer >= 0",
+export const userSearchParamSchema = z.object({
+  search: z.string().max(50),
+  page: z.number().positive(),
+  limit: z.number().positive(),
 });
 
-export type UserSearchParam = typeof userSearchParamSchema.infer;
+export type UserSearchParam = z.infer<typeof userSearchParamSchema>;

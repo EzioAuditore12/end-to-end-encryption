@@ -1,11 +1,12 @@
 import { View, type ViewProps } from "react-native";
 import { Controller, useForm } from "react-hook-form";
-import { arktypeResolver } from "@hookform/resolvers/arktype";
+import { z } from "zod";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import { cn } from "tailwind-variants";
 import { Button } from "heroui-native/button";
 import { Input } from "heroui-native/input";
-import { type } from "arktype";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { useGradualAnimation } from "@/hooks/use-gradual-animation";
 
 interface SendMessageProps extends ViewProps {
@@ -41,7 +42,7 @@ export function SendMessage({
     defaultValues: {
       text: "",
     },
-    resolver: arktypeResolver(type({ text: "0 < string <= 1000" })),
+    resolver: zodResolver(z.object({ text: z.string().nonempty().max(1000) })),
   });
 
   const onSubmit = (data: { text: string }) => {

@@ -1,11 +1,11 @@
-import { type } from "arktype";
+import { z } from "zod";
 
-export const userSchema = type({
-  id: "string.uuid",
-  name: "0 < string <= 50",
-  email: "0 < string.email <= 240",
-  createdAt: "string.date",
-  updatedAt: "string.date",
+export const userSchema = z.object({
+  id: z.uuid(),
+  name: z.string().max(50),
+  email: z.email().max(240),
+  createdAt: z.iso.datetime(),
+  updatedAt: z.iso.datetime(),
 });
 
-export type User = typeof userSchema.infer;
+export type User = z.infer<typeof userSchema>;

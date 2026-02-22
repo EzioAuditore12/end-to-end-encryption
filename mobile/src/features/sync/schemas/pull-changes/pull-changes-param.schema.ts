@@ -1,10 +1,10 @@
-import { type } from "arktype";
+import { z } from "zod";
 
-import { tableNames } from "../table-names.schema";
-
-export const pullChangesParamSchema = type({
-  lastSyncedAt: "number",
-  tableNames: tableNames,
+export const pullChangesParamSchema = z.object({
+  lastSyncedAt: z.number(),
+  tableNames: z
+    .enum(["CONVERSATION-ONE-TO-ONE", "CHAT-ONE-TO-ONE", "USER"])
+    .array(),
 });
 
-export type PullChangesParam = typeof pullChangesParamSchema.infer;
+export type PullChangesParam = z.infer<typeof pullChangesParamSchema>;

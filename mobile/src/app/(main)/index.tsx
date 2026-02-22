@@ -2,28 +2,32 @@ import { View } from "react-native";
 import { Stack } from "expo-router";
 import { Button } from "heroui-native/button";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useLiveInfiniteQuery } from "@tanstack/react-db";
 
-import { pullChanges } from "@/db/tanstack/sync";
-import { ConversationOnetoOneCollections } from "@/db/tanstack";
-
-import { ConversationList } from "@/features/home/components/conversation-list";
 import { HomeHeader } from "@/features/home/components/header";
+import { db } from "@/db";
+import { conversationOneToOneTable } from "@/db/tables/conversation-one-to-one.table";
+import { asc } from "drizzle-orm";
+import { pullChanges } from "@/db/sync";
+import { toCompilableQuery } from "@powersync/drizzle-driver";
+import { useQuery } from "@powersync/react-native";
+
+const query = db
+  .select()
+  .from(conversationOneToOneTable)
+  .orderBy(asc(conversationOneToOneTable.updatedAt));
 
 export default function HomeScreen() {
   const safeAreaInsets = useSafeAreaInsets();
 
-  const { data, fetchNextPage } = useLiveInfiniteQuery(
-    (q) =>
-      q
-        .from({ conversation: ConversationOnetoOneCollections })
-        .orderBy(({ conversation }) => conversation.updatedAt, "desc"),
-    {
-      pageSize: 10,
-      getNextPageParam: (lastPage, allPages) =>
-        lastPage.length ? allPages.length : undefined,
+  db.watch(query, {
+    onResult(results) {
+      console.log("Data with raw watch", results);
     },
-  );
+  });
+
+  const { data } = useQuery(toCompilableQuery(query));
+
+  console.log("Data with hook", data);
 
   return (
     <>
@@ -49,8 +53,6 @@ export default function HomeScreen() {
         className="flex-1 p-2"
       >
         <Button onPress={pullChanges}>Pull Changes</Button>
-
-        <ConversationList data={data} onEndReached={fetchNextPage} />
       </View>
     </>
   );

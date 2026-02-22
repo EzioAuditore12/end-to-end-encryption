@@ -3,7 +3,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 import type { AuthStore } from "./type";
 import { secureStorage } from "../storage";
-import { db } from "@/db";
+import { powerSyncDb } from "@/db";
 import { useDeviceStore } from "../device";
 
 export const useAuthStore = create<AuthStore>()(
@@ -22,7 +22,7 @@ export const useAuthStore = create<AuthStore>()(
         set({ dhPrivateKey: key });
       },
       async logout() {
-        await db.disconnectAndClear();
+        await powerSyncDb.disconnectAndClear();
 
         set({ user: undefined, tokens: undefined, dhPrivateKey: undefined });
 
