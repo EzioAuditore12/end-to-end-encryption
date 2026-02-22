@@ -1,20 +1,18 @@
 import { View } from "react-native";
-import { Link, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { Button } from "heroui-native/button";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useLiveInfiniteQuery } from "@tanstack/react-db";
-
-import { useAuthStore } from "@/store/auth";
 
 import { pullChanges } from "@/db/tanstack/sync";
 import { ConversationOnetoOneCollections } from "@/db/tanstack";
 
 import { ConversationList } from "@/features/home/components/conversation-list";
+import { HomeHeader } from "@/features/home/components/header";
 
 export default function HomeScreen() {
-  const { logout } = useAuthStore((state) => state);
-
   const safeAreaInsets = useSafeAreaInsets();
+
   const { data, fetchNextPage } = useLiveInfiniteQuery(
     (q) =>
       q
@@ -31,24 +29,23 @@ export default function HomeScreen() {
     <>
       <Stack.Screen
         options={{
-          title: "End To End",
-          headerRight: () => (
-            <>
-              <Link className="text-foreground mr-2" href={"/(main)/search"}>
-                Search
-              </Link>
-              <Link className="text-foreground mr-2" href={"/(main)/profile"}>
-                Profile
-              </Link>
-              <Button variant="danger" onPress={logout}>
-                Logout
-              </Button>
-            </>
+          header: () => (
+            <HomeHeader
+              style={{
+                paddingTop: safeAreaInsets.top,
+                paddingRight: safeAreaInsets.right,
+                paddingLeft: safeAreaInsets.left,
+              }}
+            />
           ),
         }}
       />
       <View
-        style={{ paddingBottom: safeAreaInsets.bottom }}
+        style={{
+          paddingBottom: safeAreaInsets.bottom,
+          paddingRight: safeAreaInsets.right,
+          paddingLeft: safeAreaInsets.left,
+        }}
         className="flex-1 p-2"
       >
         <Button onPress={pullChanges}>Pull Changes</Button>
