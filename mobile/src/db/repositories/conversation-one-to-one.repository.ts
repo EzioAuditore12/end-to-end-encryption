@@ -4,11 +4,13 @@ import {
   conversationOneToOneTable,
   type InsertConversationOneToOne,
 } from "../tables/conversation-one-to-one.table";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
+import { userTable } from "../tables/user.table";
 
 export class ConversationOneToOneRepository {
   private readonly database = db;
   private readonly table = conversationOneToOneTable;
+  private readonly userTable = userTable;
 
   public async create(
     insertConversationOneToOne: InsertConversationOneToOne,
@@ -43,6 +45,14 @@ export class ConversationOneToOneRepository {
       .update(this.table)
       .set({ updatedAt: time })
       .where(eq(this.table.id, id));
+  }
+
+  public async getConversationsWithUser() {
+    return await this.database
+      .select()
+      .from(this.table)
+      .leftJoin(userTable, eq(this.table.userId, this.userTable.id))
+      .orderBy(desc(this.table.updatedAt));
   }
 }
 

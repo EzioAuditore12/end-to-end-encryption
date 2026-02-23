@@ -31,10 +31,7 @@ const sendChatMessage = async ({
     text,
   });
 
-  await conversationOneToOneRepository.updateTime(
-    conversationId,
-    Number(Date.now()),
-  );
+  await conversationOneToOneRepository.updateTime(conversationId, Date.now());
 };
 
 export default function ChattingScreen() {

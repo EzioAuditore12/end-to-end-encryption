@@ -3,8 +3,9 @@ import { Stack } from "expo-router";
 import { Button } from "heroui-native/button";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { toCompilableQuery } from "@powersync/drizzle-driver";
+import { Description } from "heroui-native/description";
 import { useQuery } from "@powersync/react-native";
-import { asc, desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 import { HomeHeader } from "@/features/home/components/header";
 import { db } from "@/db";
@@ -12,11 +13,13 @@ import { conversationOneToOneTable } from "@/db/tables/conversation-one-to-one.t
 
 import { pullChanges } from "@/db/sync";
 import { ConversationList } from "@/features/home/components/conversation-list";
-import { Description } from "heroui-native/description";
+
+import { userTable } from "@/db/tables/user.table";
 
 const query = db
   .select()
   .from(conversationOneToOneTable)
+  .leftJoin(userTable, eq(conversationOneToOneTable.userId, userTable.id))
   .orderBy(desc(conversationOneToOneTable.updatedAt));
 
 export default function HomeScreen() {
@@ -25,8 +28,6 @@ export default function HomeScreen() {
   const { data, isLoading } = useQuery(toCompilableQuery(query));
 
   if (isLoading) return <Description>{isLoading}</Description>;
-
-  console.log("Data with hook", data);
 
   return (
     <>
