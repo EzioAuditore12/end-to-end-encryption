@@ -19,12 +19,6 @@ const query = db
 export default function HomeScreen() {
   const safeAreaInsets = useSafeAreaInsets();
 
-  db.watch(query, {
-    onResult(results) {
-      console.log("Data with raw watch", results);
-    },
-  });
-
   const { data } = useQuery(toCompilableQuery(query));
 
   console.log("Data with hook", data);
