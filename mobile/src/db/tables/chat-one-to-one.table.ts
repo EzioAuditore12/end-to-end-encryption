@@ -1,11 +1,14 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { z } from "zod";
 import { createSelectSchema, createInsertSchema } from "drizzle-zod";
+import { SnowFlakeId } from "@/lib/snowflake";
 
 export const CHAT_ONE_TO_ONE_TABLE_NAME = "chat_one_to_one";
 
 export const chatOneToOneTable = sqliteTable(CHAT_ONE_TO_ONE_TABLE_NAME, {
-  id: text("id").primaryKey(),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => new SnowFlakeId(1).generate().toString()),
   conversationId: text("conversation_id").unique().notNull(),
   text: text("text", { length: 2000 }).notNull(),
   mode: text("mode", { enum: ["SENT", "RECEIVED"] }).notNull(),
@@ -22,3 +25,4 @@ export const selectChatOneToOneSchema = createSelectSchema(chatOneToOneTable);
 export const insertChatOneToOneSchema = createInsertSchema(chatOneToOneTable);
 
 export type ChatOneToOne = z.infer<typeof selectChatOneToOneSchema>;
+export type InsertChatOneToOne = z.infer<typeof insertChatOneToOneSchema>;

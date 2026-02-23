@@ -2,24 +2,29 @@ import { View } from "react-native";
 import { Stack } from "expo-router";
 import { Button } from "heroui-native/button";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { toCompilableQuery } from "@powersync/drizzle-driver";
+import { useQuery } from "@powersync/react-native";
+import { asc, desc } from "drizzle-orm";
 
 import { HomeHeader } from "@/features/home/components/header";
 import { db } from "@/db";
 import { conversationOneToOneTable } from "@/db/tables/conversation-one-to-one.table";
-import { asc } from "drizzle-orm";
+
 import { pullChanges } from "@/db/sync";
-import { toCompilableQuery } from "@powersync/drizzle-driver";
-import { useQuery } from "@powersync/react-native";
+import { ConversationList } from "@/features/home/components/conversation-list";
+import { Description } from "heroui-native/description";
 
 const query = db
   .select()
   .from(conversationOneToOneTable)
-  .orderBy(asc(conversationOneToOneTable.updatedAt));
+  .orderBy(desc(conversationOneToOneTable.updatedAt));
 
 export default function HomeScreen() {
   const safeAreaInsets = useSafeAreaInsets();
 
-  const { data } = useQuery(toCompilableQuery(query));
+  const { data, isLoading } = useQuery(toCompilableQuery(query));
+
+  if (isLoading) return <Description>{isLoading}</Description>;
 
   console.log("Data with hook", data);
 
@@ -47,6 +52,8 @@ export default function HomeScreen() {
         className="flex-1 p-2"
       >
         <Button onPress={pullChanges}>Pull Changes</Button>
+
+        <ConversationList data={data} />
       </View>
     </>
   );

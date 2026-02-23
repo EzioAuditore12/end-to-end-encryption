@@ -12,6 +12,7 @@ export default function MainScreensLayout() {
       <Stack.Screen name="search" options={{ headerShown: false }} />
       <Stack.Screen name="profile" options={{ headerShown: false }} />
       <Stack.Screen name="user/[id]" options={{ headerShown: false }} />
+      <Stack.Screen name="chat/[id]" />
     </Stack>
   );
 }

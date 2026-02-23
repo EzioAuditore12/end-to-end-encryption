@@ -18,18 +18,18 @@ import { ChatText } from "./chat-text";
 
 import { Ionicons } from "@/components/icon";
 
-interface OneOnOneChatListProps extends Omit<
+interface ChatOneToOneListProps extends Omit<
   FlashListProps<ChatOneToOne>,
   "data" | "children" | "keyExtractor" | "renderItem"
 > {
   data: ChatOneToOne[];
 }
 
-export function OneOnOneChatList({
+export function ChatOneToOneList({
   data,
   className,
   ...props
-}: OneOnOneChatListProps) {
+}: ChatOneToOneListProps) {
   const ref = useRef<FlashListRef<ChatOneToOne> | null>(null);
 
   const [viewHeight, setViewHeight] = useState<number>(0);
