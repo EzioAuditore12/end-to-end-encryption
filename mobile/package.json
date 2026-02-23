@@ -23,7 +23,6 @@
     "@react-navigation/native": "^7.1.28",
     "@shopify/flash-list": "2.0.2",
     "@tanstack/react-query": "^5.90.21",
-    "bson-objectid": "^2.0.4",
     "drizzle-orm": "^0.45.1",
     "drizzle-zod": "^0.8.3",
     "expo": "~55.0.0-preview.12",
