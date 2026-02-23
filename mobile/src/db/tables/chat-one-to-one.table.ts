@@ -11,7 +11,6 @@ export const chatOneToOneTable = sqliteTable(CHAT_ONE_TO_ONE_TABLE_NAME, {
     .primaryKey()
     .$defaultFn(() => new SnowFlakeId(1).generate().toString()),
   conversationId: text("conversation_id")
-    .unique()
     .notNull()
     .references(() => conversationOneToOneTable.id),
   text: text("text", { length: 2000 }).notNull(),
