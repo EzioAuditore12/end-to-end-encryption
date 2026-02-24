@@ -1,21 +1,18 @@
-import { Stack, useLocalSearchParams } from "expo-router";
-import { View } from "react-native";
+import { Stack, useLocalSearchParams } from 'expo-router';
+import { View } from 'react-native';
 
-import { SendMessage } from "@/features/chat/components/one-on-one/send-message";
-import { chatOneToOneRepository } from "@/db/repositories/chat-one-to-one.repository";
-import { ChatOneToOneList } from "@/features/chat/components/one-on-one/chat-one-to-one-list";
-import { db } from "@/db";
-import { chatOneToOneTable } from "@/db/tables/chat-one-to-one.table";
-import { useQuery } from "@powersync/react-native";
-import { toCompilableQuery } from "@powersync/drizzle-driver";
-import { desc, eq } from "drizzle-orm";
-import { ChatterInfo } from "@/features/chat/components/one-on-one/chatter-info";
-import { conversationOneToOneRepository } from "@/db/repositories/conversation-one-to-one.repository";
+import { SendMessage } from '@/features/chat/components/one-on-one/send-message';
+import { chatOneToOneRepository } from '@/db/repositories/chat-one-to-one.repository';
+import { ChatOneToOneList } from '@/features/chat/components/one-on-one/chat-one-to-one-list';
+import { db } from '@/db';
+import { chatOneToOneTable } from '@/db/tables/chat-one-to-one.table';
+import { useQuery } from '@powersync/react-native';
+import { toCompilableQuery } from '@powersync/drizzle-driver';
+import { desc, eq } from 'drizzle-orm';
+import { ChatterInfo } from '@/features/chat/components/one-on-one/chatter-info';
+import { conversationOneToOneRepository } from '@/db/repositories/conversation-one-to-one.repository';
 
-const query = db
-  .select()
-  .from(chatOneToOneTable)
-  .orderBy(desc(chatOneToOneTable.createdAt));
+const query = db.select().from(chatOneToOneTable).orderBy(desc(chatOneToOneTable.createdAt));
 
 const sendChatMessage = async ({
   conversationId,
@@ -26,8 +23,8 @@ const sendChatMessage = async ({
 }) => {
   await chatOneToOneRepository.create({
     conversationId,
-    mode: "SENT",
-    status: "SENT",
+    mode: 'SENT',
+    status: 'SENT',
     text,
   });
 
@@ -43,7 +40,7 @@ export default function ChattingScreen() {
   console.log(id, userId);
 
   const { data } = useQuery(
-    toCompilableQuery(query.where(eq(chatOneToOneTable.conversationId, id))),
+    toCompilableQuery(query.where(eq(chatOneToOneTable.conversationId, id)))
   );
 
   return (

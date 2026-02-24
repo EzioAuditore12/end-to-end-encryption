@@ -1,8 +1,8 @@
-import { DrizzleAppSchema } from "@powersync/drizzle-driver";
+import { DrizzleAppSchema } from '@powersync/drizzle-driver';
 
-import { userTable } from "./tables/user.table";
-import { conversationOneToOneTable } from "./tables/conversation-one-to-one.table";
-import { chatOneToOneTable } from "./tables/chat-one-to-one.table";
+import { userTable } from './tables/user.table';
+import { conversationOneToOneTable } from './tables/conversation-one-to-one.table';
+import { chatOneToOneTable } from './tables/chat-one-to-one.table';
 
 export const drizzleSchema = {
   userTable,

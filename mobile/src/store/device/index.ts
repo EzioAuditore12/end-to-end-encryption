@@ -1,7 +1,7 @@
-import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
-import { mmkvZustandStorage } from "../storage";
-import { DeviceStore } from "./type";
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
+import { mmkvZustandStorage } from '../storage';
+import { DeviceStore } from './type';
 
 export const useDeviceStore = create<DeviceStore>()(
   persist(
@@ -19,8 +19,8 @@ export const useDeviceStore = create<DeviceStore>()(
       },
     }),
     {
-      name: "device-store",
+      name: 'device-store',
       storage: createJSONStorage(() => mmkvZustandStorage),
-    },
-  ),
+    }
+  )
 );

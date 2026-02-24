@@ -1,23 +1,18 @@
-import { FlashList, type FlashListProps } from "@shopify/flash-list";
-import { router } from "expo-router";
+import { FlashList, type FlashListProps } from '@shopify/flash-list';
+import { router } from 'expo-router';
 
-import type { User } from "../schemas/user.schema";
-import { UserCard } from "./user-card";
+import type { User } from '../schemas/user.schema';
+import { UserCard } from './user-card';
 
 interface UserListProps extends Omit<
   FlashListProps<User>,
-  "data" | "children" | "keyExtractor" | "renderItem"
+  'data' | 'children' | 'keyExtractor' | 'renderItem'
 > {
   data: User[];
   isFetchingNextPage?: boolean;
 }
 
-export function UserList({
-  className,
-  isFetchingNextPage,
-  data,
-  ...props
-}: UserListProps) {
+export function UserList({ className, isFetchingNextPage, data, ...props }: UserListProps) {
   return (
     <>
       <FlashList
@@ -29,7 +24,7 @@ export function UserList({
             className="mb-3"
             onPress={() =>
               router.push({
-                pathname: "/(main)/user/[id]",
+                pathname: '/(main)/user/[id]',
                 params: { id: item.id },
               })
             }

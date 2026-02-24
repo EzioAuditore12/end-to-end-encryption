@@ -1,15 +1,13 @@
-import { z } from "zod";
-import { createChangesSchema } from "../create-changes.schema";
+import { z } from 'zod';
+import { createChangesSchema } from '../create-changes.schema';
 
-import { selectUserSchema } from "@/db/tables/user.table";
-import { selectConversationOneToOneSchema } from "@/db/tables/conversation-one-to-one.table";
-import { selectChatOneToOneSchema } from "@/db/tables/chat-one-to-one.table";
+import { selectUserSchema } from '@/db/tables/user.table';
+import { selectConversationOneToOneSchema } from '@/db/tables/conversation-one-to-one.table';
+import { selectChatOneToOneSchema } from '@/db/tables/chat-one-to-one.table';
 
 const userChangeSchema = createChangesSchema(selectUserSchema);
 
-const conversationOneToOneChangeSchema = createChangesSchema(
-  selectConversationOneToOneSchema,
-);
+const conversationOneToOneChangeSchema = createChangesSchema(selectConversationOneToOneSchema);
 
 const chatOneToOneChangeSchema = createChangesSchema(selectChatOneToOneSchema);
 

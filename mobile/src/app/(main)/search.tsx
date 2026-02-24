@@ -1,19 +1,19 @@
-import { useState } from "react";
-import { Text, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useDebounce } from "use-debounce";
-import { SearchField } from "heroui-native/search-field";
+import { useState } from 'react';
+import { Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useDebounce } from 'use-debounce';
+import { SearchField } from 'heroui-native/search-field';
 
-import { UserList } from "@/features/common/components/user-list";
+import { UserList } from '@/features/common/components/user-list';
 
-import { useGetUsers } from "@/features/common/hooks/use-get-users";
+import { useGetUsers } from '@/features/common/hooks/use-get-users';
 
-import { useRefreshOnFocus } from "@/hooks/use-refresh-on-focus";
+import { useRefreshOnFocus } from '@/hooks/use-refresh-on-focus';
 
 export default function SearchScreen() {
   const safeAreaInsets = useSafeAreaInsets();
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [searchValue] = useDebounce(search, 300);
 
   const { data, fetchNextPage, isFetchingNextPage, refetch } = useGetUsers({
@@ -31,8 +31,7 @@ export default function SearchScreen() {
         paddingTop: safeAreaInsets.top,
         paddingBottom: safeAreaInsets.bottom,
       }}
-      className="flex-1 p-2"
-    >
+      className="flex-1 p-2">
       <SearchField className="mb-3" value={search} onChange={setSearch}>
         <SearchField.Group>
           <SearchField.SearchIcon>

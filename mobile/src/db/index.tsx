@@ -1,15 +1,11 @@
-import { OPSqliteOpenFactory } from "@powersync/op-sqlite";
-import {
-  PowerSyncDatabase,
-  PowerSyncContext,
-  usePowerSync,
-} from "@powersync/react-native";
-import { wrapPowerSyncWithDrizzle } from "@powersync/drizzle-driver";
-import { PropsWithChildren } from "react";
+import { OPSqliteOpenFactory } from '@powersync/op-sqlite';
+import { PowerSyncDatabase, PowerSyncContext, usePowerSync } from '@powersync/react-native';
+import { wrapPowerSyncWithDrizzle } from '@powersync/drizzle-driver';
+import { PropsWithChildren } from 'react';
 
-import { AppSchema, drizzleSchema } from "./schema";
+import { AppSchema, drizzleSchema } from './schema';
 
-const dbName = "powersync.db";
+const dbName = 'powersync.db';
 const factory = new OPSqliteOpenFactory({ dbFilename: dbName });
 
 export const powerSyncDb = new PowerSyncDatabase({
@@ -22,11 +18,7 @@ export const db = wrapPowerSyncWithDrizzle(powerSyncDb, {
 });
 
 export function PowerSyncDatabaseProvider({ children }: PropsWithChildren) {
-  return (
-    <PowerSyncContext.Provider value={powerSyncDb}>
-      {children}
-    </PowerSyncContext.Provider>
-  );
+  return <PowerSyncContext.Provider value={powerSyncDb}>{children}</PowerSyncContext.Provider>;
 }
 
 export { usePowerSync };

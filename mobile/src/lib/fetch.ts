@@ -1,16 +1,16 @@
-import { FetchRequestInit } from "expo/fetch";
+import { FetchRequestInit } from 'expo/fetch';
 
-import { fetch } from "react-native-nitro-fetch";
+import { fetch } from 'react-native-nitro-fetch';
 
-import * as s from "standard-parse";
+import * as s from 'standard-parse';
 
 export type FetchProps = FetchRequestInit;
 
-export type HttpMethods = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+export type HttpMethods = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 interface TypedFetchProps<S extends s.StandardSchemaV1> extends Omit<
   FetchRequestInit,
-  "method" | "body"
+  'method' | 'body'
 > {
   url: string;
   schema: S;
@@ -31,16 +31,14 @@ export const typedFetch = async <S extends s.StandardSchemaV1>({
   ...props
 }: TypedFetchProps<S>): Promise<s.StandardSchemaV1.InferOutput<S>> => {
   const typedFetchHeader = {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
     ...headers,
   };
 
   if (params !== undefined) {
-    const paramsValues = new URLSearchParams(
-      params as Record<string, string>,
-    ).toString();
+    const paramsValues = new URLSearchParams(params as Record<string, string>).toString();
 
-    url = url + (url.includes("?") ? "&" : "?") + paramsValues;
+    url = url + (url.includes('?') ? '&' : '?') + paramsValues;
   }
 
   const response = await fetch(url, {

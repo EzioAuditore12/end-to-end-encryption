@@ -1,11 +1,11 @@
-import { Redirect, Stack } from "expo-router";
+import { Redirect, Stack } from 'expo-router';
 
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from '@/store/auth';
 
 export default function MainScreensLayout() {
   const { tokens } = useAuthStore((state) => state);
 
-  if (!tokens) return <Redirect href={"/(auth)/login"} />;
+  if (!tokens) return <Redirect href={'/(auth)/login'} />;
   return (
     <Stack initialRouteName="index">
       <Stack.Screen name="index" />

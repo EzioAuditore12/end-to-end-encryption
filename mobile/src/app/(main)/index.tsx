@@ -1,20 +1,20 @@
-import { View } from "react-native";
-import { Stack } from "expo-router";
-import { Button } from "heroui-native/button";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { toCompilableQuery } from "@powersync/drizzle-driver";
-import { Description } from "heroui-native/description";
-import { useQuery } from "@powersync/react-native";
-import { desc, eq } from "drizzle-orm";
+import { View } from 'react-native';
+import { Stack } from 'expo-router';
+import { Button } from 'heroui-native/button';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { toCompilableQuery } from '@powersync/drizzle-driver';
+import { Description } from 'heroui-native/description';
+import { useQuery } from '@powersync/react-native';
+import { desc, eq } from 'drizzle-orm';
 
-import { HomeHeader } from "@/features/home/components/header";
-import { db } from "@/db";
-import { conversationOneToOneTable } from "@/db/tables/conversation-one-to-one.table";
+import { HomeHeader } from '@/features/home/components/header';
+import { db } from '@/db';
+import { conversationOneToOneTable } from '@/db/tables/conversation-one-to-one.table';
 
-import { pullChanges } from "@/db/sync";
-import { ConversationList } from "@/features/home/components/conversation-list";
+import { pullChanges } from '@/db/sync';
+import { ConversationList } from '@/features/home/components/conversation-list';
 
-import { userTable } from "@/db/tables/user.table";
+import { userTable } from '@/db/tables/user.table';
 
 const query = db
   .select()
@@ -50,8 +50,7 @@ export default function HomeScreen() {
           paddingRight: safeAreaInsets.right,
           paddingLeft: safeAreaInsets.left,
         }}
-        className="flex-1 p-2"
-      >
+        className="flex-1 p-2">
         <Button onPress={pullChanges}>Pull Changes</Button>
 
         <ConversationList data={data} />

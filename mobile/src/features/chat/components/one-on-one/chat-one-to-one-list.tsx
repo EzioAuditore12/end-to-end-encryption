@@ -1,35 +1,23 @@
-import { cn } from "tailwind-variants";
-import {
-  FlashList,
-  type FlashListProps,
-  type FlashListRef,
-} from "@shopify/flash-list";
-import { useRef, Activity, useState } from "react";
-import { Button } from "heroui-native/button";
-import {
-  type NativeScrollEvent,
-  type NativeSyntheticEvent,
-  View,
-} from "react-native";
+import { cn } from 'tailwind-variants';
+import { FlashList, type FlashListProps, type FlashListRef } from '@shopify/flash-list';
+import { useRef, Activity, useState } from 'react';
+import { Button } from 'heroui-native/button';
+import { type NativeScrollEvent, type NativeSyntheticEvent, View } from 'react-native';
 
-import type { ChatOneToOne } from "@/db/tables/chat-one-to-one.table";
+import type { ChatOneToOne } from '@/db/tables/chat-one-to-one.table';
 
-import { ChatText } from "./chat-text";
+import { ChatText } from './chat-text';
 
-import { Ionicons } from "@/components/icon";
+import { Ionicons } from '@/components/icon';
 
 interface ChatOneToOneListProps extends Omit<
   FlashListProps<ChatOneToOne>,
-  "data" | "children" | "keyExtractor" | "renderItem"
+  'data' | 'children' | 'keyExtractor' | 'renderItem'
 > {
   data: ChatOneToOne[];
 }
 
-export function ChatOneToOneList({
-  data,
-  className,
-  ...props
-}: ChatOneToOneListProps) {
+export function ChatOneToOneList({ data, className, ...props }: ChatOneToOneListProps) {
   const ref = useRef<FlashListRef<ChatOneToOne> | null>(null);
 
   const [viewHeight, setViewHeight] = useState<number>(0);
@@ -46,17 +34,15 @@ export function ChatOneToOneList({
     const paddingToBottom = 20;
 
     const atBottom =
-      contentOffset.y + layoutMeasurement.height >=
-      contentSize.height - paddingToBottom;
+      contentOffset.y + layoutMeasurement.height >= contentSize.height - paddingToBottom;
 
     setIsAtListEnd(atBottom);
   };
 
   return (
     <View
-      className={cn("flex-1 relative", className)}
-      onLayout={(e) => setViewHeight(e.nativeEvent.layout.height)}
-    >
+      className={cn('relative flex-1', className)}
+      onLayout={(e) => setViewHeight(e.nativeEvent.layout.height)}>
       <FlashList
         ref={ref}
         onScroll={handleScroll}
@@ -74,14 +60,8 @@ export function ChatOneToOneList({
         }}
         {...props}
       />
-      <Activity
-        mode={viewHeight < contentHeight && !isAtListEnd ? "visible" : "hidden"}
-      >
-        <Button
-          className="absolute bottom-2 right-0"
-          variant="tertiary"
-          onPress={scrollToEnd}
-        >
+      <Activity mode={viewHeight < contentHeight && !isAtListEnd ? 'visible' : 'hidden'}>
+        <Button className="absolute right-0 bottom-2" variant="tertiary" onPress={scrollToEnd}>
           <Ionicons name="arrow-down" />
         </Button>
       </Activity>

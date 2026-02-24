@@ -1,23 +1,17 @@
-import { View, type ViewProps } from "react-native";
-import { Controller, useForm } from "react-hook-form";
-import { z } from "zod";
-import Animated, { useAnimatedStyle } from "react-native-reanimated";
-import { cn } from "tailwind-variants";
-import { Button } from "heroui-native/button";
-import { Input } from "heroui-native/input";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { View, type ViewProps } from 'react-native';
+import { Controller, useForm } from 'react-hook-form';
+import { z } from 'zod';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
+import { cn } from 'tailwind-variants';
+import { Button } from 'heroui-native/button';
+import { Input } from 'heroui-native/input';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useGradualAnimation } from "@/hooks/use-gradual-animation";
+import { useGradualAnimation } from '@/hooks/use-gradual-animation';
 
 interface SendMessageProps extends ViewProps {
   conversationId: string;
-  handleSubmit: ({
-    conversationId,
-    text,
-  }: {
-    conversationId: string;
-    text: string;
-  }) => void;
+  handleSubmit: ({ conversationId, text }: { conversationId: string; text: string }) => void;
 }
 
 export function SendMessage({
@@ -40,7 +34,7 @@ export function SendMessage({
     handleSubmit: handlFormSubmit,
   } = useForm<{ text: string }>({
     defaultValues: {
-      text: "",
+      text: '',
     },
     resolver: zodResolver(z.object({ text: z.string().nonempty().max(1000) })),
   });
@@ -52,7 +46,7 @@ export function SendMessage({
   };
 
   return (
-    <View className={cn("border-t-2 border-gray-400", className)} {...props}>
+    <View className={cn('border-t-2 border-gray-400', className)} {...props}>
       <View className="flex-row items-center p-2">
         <Controller
           control={control}

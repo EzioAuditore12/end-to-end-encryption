@@ -1,6 +1,6 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { userSchema } from "../user.schema";
+import { userSchema } from '../user.schema';
 
 const meta = z.object({
   itemsPerPage: z.number(),

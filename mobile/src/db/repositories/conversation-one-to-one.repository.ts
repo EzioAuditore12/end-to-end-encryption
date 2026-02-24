@@ -1,11 +1,11 @@
-import { db } from "@/db";
+import { db } from '@/db';
 import {
   type ConversationOneToOne,
   conversationOneToOneTable,
   type InsertConversationOneToOne,
-} from "../tables/conversation-one-to-one.table";
-import { desc, eq } from "drizzle-orm";
-import { userTable } from "../tables/user.table";
+} from '../tables/conversation-one-to-one.table';
+import { desc, eq } from 'drizzle-orm';
+import { userTable } from '../tables/user.table';
 
 export class ConversationOneToOneRepository {
   private readonly database = db;
@@ -13,7 +13,7 @@ export class ConversationOneToOneRepository {
   private readonly userTable = userTable;
 
   public async create(
-    insertConversationOneToOne: InsertConversationOneToOne,
+    insertConversationOneToOne: InsertConversationOneToOne
   ): Promise<ConversationOneToOne> {
     return await this.database
       .insert(this.table)
@@ -23,28 +23,15 @@ export class ConversationOneToOneRepository {
   }
 
   public async get(id: string): Promise<ConversationOneToOne | undefined> {
-    return await this.database
-      .select()
-      .from(this.table)
-      .where(eq(this.table, id))
-      .get();
+    return await this.database.select().from(this.table).where(eq(this.table, id)).get();
   }
 
-  public async getByUserId(
-    userId: string,
-  ): Promise<ConversationOneToOne | undefined> {
-    return await this.database
-      .select()
-      .from(this.table)
-      .where(eq(this.table.userId, userId))
-      .get();
+  public async getByUserId(userId: string): Promise<ConversationOneToOne | undefined> {
+    return await this.database.select().from(this.table).where(eq(this.table.userId, userId)).get();
   }
 
   public async updateTime(id: string, time: number) {
-    await this.database
-      .update(this.table)
-      .set({ updatedAt: time })
-      .where(eq(this.table.id, id));
+    await this.database.update(this.table).set({ updatedAt: time }).where(eq(this.table.id, id));
   }
 
   public async getConversationsWithUser() {
@@ -56,5 +43,4 @@ export class ConversationOneToOneRepository {
   }
 }
 
-export const conversationOneToOneRepository =
-  new ConversationOneToOneRepository();
+export const conversationOneToOneRepository = new ConversationOneToOneRepository();

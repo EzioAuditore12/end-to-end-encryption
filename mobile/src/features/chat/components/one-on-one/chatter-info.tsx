@@ -1,16 +1,16 @@
-import { Ionicons } from "@/components/icon";
-import { ThrottledTouchable } from "@/components/throttled-touchable";
-import { router } from "expo-router";
-import { Avatar } from "heroui-native/avatar";
-import { Description } from "heroui-native/description";
-import { View, type ViewProps } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { cn } from "tailwind-variants";
-import { useQuery } from "@powersync/react-native";
-import { toCompilableQuery } from "@powersync/drizzle-driver";
-import { eq } from "drizzle-orm";
-import { db } from "@/db";
-import { userTable } from "@/db/tables/user.table";
+import { Ionicons } from '@/components/icon';
+import { ThrottledTouchable } from '@/components/throttled-touchable';
+import { router } from 'expo-router';
+import { Avatar } from 'heroui-native/avatar';
+import { Description } from 'heroui-native/description';
+import { View, type ViewProps } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { cn } from 'tailwind-variants';
+import { useQuery } from '@powersync/react-native';
+import { toCompilableQuery } from '@powersync/drizzle-driver';
+import { eq } from 'drizzle-orm';
+import { db } from '@/db';
+import { userTable } from '@/db/tables/user.table';
 
 const query = db.select().from(userTable);
 
@@ -21,9 +21,7 @@ interface ChatterInfoProps extends ViewProps {
 export function ChatterInfo({ className, userId, ...props }: ChatterInfoProps) {
   const safeAreaInsets = useSafeAreaInsets();
 
-  const { data, isLoading } = useQuery(
-    toCompilableQuery(query.where(eq(userTable.id, userId))),
-  );
+  const { data, isLoading } = useQuery(toCompilableQuery(query.where(eq(userTable.id, userId))));
 
   if (isLoading) return <Description>Data being loaded</Description>;
 
@@ -31,20 +29,16 @@ export function ChatterInfo({ className, userId, ...props }: ChatterInfoProps) {
     <View
       key={data[0].id}
       className={cn(
-        "justify border-background-tertiary flex-row items-center gap-x-1 border-b-2 p-2 px-4",
-        className,
+        'justify border-background-tertiary flex-row items-center gap-x-1 border-b-2 p-2 px-4',
+        className
       )}
       style={{ paddingTop: safeAreaInsets.top }}
-      {...props}
-    >
-      <ThrottledTouchable
-        className="bg-background rounded-full p-2"
-        onPress={() => router.back()}
-      >
+      {...props}>
+      <ThrottledTouchable className="bg-background rounded-full p-2" onPress={() => router.back()}>
         <Ionicons name="arrow-back" size={22} />
       </ThrottledTouchable>
 
-      <Avatar alt={data[0].name ?? ""} className="size-14">
+      <Avatar alt={data[0].name ?? ''} className="size-14">
         <Avatar.Image />
         <Avatar.Fallback>{data[0].name[0]}</Avatar.Fallback>
       </Avatar>

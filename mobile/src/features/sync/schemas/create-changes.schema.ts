@@ -1,4 +1,4 @@
-import { z, ZodTypeAny } from "zod";
+import { z, ZodTypeAny } from 'zod';
 
 export const createChangesSchema = <T extends ZodTypeAny>(schema: T) => {
   return z.object({

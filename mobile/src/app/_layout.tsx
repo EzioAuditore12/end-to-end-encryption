@@ -1,12 +1,12 @@
-import "../../global.css";
+import '../../global.css';
 
-import { Stack } from "expo-router";
-import { KeyboardProvider } from "react-native-keyboard-controller";
-import "react-native-reanimated";
+import { Stack } from 'expo-router';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
+import 'react-native-reanimated';
 
-import { TanstackReactQueryClientProvider } from "@/providers/tanstack-query-client.provider";
-import { HeroUIThemeProvider } from "@/providers/heroui.provider";
-import { PowerSyncDatabaseProvider } from "@/db";
+import { TanstackReactQueryClientProvider } from '@/providers/tanstack-query-client.provider';
+import { HeroUIThemeProvider } from '@/providers/heroui.provider';
+import { PowerSyncDatabaseProvider } from '@/db';
 
 export default function RootLayout() {
   return (
@@ -14,10 +14,7 @@ export default function RootLayout() {
       <KeyboardProvider>
         <PowerSyncDatabaseProvider>
           <TanstackReactQueryClientProvider>
-            <Stack
-              initialRouteName="(main)"
-              screenOptions={{ headerShown: false }}
-            />
+            <Stack initialRouteName="(main)" screenOptions={{ headerShown: false }} />
           </TanstackReactQueryClientProvider>
         </PowerSyncDatabaseProvider>
       </KeyboardProvider>
