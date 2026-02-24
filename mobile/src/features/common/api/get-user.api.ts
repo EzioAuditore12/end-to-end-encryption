@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 import { env } from '@/env';
 import { typedFetch } from '@/lib/fetch';
 
@@ -7,6 +9,6 @@ export const getUserApi = async (id: string) => {
   return typedFetch({
     url: `${env.EXPO_PUBLIC_BACKEND_URL}/user/${id}`,
     method: 'GET',
-    schema: userSchema.and({ dhPublicKey: 'string | null' }),
+    schema: userSchema.extend({ dhPublicKey: z.string().nullable() }),
   });
 };
