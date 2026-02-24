@@ -37,8 +37,6 @@ export default function ChattingScreen() {
     userId: string;
   };
 
-  console.log(id, userId);
-
   const { data } = useQuery(
     toCompilableQuery(query.where(eq(chatOneToOneTable.conversationId, id)))
   );

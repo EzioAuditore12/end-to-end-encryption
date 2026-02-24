@@ -30,6 +30,8 @@ export default function SearchScreen() {
       style={{
         paddingTop: safeAreaInsets.top,
         paddingBottom: safeAreaInsets.bottom,
+        paddingRight: safeAreaInsets.right,
+        paddingLeft: safeAreaInsets.left,
       }}
       className="flex-1 p-2">
       <SearchField className="mb-3" value={search} onChange={setSearch}>
