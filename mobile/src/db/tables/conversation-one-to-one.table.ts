@@ -2,7 +2,7 @@ import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
 
-import { SnowFlakeId } from "@/lib/snowflake";
+import { snowflakeId } from "@/lib/snowflake";
 
 import { User, USER_TABLE_NAME, userTable } from "./user.table";
 
@@ -13,7 +13,7 @@ export const conversationOneToOneTable = sqliteTable(
   {
     id: text("id")
       .primaryKey()
-      .$defaultFn(() => new SnowFlakeId(1).generate().toString()),
+      .$defaultFn(() => snowflakeId.generate.toString()),
     userId: text("user_id")
       .unique()
       .notNull()
