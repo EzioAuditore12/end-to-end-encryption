@@ -50,5 +50,3 @@ export class SnowFlakeId {
     return snowflakeId;
   }
 }
-
-export const snowflakeId = new SnowFlakeId(1);

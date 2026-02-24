@@ -1,7 +1,7 @@
 import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { z } from 'zod';
 import { createSelectSchema, createInsertSchema } from 'drizzle-zod';
-import { snowflakeId } from '@/lib/snowflake';
+import { SnowFlakeId } from '@/lib/snowflake';
 import { relations } from 'drizzle-orm';
 import { conversationOneToOneTable } from './conversation-one-to-one.table';
 
@@ -12,10 +12,10 @@ export const chatOneToOneTable = sqliteTable(
   {
     id: text('id')
       .primaryKey()
-      .$defaultFn(() => snowflakeId.generate.toString()),
+      .$defaultFn(() => new SnowFlakeId(1).generate().toString()),
     conversationId: text('conversation_id')
       .notNull()
-      .references(() => conversationOneToOneTable.id),
+      .references(() => conversationOneToOneTable.id, { onDelete: 'cascade' }),
     text: text('text', { length: 2000 }).notNull(),
     mode: text('mode', { enum: ['SENT', 'RECEIVED'] }).notNull(),
     status: text('status', { enum: ['SENT', 'DELIVERED', 'SEEN'] }).notNull(),
