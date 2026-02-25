@@ -6,13 +6,12 @@ import { chatOneToOneRepository } from '@/db/repositories/chat-one-to-one.reposi
 import { ChatOneToOneList } from '@/features/chat/components/one-on-one/chat-one-to-one-list';
 import { db } from '@/db';
 import { chatOneToOneTable } from '@/db/tables/chat-one-to-one.table';
-import { useQuery } from '@powersync/react-native';
-import { toCompilableQuery } from '@powersync/drizzle-driver';
+
 import { desc, eq } from 'drizzle-orm';
 import { ChatterInfo } from '@/features/chat/components/one-on-one/chatter-info';
 import { conversationOneToOneRepository } from '@/db/repositories/conversation-one-to-one.repository';
 
-const query = db.select().from(chatOneToOneTable).orderBy(desc(chatOneToOneTable.createdAt));
+import { useLiveInfiniteQuery } from '@/db/hooks/use-live-infinite-query';
 
 const sendChatMessage = async ({
   conversationId,
@@ -37,9 +36,20 @@ export default function ChattingScreen() {
     userId: string;
   };
 
-  const { data } = useQuery(
-    toCompilableQuery(query.where(eq(chatOneToOneTable.conversationId, id)))
-  );
+  const {
+    data,
+    fetchNextPage,
+    // ...other returned values...
+  } = useLiveInfiniteQuery({
+    query: db
+      .select()
+      .from(chatOneToOneTable)
+      .orderBy(desc(chatOneToOneTable.createdAt))
+      .where(eq(chatOneToOneTable.conversationId, id)),
+    pageSize: 8,
+  });
+
+  const reversedData = [...data].reverse();
 
   return (
     <>
@@ -50,7 +60,7 @@ export default function ChattingScreen() {
       />
 
       <View className="relative flex-1 p-2">
-        <ChatOneToOneList data={data} />
+        <ChatOneToOneList data={reversedData} onStartReached={fetchNextPage} />
         <SendMessage conversationId={id} handleSubmit={sendChatMessage} />
       </View>
     </>
