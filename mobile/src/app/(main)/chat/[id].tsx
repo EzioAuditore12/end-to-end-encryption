@@ -46,10 +46,10 @@ export default function ChattingScreen() {
       .from(chatOneToOneTable)
       .orderBy(desc(chatOneToOneTable.createdAt))
       .where(eq(chatOneToOneTable.conversationId, id)),
-    pageSize: 8,
+    pageSize: 10,
   });
 
-  const reversedData = [...data].reverse();
+  const reversedData = data.flat().reverse()
 
   return (
     <>
