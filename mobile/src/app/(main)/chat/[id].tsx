@@ -36,11 +36,7 @@ export default function ChattingScreen() {
     userId: string;
   };
 
-  const {
-    data,
-    fetchNextPage,
-    // ...other returned values...
-  } = useLiveInfiniteQuery({
+  const { data, fetchNextPage } = useLiveInfiniteQuery({
     query: db
       .select()
       .from(chatOneToOneTable)
@@ -49,7 +45,7 @@ export default function ChattingScreen() {
     pageSize: 10,
   });
 
-  const reversedData = data.flat().reverse()
+  const reversedData = data.flat().reverse();
 
   return (
     <>
