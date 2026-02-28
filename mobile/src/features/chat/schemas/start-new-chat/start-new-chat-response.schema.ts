@@ -1,12 +1,13 @@
-import { type } from 'arktype';
+import { z } from 'zod';
 
-export const startNewChatResponseSchema = type({
-  id: 'string',
-  conversationId: 'string',
-  senderId: 'string.uuid',
-  text: '0 < string <= 1000',
-  createdAt: 'string.date',
-  updatedAt: 'string.date',
+export const startNewChatResponseSchema = z.object({
+  id: z.string(),
+  conversationId: z.string(),
+  senderId: z.uuid(),
+  receiverId: z.uuid(),
+  text: z.string().max(1000),
+  createdAt: z.iso.datetime(),
+  updatedAt: z.iso.datetime(),
 });
 
-export type StartNewChatResponse = typeof startNewChatResponseSchema.infer;
+export type StartNewChatResponse = z.infer<typeof startNewChatResponseSchema>;

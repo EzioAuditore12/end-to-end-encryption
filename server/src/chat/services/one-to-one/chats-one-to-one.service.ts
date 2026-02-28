@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConversationOneToOneService } from './conversation-one-to-one.service';
 
-import { StartNewConversationDto } from 'src/chat/dto/one-to-one/start-new-conversation.dto';
+import { StartNewConversationDto } from 'src/chat/dto/one-to-one/start-new-conversation/start-new-conversation.dto';
 import { InsertOneToOneChatDto } from 'src/chat/dto/one-to-one/chats-one-to-one/insert-one-to-one-chat.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import {
@@ -15,6 +15,7 @@ import {
   convertChatsOneToOneFromMongoose,
 } from 'src/chat/dto/one-to-one/chats-one-to-one/chats-one-to-one.dto';
 import { GenerateSnowFlakeId } from 'src/common/utils/snowflakeId';
+import { StartNewConversationResponseDto } from 'src/chat/dto/one-to-one/start-new-conversation/start-new-conversation-response.dto';
 
 @Injectable()
 export class ChatsOneToOneService {
@@ -27,7 +28,7 @@ export class ChatsOneToOneService {
   async startNewConversation(
     senderId: string,
     startNewConversationDto: StartNewConversationDto,
-  ): Promise<ChatsOneToOneDto> {
+  ): Promise<StartNewConversationResponseDto> {
     const { receiverId, text, createdAt, updatedAt } = startNewConversationDto;
 
     const conversation = await this.conversationOneToOneService.create({
@@ -46,7 +47,10 @@ export class ChatsOneToOneService {
       updatedAt,
     });
 
-    return insertedChat;
+    return {
+      ...insertedChat,
+      receiverId,
+    };
   }
 
   async insert(
@@ -64,6 +68,11 @@ export class ChatsOneToOneService {
       createdAt: createdAt ?? new Date(),
       updatedAt: updatedAt ?? new Date(),
     });
+
+    await this.conversationOneToOneService.updateConversationTime(
+      BigInt(conversationId),
+      createdAt,
+    );
 
     return convertChatsOneToOneFromMongoose.parse(insertedChat);
   }

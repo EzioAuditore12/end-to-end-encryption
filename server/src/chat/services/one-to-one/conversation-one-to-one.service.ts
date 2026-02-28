@@ -52,6 +52,16 @@ export class ConversationOneToOneService {
     return conversation;
   }
 
+  public async updateConversationTime(
+    id: bigint,
+    time: Date | undefined,
+  ): Promise<void> {
+    await this.conversationsOneToOneModel.updateOne(
+      { _id: id },
+      { updatedAt: time ?? new Date() },
+    );
+  }
+
   public async isExistingConversation(id: bigint): Promise<boolean> {
     const exists = await this.conversationsOneToOneModel.exists({ _id: id });
     return !!exists;

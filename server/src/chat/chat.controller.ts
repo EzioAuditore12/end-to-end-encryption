@@ -7,13 +7,13 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { StartNewConversationDto } from './dto/one-to-one/start-new-conversation.dto';
+import { StartNewConversationDto } from './dto/one-to-one/start-new-conversation/start-new-conversation.dto';
 import { ChatsOneToOneService } from './services/one-to-one/chats-one-to-one.service';
 import { ApiCreatedResponse, ApiHeader, ApiResponse } from '@nestjs/swagger';
-import { ChatsOneToOneDto } from './dto/one-to-one/chats-one-to-one/chats-one-to-one.dto';
 import type { FastifyReply } from 'fastify';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import type { AuthRequest } from 'src/auth/types/auth-jwt.payload';
+import { StartNewConversationResponseDto } from './dto/one-to-one/start-new-conversation/start-new-conversation-response.dto';
 
 @Controller('chat')
 export class ChatController {
@@ -27,7 +27,7 @@ export class ChatController {
     required: true,
     example: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
   })
-  @ApiCreatedResponse({ type: ChatsOneToOneDto })
+  @ApiCreatedResponse({ type: StartNewConversationResponseDto })
   async create(
     @Req() req: AuthRequest,
     @Body() startNewConversationDto: StartNewConversationDto,

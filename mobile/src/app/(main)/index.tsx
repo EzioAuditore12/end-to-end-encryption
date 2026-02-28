@@ -24,7 +24,7 @@ export default function HomeScreen() {
       .from(conversationOneToOneTable)
       .leftJoin(userTable, eq(conversationOneToOneTable.userId, userTable.id))
       .orderBy(desc(conversationOneToOneTable.updatedAt)),
-    pageSize: 5,
+    pageSize: 10,
   });
 
   if (isLoading) return <Description>{isLoading}</Description>;

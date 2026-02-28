@@ -1,8 +1,8 @@
-import { type } from 'arktype';
+import { z } from 'zod';
 
-export const startNewChatParamSchema = type({
-  receiverId: 'string.uuid',
-  text: '0 < string <= 1000',
+export const startNewChatParamSchema = z.object({
+  receiverId: z.uuid(),
+  text: z.string().max(1000),
 });
 
-export type StartNewChatParam = typeof startNewChatParamSchema.infer;
+export type StartNewChatParam = z.infer<typeof startNewChatParamSchema>;
