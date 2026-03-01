@@ -1,5 +1,6 @@
 import { FlashList, type FlashListProps } from '@shopify/flash-list';
 import { router } from 'expo-router';
+import { cn } from 'tailwind-variants';
 
 import { ConversationOneToOneCard } from './conversation-one-to-one-card';
 import type { ConversationOneToOneJoinWithUser } from '@/db/tables/conversation-one-to-one.table';
@@ -20,7 +21,7 @@ export function ConversationList({ className, data, ...props }: ConversationList
         keyExtractor={(item) => item.conversation_one_to_one.id}
         renderItem={({ item }) => (
           <ConversationOneToOneCard
-            className="mb-3"
+            className={cn(className)}
             data={item}
             onPress={() =>
               router.push({

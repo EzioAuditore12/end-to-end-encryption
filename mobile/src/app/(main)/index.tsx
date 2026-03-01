@@ -53,7 +53,7 @@ export default function HomeScreen() {
         className="flex-1 p-2">
         <Button onPress={pullChanges}>Pull Changes</Button>
 
-        <ConversationList onEndReached={fetchNextPage} data={data} />
+        <ConversationList className="mt-2" onEndReached={fetchNextPage} data={data} />
       </View>
     </>
   );
