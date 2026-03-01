@@ -14,9 +14,12 @@ import { ConversationList } from '@/features/home/components/conversation-list';
 
 import { userTable } from '@/db/tables/user.table';
 import { useLiveInfiniteQuery } from '@/db/hooks/use-live-infinite-query';
+import { useSocketState } from '@/store/socket-io';
 
 export default function HomeScreen() {
   const safeAreaInsets = useSafeAreaInsets();
+
+  const { onlineUsers } = useSocketState();
 
   const { data, isLoading, fetchNextPage } = useLiveInfiniteQuery({
     query: db
@@ -52,6 +55,8 @@ export default function HomeScreen() {
         }}
         className="flex-1 p-2">
         <Button onPress={pullChanges}>Pull Changes</Button>
+
+        <Description>Online Users : {onlineUsers.length}</Description>
 
         <ConversationList className="mt-2" onEndReached={fetchNextPage} data={data} />
       </View>

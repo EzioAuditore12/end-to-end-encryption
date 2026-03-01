@@ -10,8 +10,8 @@ import { Server } from 'socket.io';
 
 import { ChatService } from './services/chat.service';
 import type { AuthenticatedSocket } from 'src/auth/types/auth-jwt.payload';
-import { Logger } from '@nestjs/common';
 import { InsertOneToOneChatDto } from './dto/one-to-one/chats-one-to-one/insert-one-to-one-chat.dto';
+import { Logger } from '@nestjs/common';
 
 @WebSocketGateway()
 export class ChatGateway
@@ -39,7 +39,7 @@ export class ChatGateway
     client: AuthenticatedSocket,
     conversationId: string,
   ): Promise<void> {
-    await this.joinConversation(client, conversationId);
+    await this.chatService.joinConversation(client, conversationId);
   }
 
   @SubscribeMessage('conversation:leave')
@@ -47,7 +47,7 @@ export class ChatGateway
     client: AuthenticatedSocket,
     conversationId: string,
   ): Promise<void> {
-    await this.leaveConversation(client, conversationId);
+    await this.chatService.leaveConversation(client, conversationId);
   }
 
   @SubscribeMessage('message:send')

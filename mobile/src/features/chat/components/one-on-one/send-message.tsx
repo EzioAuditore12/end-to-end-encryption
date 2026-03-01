@@ -8,16 +8,22 @@ import { Input } from 'heroui-native/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useGradualAnimation } from '@/hooks/use-gradual-animation';
+import { Socket } from '@/lib/socket-io';
+import { SendMessageEvent } from '../../events/send-message.event';
 
 interface SendMessageProps extends ViewProps {
+  socket: Socket;
+  receiverId: string;
   conversationId: string;
-  handleSubmit: ({ conversationId, text }: { conversationId: string; text: string }) => void;
+  handleSubmit: (data: SendMessageEvent) => void;
 }
 
 export function SendMessage({
   className,
   handleSubmit,
   conversationId,
+  socket,
+  receiverId,
   ...props
 }: SendMessageProps) {
   const { height } = useGradualAnimation();
@@ -40,7 +46,7 @@ export function SendMessage({
   });
 
   const onSubmit = (data: { text: string }) => {
-    handleSubmit({ conversationId, text: data.text });
+    handleSubmit({ conversationId, receiverId, socket, text: data.text });
 
     reset();
   };
