@@ -5,7 +5,8 @@ import { env } from '@/env';
 import { useAuthStore } from '@/store/auth';
 import { handleWsTokenRefresh } from './ws-socket-io-refresh';
 
-import { SendMessage } from './schemas/send-message.schema';
+import type { SendMessage } from './schemas/send-message.schema';
+import type { ReceiveMessage } from './schemas/receive-message.schema';
 
 type SocketError = Error & { data?: { status: number } };
 
@@ -31,6 +32,7 @@ export function connectWebSocket() {
 export interface ServerToClientEvents {
   connect: () => void;
   'online:users': (userIds: string[]) => void;
+  'message:receive': (message: ReceiveMessage) => void;
 }
 
 export interface ClientToServerEvents {

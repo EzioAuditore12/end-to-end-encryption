@@ -3,16 +3,21 @@ import { useEffect } from 'react';
 
 import { useAuthStore } from '@/store/auth';
 import { useSocketState } from '@/store/socket-io';
+import { useReceiveMessageEvent } from '@/features/chat/events/receive-message.event';
 
 export default function MainScreensLayout() {
   const { tokens } = useAuthStore((state) => state);
-  const { connectSocket, disconnectSocket } = useSocketState();
+  const { socket, connectSocket, disconnectSocket } = useSocketState();
 
   useEffect(() => {
-    if (tokens) connectSocket();
+    if (tokens) {
+      connectSocket();
+    }
 
     return () => disconnectSocket();
   }, [tokens, connectSocket, disconnectSocket]);
+
+  useReceiveMessageEvent(socket);
 
   if (!tokens) return <Redirect href={'/(auth)/login'} />;
 

@@ -1,5 +1,6 @@
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { View } from 'react-native';
+import { useEffect } from 'react';
 
 import { SendMessage } from '@/features/chat/components/one-on-one/send-message';
 import { ChatOneToOneList } from '@/features/chat/components/one-on-one/chat-one-to-one-list';
@@ -11,7 +12,7 @@ import { ChatterInfo } from '@/features/chat/components/one-on-one/chatter-info'
 
 import { useLiveInfiniteQuery } from '@/db/hooks/use-live-infinite-query';
 import { useSocketState } from '@/store/socket-io';
-import { useEffect } from 'react';
+
 import { sendMessageEvent } from '@/features/chat/events/send-message.event';
 
 export default function ChattingScreen() {
@@ -22,15 +23,19 @@ export default function ChattingScreen() {
 
   const { socket, connectSocket } = useSocketState();
 
+  // Only connect socket on mount
   useEffect(() => {
     connectSocket();
+  }, [connectSocket]);
 
+  // Join/leave conversation when socket or id changes
+  useEffect(() => {
     socket?.emit('conversation:join', id);
 
     return () => {
       socket?.emit('conversation:leave', id);
     };
-  }, [socket, id, connectSocket]);
+  }, [socket, id]);
 
   const { data, fetchNextPage } = useLiveInfiniteQuery({
     query: db
@@ -54,6 +59,7 @@ export default function ChattingScreen() {
       <View className="relative flex-1 p-2">
         <ChatOneToOneList data={reversedData} onStartReached={fetchNextPage} />
         <SendMessage
+          className="items-center"
           socket={socket as any}
           conversationId={id}
           receiverId={userId}
