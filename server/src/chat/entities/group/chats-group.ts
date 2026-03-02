@@ -4,7 +4,7 @@ import { HydratedDocument } from 'mongoose';
 import { GenerateSnowFlakeId } from 'src/common/utils/snowflakeId';
 
 @Schema({ timestamps: true })
-export class ChatsOneToOne {
+export class ChatsGroup {
   @Prop({
     type: BigInt,
     required: true,
@@ -14,7 +14,7 @@ export class ChatsOneToOne {
 
   @Prop({
     type: BigInt,
-    ref: 'ConversationOneToOne',
+    ref: 'ConversationGroup',
     required: true,
     index: true,
   })
@@ -27,16 +27,23 @@ export class ChatsOneToOne {
   text: string;
 
   @Prop({
-    type: String,
-    enum: ['SENT', 'DELIVERED', 'SEEN'],
-    default: 'SENT',
+    type: [String],
+    default: [],
+    description: 'User IDs who have received the message',
   })
-  status: 'SENT' | 'DELIVERED' | 'SEEN';
+  deliveredTo: string[];
+
+  @Prop({
+    type: [String],
+    default: [],
+    description: 'User IDs who have seen the message',
+  })
+  seenBy: string[];
 
   createdAt: Date;
 
   updatedAt: Date;
 }
 
-export const ChatsOneToOneSchema = SchemaFactory.createForClass(ChatsOneToOne);
-export type ChatsOneToOneDocument = HydratedDocument<ChatsOneToOne>;
+export const ChatsGroupSchema = SchemaFactory.createForClass(ChatsGroup);
+export type ChatsGroupDocument = HydratedDocument<ChatsGroup>;

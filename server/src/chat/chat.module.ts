@@ -20,6 +20,13 @@ import { ChatService } from './services/chat.service';
 import { ConfigModule } from '@nestjs/config';
 import jwtConfig from 'src/auth/configs/jwt.config';
 import { JwtModule } from '@nestjs/jwt';
+import {
+  ConversationGroup,
+  ConversationGroupSchema,
+} from './entities/group/conversation-group.entity';
+import { ChatsGroup, ChatsGroupSchema } from './entities/group/chats-group';
+import { ConversationGroupService } from './services/group/conversation-group.service';
+import { ChatsGroupService } from './services/group/chats-group.service';
 
 @Module({
   imports: [
@@ -27,6 +34,8 @@ import { JwtModule } from '@nestjs/jwt';
     MongooseModule.forFeature([
       { name: ConversationOneToOne.name, schema: ConversationOneToOneSchema },
       { name: ChatsOneToOne.name, schema: ChatsOneToOneSchema },
+      { name: ConversationGroup.name, schema: ConversationGroupSchema },
+      { name: ChatsGroup.name, schema: ChatsGroupSchema },
     ]),
     ConfigModule.forFeature(jwtConfig),
     JwtModule.registerAsync(jwtConfig.asProvider()),
@@ -37,6 +46,8 @@ import { JwtModule } from '@nestjs/jwt';
     ChatService,
     ChatsOneToOneService,
     ConversationOneToOneService,
+    ConversationGroupService,
+    ChatsGroupService,
     UserService,
   ],
 })

@@ -51,6 +51,13 @@ export class UserService {
     return publicUserSchema.strip().array().parse(users);
   }
 
+  public async areExistingUsers(ids: string[]): Promise<boolean> {
+    const count = await this.userRepository.count({
+      where: { id: In(ids) },
+    });
+    return count === ids.length;
+  }
+
   public async findUsersWithChanges(
     ids: string[],
     since: Date,

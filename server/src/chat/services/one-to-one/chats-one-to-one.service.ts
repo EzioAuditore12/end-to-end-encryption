@@ -61,7 +61,7 @@ export class ChatsOneToOneService {
 
     const insertedChat = await this.chatsOneToOneRepository.create({
       _id: id ? BigInt(id) : new GenerateSnowFlakeId(1).generate(),
-      conversationId,
+      conversationId: BigInt(conversationId),
       senderId,
       status,
       text,
